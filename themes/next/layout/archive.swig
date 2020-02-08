@@ -42,9 +42,11 @@
           </div>
         {% endif %}
         {# endshow #}
-
-        {{ post_template.render(post) }}
-
+		
+		{% if not post.hidden %}
+			{{ post_template.render(post) }}
+		{% endif %}
+		
       {% endfor %}
 
     </div>

@@ -10,20 +10,20 @@
     {% set post_class = post_class + ' ' + 'post-sticky' %}
   {% endif %}
 
-  <article class="{{ post_class }}" itemscope itemtype="http://schema.org/Article">
+  <article class="{{ post_class }}" itemscope itemtype="https://schema.org/Article">
   {##################}
   {### POST BLOCK ###}
   {##################}
-  <div class="post-block">
+  <div class="post-block" id="container">
     <link itemprop="mainEntityOfPage" href="{{ config.url }}{{ url_for(post.path) }}">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="https://schema.org/Person">
       <meta itemprop="name" content="{{ theme.author }}">
       <meta itemprop="description" content="{{ theme.signature }}">
       <meta itemprop="image" content="{{ url_for( theme.avatar | default(theme.images + '/avatar.gif') ) }}">
     </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
       <meta itemprop="name" content="{{ config.title }}">
     </span>
 
@@ -60,7 +60,7 @@
         #}</{% if theme.seo %}h2{% else %}h1{% endif %}>
         {% endif %}
 
-        <div class="post-meta">
+        <div class="post-meta" >
           <span class="post-time">
             {% if theme.post_meta.created_at %}
               <span class="post-meta-item-icon">
@@ -103,7 +103,7 @@
                 <span class="post-meta-item-text">{{ __('post.in') }}</span>
               {% endif %}
               {% for cat in post.categories %}
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
                   <a href="{{ url_for(cat.path) }}" itemprop="url" rel="index">
                     <span itemprop="name">{{ cat.name }}</span>
                   </a>
@@ -259,11 +259,40 @@
               <div class="post-description">
                   {{ post.description }}
               </div>
-          {% endif %}
+          {% endif %}		 
 
         </div>
       </header>
-    {% endif %}
+    {% endif %}	
+	
+	{% if not is_index and post.toc %}
+		<script type="text/javascript">
+			function showToc(){
+				var toc_article = document.getElementById("toc-article");
+				var show_toc_btn = document.getElementById("show-toc-btn");			
+				toc_article.setAttribute("style","display:block");
+				show_toc_btn.setAttribute("style","display:none");
+			};
+			function showBtn(){
+				var toc_article = document.getElementById("toc-article");
+				var show_toc_btn = document.getElementById("show-toc-btn");
+				toc_article.setAttribute("style","display:none");
+				show_toc_btn.setAttribute("style","display:block");
+			};
+		</script>
+		
+		<div id="my-toc">
+			<p class="show-toc-btn" id="show-toc-btn" onclick="showToc();">
+				<span class="btn-bg"></span>
+				<span class="btn-text">目录</span>
+			</p>
+			<div id="toc-article" class="toc-article" style="display:none">
+				<span id="toc-close" class="toc-close" title="隐藏" onclick="showBtn();">×</span>
+				<strong class="toc-title">文章目录</strong>
+				{{ toc(post.content) }}
+			</div>
+		</div>
+	{% endif %}
 
     {#################}
     {### POST BODY ###}
@@ -272,13 +301,13 @@
 
       {# Gallery support #}
       {% if post.photos and post.photos.length %}
-        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+        <div class="post-gallery" itemscope itemtype="https://schema.org/ImageGallery">
           {% set COLUMN_NUMBER = 3 %}
           {% for photo in post.photos %}
             {% if loop.index0 % COLUMN_NUMBER === 0 %}<div class="post-gallery-row">{% endif %}
               <a class="post-gallery-img fancybox"
                  href="{{ url_for(photo) }}" rel="gallery_{{ post._id }}"
-                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+                 itemscope itemtype="https://schema.org/ImageObject" itemprop="url">
                 <img src="{{ url_for(photo) }}" itemprop="contentUrl"/>
               </a>
             {% if loop.index0 % COLUMN_NUMBER === 2 %}</div>{% endif %}
@@ -293,7 +322,7 @@
         {% if post.description and theme.excerpt_description %}
           {{ post.description }}
           <!--noindex-->
-          <div class="post-button text-center">
+          <div class="post-button text-left">
             <a class="btn" href="{{ url_for(post.path) }}">
               {{ __('post.read_more') }} &raquo;
             </a>
@@ -302,7 +331,7 @@
         {% elif post.excerpt  %}
           {{ post.excerpt }}
           <!--noindex-->
-          <div class="post-button text-center">
+          <div class="post-button text-left">
             <a class="btn" href="{{ url_for(post.path) }}{% if theme.scroll_to_more %}#{{ __('post.more') }}{% endif %}" rel="contents">
               {{ __('post.read_more') }} &raquo;
             </a>
@@ -313,7 +342,7 @@
           {{ content.substring(0, theme.auto_excerpt.length) }}
           {% if content.length > theme.auto_excerpt.length %}...{% endif %}
           <!--noindex-->
-          <div class="post-button text-center">
+          <div class="post-button text-left">
             <a class="btn" href="{{ url_for(post.path) }}{% if theme.scroll_to_more %}#{{ __('post.more') }}{% endif %}" rel="contents">
               {{ __('post.read_more') }} &raquo;
             </a>
@@ -350,13 +379,13 @@
       <div>
         {% include 'post-copyright.swig' with { post: post } %}
       </div>
-    {% endif %}
+    {% endif %}	
 
     <footer class="post-footer">
       {% if post.tags and post.tags.length and not is_index %}
         <div class="post-tags">
           {% for tag in post.tags %}
-            <a href="{{ url_for(tag.path) }}" rel="tag"># {{ tag.name }}</a>
+            <a href="{{ url_for(tag.path) }}" rel="tag"><i class="fa fa-tag"></i> {{ tag.name }}</a>
           {% endfor %}
         </div>
       {% endif %}
@@ -400,7 +429,7 @@
       {% endif %}
       {% endif %}
 
-      {% if not is_index and (post.prev or post.next) %}
+      {% if not is_index and (post.prev or post.next) and not page.not_index %}
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             {% if post.next %}
