@@ -1,0 +1,46 @@
+language: ruby
+
+os:
+  - linux
+
+env:
+  global:
+    - GIT_DEPLOY_REPO=https://${gh_token}@github.com/lzzeng/lzzeng.github.io.git
+    - GIT_DEPLOY_DIR=public
+    - GIT_DEPLOY_BRANCH=master
+    - GIT_DEPLOY_USERNAME=lzzeng
+    - GIT_DEPLOY_EMAIL=ul.wyc.khn@qq.com
+    - secure: "KecKVXPy22fYqAO7IzopD2qG1l4Lg+UJMDxiJHZoonbz/FVzWPUr0Fo+/Hg/f+TBg2BmjQHI+WRRLL04au0M8AfYeHquY9ABLN0Y2u0IM76+jbRZ6VUux2E4jyqk5gufkndXi/l333OP3AgbwcyzTkUgtBKBYipZH2kJXtR2BPOoKwspd0M2eNK+AsJA82DTYLCdxRhMOz8tmeMkFAuNhw4FApvxRzjjSOa+hvs1h6Q1gSfeCMIzfwG+eOI32XG3Xne/8WZAOhAeLR8ckGWjpEdD+1LxZtsybAm1xg9yqEtRbuC+UbzgZald9gaoWsXRuJdbY4LZGVXJk2UszYZ7O1uod/YoCA9iJoe8TlnkqWqtPl0dxe3tPnT6YnKs+8D7eUxwPYS2fWngWIxWCOVP68AjaiB3UUwQ8sxf1huCE3QmtoP/HlYjSZsmu1SE6Q3VzLSa6N0CG/1YVzLOHeCQ7EM/Cl8GMFhSJ71cT5rHyWCsigmBgWqYMg1tSGbOcA/2fy6QdXuglIxDPlFqCVzqVgQq5ZxrioCJe3B58/Z+m99Ia2c+csz6XDdTNqzzJ71lmeDfGx00wNdR4F1Pb9kmSDOq0PMGVEibYe8iDWsOj3lbjOx72XXpJt55X5ukVX5Q1JnC2ctyA7KelS3BV4vPAu2L6MkYKjNXiY0nZSvo+gk="
+
+branches:
+  only:
+    - src/hexo
+
+services:
+  - docker
+
+install:
+  # - rm -rf public || exit 0
+  - ls -al
+  - git config --global user.name "${GIT_DEPLOY_USERNAME}"
+  - git config --global user.email "${GIT_DEPLOY_EMAIL}"
+
+script:
+  - sed -i "s@<avatar_url>@${avatar_url}@" themes/next/_config.yml
+  - sed -i "s/<livere_uid>/${livere_uid}/" themes/next/_config.yml
+  - sed -i "s/<gitalk_client_id>/${gitalk_client_id}/" themes/next/_config.yml
+  - sed -i "s/<gitalk_client_secret>/${gitalk_client_secret}/" themes/next/_config.yml
+  - grep -rF '../assets/images' source/_posts/ | awk -F':' '{print $1}' |sort |uniq |
+      xargs sed -i "s@(.*/assets/images@](https://${oss_domain}/images/@"
+  - docker run --rm -v "$(pwd):/opt/docs" lzzeng/node-hexo-cli:alpine
+
+after_success:
+  # - sudo cp README.md public/ && bash deploy.sh -m "update github pages"
+  # or:
+  - sudo cp README.md public/
+  - cd public
+  - sudo git init
+  - sudo git add .
+  - sudo git commit -m "update github pages"
+  - sudo git push --force --quiet "${GIT_DEPLOY_REPO}" master:${GIT_DEPLOY_BRANCH}
+
