@@ -1,0 +1,55 @@
+kind: ConfigMap
+metadata:
+  name: log-config
+  namespace: elk
+apiVersion: v1
+data:
+  logstash.yml: |-
+    http.host: "0.0.0.0"
+    path.config: /usr/share/logstash/pipeline
+    #xpack.monitoring.elasticsearch.url: http://elasticsearch:9200
+    xpack.monitoring.elasticsearch.hosts: ["http://elasticsearch:9200"]
+    xpack.monitoring.elasticsearch.username: "logstash_system" 
+    xpack.monitoring.elasticsearch.password: "logstash"
+    xpack.monitoring.enabled: true
+
+---
+kind: ConfigMap
+metadata:
+  name: log-pipeline
+  namespace: elk
+apiVersion: v1
+data:
+  tcp-input.conf: |-
+    input {
+      tcp {
+        port => 514
+        type => syslog
+      }
+      beats {
+        port => 5044
+        type => beatlog
+      }
+    }
+#  kafka-input.conf: |-
+#    input {
+#      kafka {
+#        bootstrap_servers => "bootstrap.kafka.svc.cluster.local:9092"
+#        topics => ["fail2ban", "rsyslog", "dummy", "docker", "k8s", "twitter"]
+#        group_id => "logstash_elastic"
+#        client_id => "logstash"
+#        consumer_threads => 1
+#        auto_offset_reset => "earliest"
+#        codec => plain { format => "%{message}" }
+#        decorate_events => true
+#      }
+#    }
+  elasticsearch-output.conf: |-
+    output {
+      elasticsearch {
+        index => "logstash-%{+YYYY.MM.dd}"
+        hosts => "elasticsearch:9200"
+        user => "elastic"
+        password => "elastic"
+      }
+    }

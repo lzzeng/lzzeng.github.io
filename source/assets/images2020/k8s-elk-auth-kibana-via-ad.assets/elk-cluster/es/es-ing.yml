@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: elasticsearch
+  namespace: elk
+spec:
+  rules:
+  - host: es.api.staging.keep.cn
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: elasticsearch
+          servicePort: 9200
+      - path: /stat
+        backend:
+          serviceName: elasticsearch-headless
+          servicePort: 9200

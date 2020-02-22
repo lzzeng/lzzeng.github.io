@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: logstash
+  namespace: elk
+  labels:
+    application: logging
+    component: logstash
+spec:
+#  revisionHistoryLimit: 2
+  replicas: 2
+  selector:
+    matchLabels:
+      component: logstash
+  template:
+    metadata:
+      labels:
+        application: logging
+        component: logstash
+    spec:
+#      securityContext:
+#        fsGroup: 1000
+#      initContainers:
+#      - name: volume-mount-hack
+#        image: busybox
+#        imagePullPolicy: IfNotPresent
+#        command: ["sh", "-c", "chown -R 1000:1000 /usr/share/logstash/config"]
+#        securityContext:
+#          privileged: true
+#        volumeMounts:
+#        - name: config
+#          #mountPath: /usr/share/logstash/config/logstash.yml
+#          mountPath: /usr/share/logstash/config
+      containers:
+      - name: logstash
+        image: logstash:7.5.1
+        resources:
+          requests:
+            memory: 0.5Gi
+            cpu: 0.5
+          limits:
+            memory: 1Gi
+            cpu: 1
+        ports:
+        - containerPort: 514
+          name: syslog-tcp
+          protocol: TCP
+        - containerPort: 514
+          name: syslog-udp
+          protocol: UDP
+        - containerPort: 5044
+          name: beats-tcp
+          protocol: TCP
+        volumeMounts:
+        - name: config
+          mountPath: /usr/share/logstash/config/logstash.yml
+          subPath: logstash.yml
+        - name: logstash-pipeline
+          mountPath: /usr/share/logstash/pipeline
+      volumes:
+      - name: config
+        configMap:
+          name: log-config
+      - name: logstash-pipeline
+        configMap:
+          name: log-pipeline
+      restartPolicy: Always

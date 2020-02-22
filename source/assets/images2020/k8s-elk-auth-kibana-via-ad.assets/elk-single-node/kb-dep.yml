@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kibana
+  namespace: elk
+  labels:
+    k8s-app: kibana
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: kibana
+  template:
+    metadata:
+      labels:
+        k8s-app: kibana
+    spec:
+      containers:
+      - name: kibana
+        image: kibana:7.5.1
+        resources:
+          limits:
+            cpu: 1
+            memory: 1000Mi
+          requests:
+            cpu: 0.5 
+            memory: 500Mi
+        # env:
+        #   - name: ELASTICSEARCH_HOSTS
+        #     value: http://elasticsearch:9200
+        #   - name: ELASTICSEARCH_USERNAME
+        #     value: "elastic"
+        #   - name: ELASTICSEARCH_PASSWORD
+        #     value: "elastic"
+        ports:
+        - containerPort: 5601
+          name: ui
+          protocol: TCP
+
+        volumeMounts:
+        - name: config
+          mountPath: /usr/share/kibana/config/kibana.yml
+          subPath: kibana.yml
+
+      volumes:
+      - name: config
+        configMap:
+          name: kb-config

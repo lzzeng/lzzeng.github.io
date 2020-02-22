@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: logstash2
+  namespace: elk
+spec:
+  ports:
+  - port: 9700
+    targetPort: 9600
+    name: monitoring2
+  - port: 5144
+    targetPort: 5044
+    name: logstash2
+  - port: 524
+    targetPort: 514
+    name: rsyslog2
+  clusterIP: None
+  selector:
+    app: logstash

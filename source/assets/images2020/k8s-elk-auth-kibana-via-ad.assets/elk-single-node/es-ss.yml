@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: elasticsearch
+  namespace: elk
+  labels:
+    k8s-app: elasticsearch
+spec:
+  serviceName: elasticsearch
+  selector:
+    matchLabels:
+      k8s-app: elasticsearch
+  template:
+    metadata:
+      labels:
+        k8s-app: elasticsearch
+    spec:
+      containers:
+      - image: es-xpack:7.5.1
+        name: elasticsearch
+        resources:
+          limits:
+            cpu: 1
+            memory: 1.5Gi
+          requests:
+            cpu: 0.5 
+            memory: 1000Mi
+        env:
+#          - name: "discovery.type"
+#            value: "single-node"
+          - name: ES_JAVA_OPTS
+            value: "-Xms512m -Xmx2g"
+          - name: ELASTIC_PASSWORD
+            value: "elastic"
+        ports:
+        - containerPort: 9200
+          name: db
+          protocol: TCP
+
+        volumeMounts:
+        #- name: config
+        #  mountPath: /usr/share/elasticsearch/config/role_mapping.yml
+        #  subPath: role_mapping.yml
+
+        - name: config
+          mountPath: /usr/share/elasticsearch/config/elasticsearch.yml
+          subPath: elasticsearch.yml
+
+        - name: es-data
+          mountPath: /usr/share/elasticsearch/data
+
+      volumes:
+      - name: config
+        configMap:
+          name: es-config
+
+  volumeClaimTemplates:
+  - metadata:
+      name: es-data
+    spec:
+      storageClassName: "managed-nfs-storage"
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 20Gi

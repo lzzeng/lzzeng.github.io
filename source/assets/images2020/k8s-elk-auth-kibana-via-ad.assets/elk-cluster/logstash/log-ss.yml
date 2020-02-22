@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: logstash
+  namespace: elk
+spec:
+  selector:
+    matchLabels:
+      app: logstash
+  serviceName: "logstash"
+  replicas: 3
+  updateStrategy:
+    type: OnDelete
+  template:
+    metadata:
+      labels:
+        app: logstash
+      annotations:
+    spec:
+      terminationGracePeriodSeconds: 30
+      containers:
+      - name: logstash
+        image: logstash:7.5.1
+        env:
+          - name: LS_JAVA_OPTS
+            value: -Xmx256m -Xms256m
+        ports:
+        - containerPort: 9600
+          name: monitoring
+        - containerPort: 5044
+          name: logstash
+        - containerPort: 514
+          name: rsyslog
+        resources:
+          limits:
+            cpu:    1.0
+            memory: 1000Mi
+          requests:
+            cpu:    0.5
+            memory: 500Mi
+        volumeMounts:
+        - name: config
+          mountPath: /usr/share/logstash/config/logstash.yml
+          subPath: logstash.yml
+        - name: logstash-pipeline
+          mountPath: /usr/share/logstash/pipeline
+      volumes:
+      - name: config
+        configMap:
+          name: log-config
+      - name: logstash-pipeline
+        configMap:
+          name: log-pipeline

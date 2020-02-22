@@ -1,0 +1,28 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: logstash2
+  namespace: elk
+spec:
+  rules:
+  - host: log-514.api.staging.keep.cn
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: logstash2
+          servicePort: 524
+  - host: log-5044.api.staging.keep.cn
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: logstash2
+          servicePort: 5144
+  - host: log-9600.api.staging.keep.cn
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: logstash2
+          servicePort: 9700

@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: logging
+  namespace: elk
+spec:
+  type: NodePort
+  ports:
+  - port: 5044
+    nodePort: 30544
+    name: beats-tcp-a
+  - port: 514
+    nodePort: 30514
+    protocol: TCP
+    name: syslog-tcp-a
+  - port: 514
+    nodePort: 30514
+    protocol: UDP
+    name: syslog-udp-a
+#  clusterIP: None
+  selector:
+    application: logging
