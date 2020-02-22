@@ -26,6 +26,7 @@ install:
   - git config --global user.email "${GIT_DEPLOY_EMAIL}"
 
 script:
+  - mv themes/next/_config.yml.bak themes/next/_config.yml
   - sed -i "s@<avatar_url>@${avatar_url}@" themes/next/_config.yml
   - sed -i "s/<livere_uid>/${livere_uid}/" themes/next/_config.yml
   - sed -i "s/<gitalk_client_id>/${gitalk_client_id}/" themes/next/_config.yml

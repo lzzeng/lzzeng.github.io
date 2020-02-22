@@ -6,3 +6,7 @@ node_modules/
 public/
 .deploy*/
 package-lock.json
+themes/_config.melody.yml
+themes/_config.next.yml
+themes/melody/
+themes/next/_config.yml

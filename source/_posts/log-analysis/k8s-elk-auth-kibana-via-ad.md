@@ -27,7 +27,7 @@ docker push lzzeng/es-xpack:7.5.1	 # xpack组件破解版
 
 ### 单节点
 
-[K8s ELK single-node](../../assets/files/elk-single-node/)
+[K8s ELK single-node](https://github.com/lzzeng/lzzeng.github.io/tree/src/hexo/extra-files/elk-single-node/)
 
 ```sh
 # sh run-es.sh; sh run-kb.sh; sh run-logstash.sh
@@ -37,7 +37,7 @@ docker push lzzeng/es-xpack:7.5.1	 # xpack组件破解版
 
 ### 多节点
 
-[K8s ELK cluster](../../assets/files/elk-cluster/)
+[K8s ELK cluster](https://github.com/lzzeng/lzzeng.github.io/tree/src/hexo/extra-files/elk-cluster/)
 
 ```sh
 # sh run-es.sh; sh run-kb.sh; sh run-logstash.sh
