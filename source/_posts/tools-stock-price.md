@@ -1,19 +1,23 @@
 ---
 title: 股价查询小工具一枚
-date: 2020-09-28 00:30:00
+date: 2020-09-06 00:30:00
 tags:    
-    - else
+    - Python
 categories:
-    - 其它
+    - Python
 
 copyright: true
 ---
 
 
 
-按股票名称查询最新股价、查询 第前3交易日、查询 前3个交易日，按股票代码查询 前3个交易日 效果如下：
+只能查询A股，用到了3个新浪股票数据接口：
 
-![image-20200928004218980](../assets/images2020/image-20200928004218980.png)
+```sh
+http://money.finance.sina.com.cn/quotes_service/api/json_v2.php/CN_MarketData.getKLineData
+http://hq.sinajs.cn/?list=sz000002
+https://suggest3.sinajs.cn/suggest/key=万科A
+```
 
 
 
@@ -21,13 +25,11 @@ copyright: true
 
 
 
->兼容python2和python3，只能查询A股，用到了3个新浪股票数据接口：
->
->http://money.finance.sina.com.cn/quotes_service/api/json_v2.php/CN_MarketData.getKLineData
->
->http://hq.sinajs.cn/?list=sz000002
->
->https://suggest3.sinajs.cn/suggest/key=万科A
+按股票名称查询最新股价、查询 第前3交易日、查询 前3个交易日，按股票代码查询 前3个交易日 效果如下：
+
+
+
+![image-20200928004218980](../assets/images2020/image-20200928004218980.png)
 
 
 
