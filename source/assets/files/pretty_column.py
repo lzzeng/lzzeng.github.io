@@ -1,18 +1,16 @@
 #!/usr/bin/env python3
 # coding:utf-8
+
+"""python整齐输出多列（含中英文字符）的方法"""
+
 import sys
 import csv
-
-"""
-python整齐输出多列（含中英文字符）的方法
-"""
 
 is_py2 = 2 == sys.version_info.major
 
 
 def pretty_col(rows, title=True, print_title=True, fields=None):
     """
-
     :param rows: List[List] or List[Dict] type
     :param title: whether row0 is title or not. always True when <rows> is List[Dict] type
     :param print_title: print title or not when <title> is True,
@@ -105,7 +103,8 @@ def show_all():
 
     pretty_col(name_dict_list, title=True, fields=["姓名", "phone", "qq", "email", "remark"])
     print("")
-    pretty_col(name_dict_list, title=True, print_title=False, fields=["姓名", "phone", "qq", "email", "remark"])
+    pretty_col(name_dict_list, title=True, print_title=False,
+               fields=["姓名", "phone", "qq", "email", "remark"])
     print("")
     pretty_col(name_dict_list, title=True)
     print("")
@@ -130,8 +129,7 @@ def show_all2():
 
 
 if __name__ == '__main__':
-    """
-contact.txt:
+    """contact.txt:
 
 姓名,phone,qq,email,remark
 张三33333333333333333333333333,15688886666,666999,zhangsan@qq.com,无

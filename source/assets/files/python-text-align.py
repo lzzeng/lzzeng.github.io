@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 # coding=utf8
-from typing import List
 
-"""
-指定行宽，文本段落分散对齐（两端对齐，末行若长度不足左对齐）
-"""
+"""文本分散对齐（末行若长度不足左对齐）"""
+
+from typing import List
 
 
 class Solution(object):
@@ -36,12 +35,13 @@ class Solution(object):
         return res
 
     # def fullJustify(self, words, maxWidth):
-    def full_justify(words, max_width):           # ? 不用self，语法规范否？
+    def full_justify(words, max_width):  # 若不用self，语法规范否？
         """
         :type words: List[str]
         :type max_width: int
         :rtype: List[str]
         """
+
         res = []
         tmp = []
         lg = 0
@@ -74,7 +74,8 @@ class Solution(object):
 
 if __name__ == "__main__":
     txt_list = [
-        "This is a sample textyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy for testing justification.",
+        "This is a sample textyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"
+        " for testing justification.",
         "This2 is a sa justification2.",
         "This3 is a sample texjustification2.",
         "This4 is a sample text forstification2.",

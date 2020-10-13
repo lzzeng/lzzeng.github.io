@@ -161,8 +161,6 @@ class Queue(object):
 if __name__ == '__main__':
     q = Queue()
     s = """How to reduce 'attention residue' in your life?"""
-    s2 = """How to reduce 'attention residue' in your life 
-Many of us struggle with the never-ending nature of our to-do lists, says Elizabeth Emens, author of The Art of Life Admin and a New York-based professor of law at Columbia University."""
     n_pos = 0
     while True:
         # is_offer = int(random.random()*2) == 1 and n_pos < len(s)

@@ -24,12 +24,11 @@ copyright:
 ```python
 #!/usr/bin/env python3
 # coding:utf-8
+
+"""python整齐输出多列（含中英文字符）的方法"""
+
 import sys
 import csv
-
-"""
-python整齐输出多列（含中英文字符）的方法
-"""
 
 is_py2 = 2 == sys.version_info.major
 
@@ -147,8 +146,7 @@ def show_all2():
 
 
 if __name__ == '__main__':
-    """
-contact.txt:
+    """contact.txt:
 
 姓名,phone,qq,email,remark
 张三33333333333333333333333333,15688886666,666999,zhangsan@qq.com,无
@@ -162,7 +160,6 @@ contact.txt:
     print("")
     print("")
     show_all2()
-
 ```
 
 

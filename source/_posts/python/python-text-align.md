@@ -24,11 +24,10 @@ copyright:
 ```python
 #!/usr/bin/env python3
 # coding=utf8
-from typing import List
 
-"""
-指定行宽，文本段落分散对齐（每行尽量多输出单词，类似两端对齐，末行左对齐）
-"""
+"""指定行宽，文本段落分散对齐（每行尽量多输出单词，类似两端对齐，末行左对齐）"""
+
+from typing import List
 
 
 class Solution(object):
@@ -60,7 +59,7 @@ class Solution(object):
         return res
 
     # def fullJustify(self, words, maxWidth):
-    def full_justify(words, max_width):           # ? 不用self，语法规范否？
+    def full_justify(words, max_width):  # ? 不用self，语法规范否？
         """
         :type words: List[str]
         :type max_width: int
