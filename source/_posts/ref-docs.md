@@ -26,7 +26,8 @@ copyright:
 
 # D
 
-- [Docker基础总结PPT](/assets/files/docs/Docker-basic .pptx)
+- [Docker基础总结PPT](/assets/files/docs/Docker-basic.pptx)
+- [docker&k8s](/assets/files/docker&k8s.zip)
 
 # J
 
@@ -40,6 +41,7 @@ copyright:
 # R
 
 - [Redis实战](/assets/files/docs/Redis实战.pdf)
+- [replay-tools](/assets/files/replay-tools.zip)
 
 # S
 
