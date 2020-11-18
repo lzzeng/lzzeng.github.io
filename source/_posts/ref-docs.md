@@ -30,6 +30,7 @@ copyright:
 - [docker&k8s](/assets/files/docker&k8s.zip)
 - [docker&k8s_1115](/assets/files/docker&k8s_1115.zip)
 - [docker&k8s-docs](/assets/files/k8s-docs.zip)
+- [doc-k8s-1119](/assets/files/doc-k8s1119.zip)
 
 # J
 
