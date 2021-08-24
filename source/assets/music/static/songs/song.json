@@ -1,0 +1,49 @@
+callBack({
+  "data": [
+    {
+      "id": 1,
+      "name": "风筝误",
+      "time": "04:31",
+      "artist": "刘珂矣",
+      "album": "半壶纱",
+      "cover": "https://s4.music.126.net/style/web2/img/default/default_album.jpg",
+      "url": "static/media/风筝误.mp3"
+    },
+    {
+      "id": 2,
+      "name": "遇见",
+      "time": "03:29",
+      "artist": "孙燕姿",
+      "album": "白羽毛之恋 华语典藏情歌 Vol.2",
+      "cover": "https://s4.music.126.net/style/web2/img/default/default_album.jpg",
+      "url": "http://www.ytmp3.cn/down/52946.mp3"
+    },
+    {
+      "id": 3,
+      "name": "后来",
+      "time": "05:41",
+      "artist": "刘若英",
+      "album": "我等你",
+      "cover": "https://s4.music.126.net/style/web2/img/default/default_album.jpg",
+      "url": "http://www.ytmp3.cn/down/48101.mp3"
+    },
+    {
+      "id": 4,
+      "name": "原来你也在这里",
+      "time": "03:38",
+      "artist": "刘若英",
+      "album": "我的失败与伟大",
+      "cover": "https://s4.music.126.net/style/web2/img/default/default_album.jpg",
+      "url": "http://www.ytmp3.cn/down/73352.mp3"
+    },
+    {
+      "id": 5,
+      "name": "欧若拉",
+      "time": "04:18",
+      "artist": "张韶涵",
+      "album": "欧若拉",
+      "cover": "https://s4.music.126.net/style/web2/img/default/default_album.jpg",
+      "url": "http://www.ytmp3.cn/down/50699.mp3"
+    }
+  ]
+});
