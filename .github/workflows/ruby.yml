@@ -46,7 +46,7 @@ jobs:
         git config --global user.email "${{ secrets.EMAIL }}"
         git config --global user.name "${GIT_DEPLOY_USERNAME}"
         cd "${GIT_DEPLOY_DIR}"
-        mv assets/music/index.html.2 assets/music/index.html
+        sudo mv assets/music/index.html.2 assets/music/index.html
         sudo git init
         sudo git add .
         sudo git commit -m "update github pages"
