@@ -17,7 +17,7 @@
 
     <!--es6转es5插件-->
 <!--    <script src="https://cdn.bootcss.com/babel-polyfill/7.4.4/polyfill.min.js" type="text/javascript"></script>-->
-<!--    <script src="static/js/polyfill.min.js" type="text/javascript"></script> -->
+    <script src="static/js/polyfill.min.js" type="text/javascript"></script>
     <!--vue-->
 <!--    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>-->
     <script src="static/js/vue.min.js"></script>
@@ -28,17 +28,35 @@
             margin: 0;
             padding: 0;
         }
-    </style>
-
-    <style>
         /*公共css*/
         .forbid-transition{
             transition: none !important;
+        }
+        /* else */
+        body {
+            font-family: sans-serif;
+            background-color: #0b0b0b;
+            background-image: url('static/bg.jpeg');
+            /*height: 100%;*/
+            /*width: 100%;*/
+            /*background-repeat: repeat-x;*/
+            background-size: 100% auto;
+            background-attachment: fixed;
+        }
+
+        [v-cloak] {
+            display: none !important
         }
     </style>
 
     <style>
         /*控制器综合*/
+        .audio {
+            width: 100%;
+            bottom: 60px;
+            top: 0;
+            position: absolute;
+        }
         .audioplayer{
             position: fixed;
             bottom: 0;
@@ -105,7 +123,6 @@
             right: 0;
             transition: transform 0.5s linear, -webkit-transform 0.5s linear;
         }
-
         /*left*/
         .audioplayer .ap-controller-left .ap-cover{
             width: 60px;
@@ -118,13 +135,12 @@
         .audioplayer .ap-controller-left .ap-button{
             padding: 0 8px;
         }
-        .audioplayer .ap-controller-left .ap-skipback-button{
+        .audioplayer .ap-controller-left .ap-order-button{
             margin-left: 16px;
         }
         .audioplayer .ap-controller-left .ap-skipforward-button{
             margin-right: 16px;
         }
-
         /*center*/
         .audioplayer .ap-controller-center{
             padding: 10px 0;
@@ -132,9 +148,6 @@
             flex: 1;
             flex-direction: column;
             overflow: hidden;
-        }
-        .audioplayer .ap-controller-center .ap-song-msg{
-
         }
         .audioplayer .ap-controller-center .ap-song-msg{
             display: flex;
@@ -200,7 +213,6 @@
             top: -5px;
             left: -4px;
         }
-
         /*right*/
         .audioplayer .ap-controller-right {
             width: 360px;
@@ -279,7 +291,6 @@
             vertical-align: middle;
             transition: 0.2s;
         }
-
         /*提示区*/
         .audioplayer .ap-toast {
             position: absolute;
@@ -307,80 +318,83 @@
         .ps {
             /*overflow: hidden !important;*/
             overflow-y: auto;
-            overflow-anchor: none;
+            /*overflow-anchor: none;*/
             -ms-overflow-style: none;
             touch-action: auto;
             -ms-touch-action: auto;
         }
-        ol{
+
+        ol {
             padding: 0;
             margin: 0;
         }
 
         .audioplayer .ap-playlist {
-            width: 550px;
+            width: 50%;
             position: absolute;
             left: 0;
             bottom: 60px;
-            /*background-color: #384245;*/
             border-radius: 6px 6px 0 0;
             transition: 0.6s;
             -webkit-transform-origin: 0 100%;
             transform-origin: 0 100%;
-            /*color: rgba(255, 255, 255, 0.4);*/
             color: #a5a5a5;
             font-weight: lighter;
         }
+
         .audioplayer .ap-playlist-header {
-            /*background-color: #384245;*/
             background-color: #23292b;
         }
+
         .audioplayer .ap-playlist.ap-playlist-hide {
             -webkit-transform: translateY(100%);
             transform: translateY(100%);
         }
+
         .audioplayer .ap-playlist .ap-playlist-header {
             padding: 5px 20px 5px 20px;
             display: flex;
             cursor: default;
-            /*opacity: .9;*/
             justify-content: flex-end;
         }
+
         .audioplayer .ap-playlist .ap-playlist-header .ap-playlist-header-name {
             flex: 1;
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
         }
-        .audioplayer .ap-playlist-header .ap-playlist-header-close{
+
+        .audioplayer .ap-playlist-header .ap-playlist-header-close {
             font-size: 14px;
             margin-left: 20px;
             float: right;
         }
+
         .audioplayer .ap-playlist .ap-playlist-body {
             position: relative;
-            /*background-color: #455155;*/
             background-color: #282f32;
             opacity: .9;
             height: 200px;
         }
-        .audioplayer .ap-playlist .ap-playlist-line{
+
+        .audioplayer .ap-playlist .ap-playlist-line {
             display: flex;
             cursor: default;
             justify-content: space-between;
         }
-        .audioplayer .ap-playlist .ap-playlist-line:hover{
-            /*background: #425961;*/
+
+        .audioplayer .ap-playlist .ap-playlist-line:hover {
             background: #1e4d5d;
             color: #50c9da;
         }
-        .audioplayer .ap-playlist .ap-playlist-line.ap-playlist-line-active{
-            /*background: #425961;*/
-            /*color: #32B0DA;*/
+
+        .audioplayer .ap-playlist .ap-playlist-line.ap-playlist-line-active {
             background: #1e4d5d;
             color: #50c9da;
         }
-        .audioplayer .ap-playlist .ap-playlist-body li{
+
+        .audioplayer .ap-playlist .ap-playlist-body li {
             padding: 10px 50px 10px 20px;
             transition: 0.2s;
             cursor: pointer;
@@ -388,15 +402,32 @@
         }
 
         audio {
-            margin-top: 15px;
+            margin: 15px 0 0 15px;
         }
+
+        .overflow-h {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .del-song {
+            padding: 0 5px;
+            border: 1px solid #000;
+            background-color: #4a99ac;
+            border-radius: 5px;
+            line-height: 20px;
+            opacity: .4;
+        }
+
+        .del-song:hover {
+            background-color: #f7ff7b;
+            opacity: 1;
+        }
+
     </style>
 
     <style>
-        body {
-            font-family: sans-serif;
-        }
-
         input, button {
             outline: none;
         }
@@ -409,9 +440,10 @@
             background-color: #fff;
         }
 
-        /*input[type=range]::-moz-range-progress {*/
-        /*height: 0;*/
-        /*}*/
+        input[type=range]::-moz-range-progress {
+            height: 0;
+        }
+
         input[type=range]::-webkit-slider-thumb, input[type=range]::-moz-range-thumb {
             -webkit-appearance: none;
         }
@@ -458,41 +490,42 @@
             top: 0;
             right: 0;
             width: 50%;
-            /*height: 80%;*/
             bottom: 60px;
-            /*background-color: #000;*/
             background-color: #282f32;
             opacity: .8;
             overflow: hidden;
         }
 
         .search-input {
-            margin: 20px;
+            margin: 10px 0;
             padding-left: 10px;
-            width: 70%;
+            width: 63%;
             height: 30px;
             line-height: 30px;
             font-size: 18px;
             border: 1px solid #000;
-            border-radius: 25px;
+            border-radius: 15px;
             outline: none;
         }
 
         .search-btn {
-            margin: 20px 0;
-            border: 1px solid #999;
-            background-color: #fff;
-            line-height: 30px;
+            margin: 10px 0 10px 10px;
+            border: 1px solid #000;
+            background-color: #384245;
+            line-height: 28px;
             font-size: 18px;
-            color: #000;
-            border-radius: 5px;
+            color: #fff;
+            border-radius: 15px;
+        }
+
+        .search-btn:hover {
+            background-color: #4090a3;
         }
 
         .result-list {
             margin: 10px auto;
             width: 96%;
             height: 540px;
-            /*overflow-y: scroll;*/
             list-style: none;
         }
 
@@ -511,12 +544,6 @@
             color: #50c9da;
         }
 
-        .overflow-h {
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
         .song-name {
             display: inline-block;
             width: 35%;
@@ -524,20 +551,12 @@
         }
 
         .ap-playlist-line-name {
-            /*display: inline-block;*/
             width: 70%;
-            /*word-spacing: inherit;*/
         }
+
         .ap-playlist-line-artist {
-            /*display: inline-block;*/
             width: 20%;
-            /*word-spacing: inherit;*/
         }
-        /*.ap-playlist-line-op {*/
-        /*    display: inline-block;*/
-        /*    width: 5%;*/
-        /*    word-spacing: inherit;*/
-        /*}*/
 
         .singer {
             display: inline-block;
@@ -557,26 +576,11 @@
             background-color: #43a9c0;
             border-radius: 5px;
             line-height: 20px;
+            margin-right: 10px;
         }
 
         .add-song:hover, .play-song:hover {
             background-color: #f7ff7b;
-        }
-
-        .del-song {
-            padding: 0 3px;
-            border: 1px solid #000;
-            background-color: #4a99ac;
-            border-radius: 5px;
-            line-height: 16px;
-            opacity: .4;
-            width: 3%;
-            margin-right: -30px;
-        }
-
-        .del-song:hover {
-            background-color: #f7ff7b;
-            opacity: 1;
         }
 
         .search-close {
@@ -598,43 +602,34 @@
             opacity: 0;
         }
 
-        /*audio {*/
-        /*    display: block;*/
-        /*}*/
-
-        body {
-            background-image: url('static/bg.jpeg');
-            /*height: 100%;*/
-            /*width: 100%;*/
-            /*background-repeat: repeat-x;*/
-            background-size: 100% auto;
-            background-attachment: fixed;
-        }
-
         .result-list li:hover {
             background-color: #1e4d5d;
         }
 
+        /* search end */
+
+        /* lyrics */
         .lyrics-part {
-            /*position: absolute;*/
             top: 70px;
             bottom: 60px;
             left: 0;
-            width: 50%;
+            width: 63%;
             color: #aaaaaa;
         }
 
-        /* lyrics */
         .title {
             margin: 10px 0 0 30px;
             font-size: 26px;
         }
+
         .artist {
             margin: 5px 30px;
             font-size: 14px;
             line-height: 40px;
+            width: 75%;
             border-bottom: 1px solid #808080;
         }
+
         .lyrics {
             margin-top: 0;
             height: 290px;
@@ -644,29 +639,23 @@
             white-space: pre-line;
             text-align: center;
         }
+
         .lyrics::-webkit-scrollbar {
             display: none;
         }
+
         .pink {
-            /*color: #eb7470;*/
             color: #00bbce;
-        }
-        .audio {
-            width: 100%;
-            /*height: 100%;*/
-            bottom: 60px;
-            top: 0;
-            position: absolute;
         }
     </style>
 </head>
 <body>
 <div id="app">
     <!-- 浏览器原生播放器 -->
-    <div class="audio" @click.stop="close_all">
+    <div class="audio" @click.stop="close_all" @dblclick.stop="open_all">
         <audio :src="song.url" id="audio" controls></audio>
 
-        <div class="lyrics-part">
+        <div class="lyrics-part" v-cloak>
             <p class="title">{{song.name}}</p>
             <p class="artist">{{song.artist}}</p>
             <div class="lyrics" ref="lyrics">
@@ -681,7 +670,7 @@
             <!-- 播放列表 -->
             <div class="ap-playlist" :class="{'ap-playlist-hide': !listShow}">
                 <!-- 列表头部 -->
-                <div class="ap-playlist-header" @click="handleList">
+                <div class="ap-playlist-header" @click.stop="handleList">
 <!--                    <div class="ap-playlist-header-name">-->
 <!--                        <span class="ap-playlist-header-title">播放列表</span>-->
 <!--                        <span class="ap-playlist-header-amount">(共{{songList.length}}首)</span>-->
@@ -690,7 +679,7 @@
                     <div class="ap-playlist-header-close">⬇</div>
                 </div>
                 <!-- 列表内容 -->
-                <div class="ap-playlist-body ps">
+                <div class="ap-playlist-body ps" v-cloak>
                     <ol>
                         <li class="ap-playlist-line"
                             :class="{'ap-playlist-line-active': index == i}"
@@ -698,10 +687,10 @@
                             @click="choseSong(li, i)"
                             :data-index="i">
 <!--                            :key="li.id" :data-index="i">-->
+                            <button class="del-song ap-playlist-line-op" title="移除此歌曲" @click.stop="deleteSong(i)">x</button>
                             <div class="ap-playlist-line-name overflow-h">{{li.name}}&nbsp;-&nbsp;{{li.album}}</div>
                             <div class="ap-playlist-line-artist overflow-h">{{li.artist}}</div>
 <!--                            <div class="ap-playlist-line-op" @click.stop="deleteSong(i)">X</div>-->
-                            <button class="del-song ap-playlist-line-op" title="移除此歌曲" @click.stop="deleteSong(i)">x</button>
                         </li>
                     </ol>
                 </div>
@@ -712,6 +701,25 @@
                 <div class="ap-controller-left">
                     <!-- 封面 -->
                     <div class="ap-cover" :style="{backgroundImage: 'url('+song.cover+')'}"></div>
+
+                    <!-- 播放模式 -->
+                    <div class="ap-button ap-order-button" @click="chosePlayType">
+                        <!-- 列表循环 -->
+                        <svg v-if="playType == 1" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+                            <path d="M25.6 15.657c-0.343 0-0.686 0.343-0.686 0.686 0 0.114 0 0.229 0 0.229v1.829c0 2.4-1.829 4.229-4.229 4.229h-10.286l0.914-0.8c0.114-0.114 0.229-0.343 0.229-0.457 0-0.343-0.343-0.686-0.686-0.686-0.229 0-0.457 0.114-0.571 0.229l-2.057 1.829-0.8 0.686 2.857 2.514c0.114 0.229 0.343 0.343 0.571 0.343 0.457 0 0.8-0.229 0.8-0.686 0-0.229-0.114-0.457-0.343-0.571l-1.029-0.914v-0.114h10.4c3.086 0 5.6-2.514 5.6-5.6v-1.829c0-0.114 0-0.114 0-0.229 0-0.343-0.343-0.686-0.686-0.686zM8.229 16.571v-1.829c0-2.4 1.829-4.229 4.229-4.229h10.971l-0.914 0.914c-0.229 0.114-0.343 0.343-0.343 0.571 0 0.343 0.343 0.686 0.8 0.686 0.229 0 0.457-0.114 0.571-0.343l1.486-1.371 1.257-1.257-2.743-2.629c-0.229-0.114-0.457-0.229-0.686-0.229-0.457 0-0.686 0.343-0.686 0.8 0 0.229 0.114 0.343 0.229 0.571l0.914 0.8v0.114h-10.971c-2.971 0-5.486 2.514-5.486 5.6v1.829c0 0.114 0 0.114 0 0.229 0 0.343 0.343 0.686 0.686 0.686s0.686-0.343 0.686-0.686c0-0.114 0-0.229 0-0.229z"></path>
+                        </svg>
+                        <!-- 随机播放 -->
+                        <svg v-else-if="playType == 2" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                             viewBox="0 0 32 32">
+                            <path d="M17.6 15.543c0.229 0 0.457-0.114 0.571-0.229l2.629-2.4c0.914-0.8 2.171-1.257 3.429-1.486l-1.029 0.914c-0.229 0.114-0.343 0.343-0.343 0.457 0 0.343 0.343 0.686 0.8 0.686 0.229 0 0.457-0.114 0.686-0.229l3.086-2.4-3.086-2.514c-0.114-0.229-0.343-0.343-0.571-0.343-0.457 0-0.914 0.229-0.914 0.686 0 0.229 0.114 0.457 0.343 0.571v0l1.029 0.8c-1.714 0.114-3.314 0.8-4.457 1.829l-2.629 2.4c-0.114 0.114-0.229 0.343-0.229 0.457 0 0.229 0.114 0.343 0.229 0.457 0.114 0.343 0.343 0.343 0.457 0.343zM14.057 17.486c-0.229 0-0.457 0.114-0.571 0.229l-2.743 2.514c-1.143 0.914-2.629 1.371-4.114 1.371 0 0 0 0 0 0-0.457 0-0.8 0.343-0.8 0.686s0.343 0.686 0.8 0.686c0 0 0 0 0 0 1.943 0 3.771-0.571 5.257-1.829l2.857-2.514c0.114-0.114 0.229-0.343 0.229-0.457 0-0.229-0.114-0.343-0.229-0.457-0.229-0.114-0.457-0.229-0.686-0.229zM23.771 19.543c-0.457 0-0.8 0.343-0.8 0.686 0 0.229 0.114 0.343 0.343 0.457l1.029 0.8c-1.029-0.114-2.057-0.457-2.857-1.029l-9.029-8.229c-1.486-1.371-3.543-2.171-5.714-2.171-0.571 0-1.029 0.343-1.029 0.686s0.457 0.686 0.914 0.686c1.714 0 3.429 0.686 4.571 1.714l9.029 8.229 0.229 0.114c1.143 0.8 2.514 1.257 4 1.486l-1.143 0.914c-0.343 0.114-0.457 0.343-0.457 0.571 0 0.343 0.343 0.686 0.8 0.686 0.229 0 0.457-0.114 0.571-0.343l3.086-2.514-3.086-2.629c0-0.114-0.229-0.114-0.457-0.114z"></path>
+                        </svg>
+                        <!-- 单曲循环 -->
+                        <svg v-else version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+                            <path d="M25.6 15.657c-0.343 0-0.686 0.343-0.686 0.686 0 0.114 0 0.229 0 0.229v1.829c0 2.4-1.829 4.229-4.229 4.229h-10.286l0.914-0.8c0.114-0.114 0.229-0.343 0.229-0.457 0-0.343-0.343-0.686-0.686-0.686-0.229 0-0.457 0.114-0.571 0.229l-2.057 1.829-0.8 0.686 2.857 2.514c0.114 0.229 0.343 0.343 0.571 0.343 0.457 0 0.8-0.229 0.8-0.686 0-0.229-0.114-0.457-0.343-0.571l-1.029-0.914v-0.114h10.4c3.086 0 5.6-2.514 5.6-5.6v-1.829c0-0.114 0-0.114 0-0.229 0-0.343-0.343-0.686-0.686-0.686zM8.229 16.571v-1.829c0-2.4 1.829-4.229 4.229-4.229h10.971l-0.914 0.914c-0.229 0.114-0.343 0.343-0.343 0.571 0 0.343 0.343 0.686 0.8 0.686 0.229 0 0.457-0.114 0.571-0.343l1.486-1.371 1.257-1.257-2.743-2.629c-0.229-0.114-0.457-0.229-0.686-0.229-0.457 0-0.686 0.343-0.686 0.8 0 0.229 0.114 0.343 0.229 0.571l0.914 0.8v0.114h-10.971c-2.971 0-5.486 2.514-5.486 5.6v1.829c0 0.114 0 0.114 0 0.229 0 0.343 0.343 0.686 0.686 0.686s0.686-0.343 0.686-0.686c0-0.114 0-0.229 0-0.229z"></path>
+                            <path d="M18.286 20v-6.857h-1.257l-2.171 1.714 0.457 1.257 1.486-0.914v4.8z"></path>
+                        </svg>
+                    </div>
+
                     <!-- 上一首 -->
                     <div class="ap-button ap-skipback-button" @click="skipBack">
                         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
@@ -739,7 +747,7 @@
                 </div>
                 <div class="ap-controller-center">
                     <!-- 歌曲信息 -->
-                    <div class="ap-song-msg">
+                    <div class="ap-song-msg" v-cloak>
                         <span class="ap-name">{{song.name}}</span>
                         <span class="ap-artist">-{{song.artist}}</span>
                         <span class="ap-time">
@@ -788,6 +796,7 @@
                     <div class="ap-line">
                         <div class="ap-line-draw"></div>
                     </div>
+
                     <!-- 音量 -->
                     <div class="ap-button ap-volume-button">
                         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
@@ -810,27 +819,9 @@
                         </div>
                     </div>
 
-                    <!-- 播放模式 -->
-                    <div class="ap-button ap-order-button" @click="chosePlayType">
-                        <!-- 列表循环 -->
-                        <svg v-if="playType == 1" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-                            <path d="M25.6 15.657c-0.343 0-0.686 0.343-0.686 0.686 0 0.114 0 0.229 0 0.229v1.829c0 2.4-1.829 4.229-4.229 4.229h-10.286l0.914-0.8c0.114-0.114 0.229-0.343 0.229-0.457 0-0.343-0.343-0.686-0.686-0.686-0.229 0-0.457 0.114-0.571 0.229l-2.057 1.829-0.8 0.686 2.857 2.514c0.114 0.229 0.343 0.343 0.571 0.343 0.457 0 0.8-0.229 0.8-0.686 0-0.229-0.114-0.457-0.343-0.571l-1.029-0.914v-0.114h10.4c3.086 0 5.6-2.514 5.6-5.6v-1.829c0-0.114 0-0.114 0-0.229 0-0.343-0.343-0.686-0.686-0.686zM8.229 16.571v-1.829c0-2.4 1.829-4.229 4.229-4.229h10.971l-0.914 0.914c-0.229 0.114-0.343 0.343-0.343 0.571 0 0.343 0.343 0.686 0.8 0.686 0.229 0 0.457-0.114 0.571-0.343l1.486-1.371 1.257-1.257-2.743-2.629c-0.229-0.114-0.457-0.229-0.686-0.229-0.457 0-0.686 0.343-0.686 0.8 0 0.229 0.114 0.343 0.229 0.571l0.914 0.8v0.114h-10.971c-2.971 0-5.486 2.514-5.486 5.6v1.829c0 0.114 0 0.114 0 0.229 0 0.343 0.343 0.686 0.686 0.686s0.686-0.343 0.686-0.686c0-0.114 0-0.229 0-0.229z"></path>
-                        </svg>
-                        <!-- 随机播放 -->
-                        <svg v-else-if="playType == 2" version="1.1" xmlns="http://www.w3.org/2000/svg"
-                             viewBox="0 0 32 32">
-                            <path d="M17.6 15.543c0.229 0 0.457-0.114 0.571-0.229l2.629-2.4c0.914-0.8 2.171-1.257 3.429-1.486l-1.029 0.914c-0.229 0.114-0.343 0.343-0.343 0.457 0 0.343 0.343 0.686 0.8 0.686 0.229 0 0.457-0.114 0.686-0.229l3.086-2.4-3.086-2.514c-0.114-0.229-0.343-0.343-0.571-0.343-0.457 0-0.914 0.229-0.914 0.686 0 0.229 0.114 0.457 0.343 0.571v0l1.029 0.8c-1.714 0.114-3.314 0.8-4.457 1.829l-2.629 2.4c-0.114 0.114-0.229 0.343-0.229 0.457 0 0.229 0.114 0.343 0.229 0.457 0.114 0.343 0.343 0.343 0.457 0.343zM14.057 17.486c-0.229 0-0.457 0.114-0.571 0.229l-2.743 2.514c-1.143 0.914-2.629 1.371-4.114 1.371 0 0 0 0 0 0-0.457 0-0.8 0.343-0.8 0.686s0.343 0.686 0.8 0.686c0 0 0 0 0 0 1.943 0 3.771-0.571 5.257-1.829l2.857-2.514c0.114-0.114 0.229-0.343 0.229-0.457 0-0.229-0.114-0.343-0.229-0.457-0.229-0.114-0.457-0.229-0.686-0.229zM23.771 19.543c-0.457 0-0.8 0.343-0.8 0.686 0 0.229 0.114 0.343 0.343 0.457l1.029 0.8c-1.029-0.114-2.057-0.457-2.857-1.029l-9.029-8.229c-1.486-1.371-3.543-2.171-5.714-2.171-0.571 0-1.029 0.343-1.029 0.686s0.457 0.686 0.914 0.686c1.714 0 3.429 0.686 4.571 1.714l9.029 8.229 0.229 0.114c1.143 0.8 2.514 1.257 4 1.486l-1.143 0.914c-0.343 0.114-0.457 0.343-0.457 0.571 0 0.343 0.343 0.686 0.8 0.686 0.229 0 0.457-0.114 0.571-0.343l3.086-2.514-3.086-2.629c0-0.114-0.229-0.114-0.457-0.114z"></path>
-                        </svg>
-                        <!-- 单曲循环 -->
-                        <svg v-else version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-                            <path d="M25.6 15.657c-0.343 0-0.686 0.343-0.686 0.686 0 0.114 0 0.229 0 0.229v1.829c0 2.4-1.829 4.229-4.229 4.229h-10.286l0.914-0.8c0.114-0.114 0.229-0.343 0.229-0.457 0-0.343-0.343-0.686-0.686-0.686-0.229 0-0.457 0.114-0.571 0.229l-2.057 1.829-0.8 0.686 2.857 2.514c0.114 0.229 0.343 0.343 0.571 0.343 0.457 0 0.8-0.229 0.8-0.686 0-0.229-0.114-0.457-0.343-0.571l-1.029-0.914v-0.114h10.4c3.086 0 5.6-2.514 5.6-5.6v-1.829c0-0.114 0-0.114 0-0.229 0-0.343-0.343-0.686-0.686-0.686zM8.229 16.571v-1.829c0-2.4 1.829-4.229 4.229-4.229h10.971l-0.914 0.914c-0.229 0.114-0.343 0.343-0.343 0.571 0 0.343 0.343 0.686 0.8 0.686 0.229 0 0.457-0.114 0.571-0.343l1.486-1.371 1.257-1.257-2.743-2.629c-0.229-0.114-0.457-0.229-0.686-0.229-0.457 0-0.686 0.343-0.686 0.8 0 0.229 0.114 0.343 0.229 0.571l0.914 0.8v0.114h-10.971c-2.971 0-5.486 2.514-5.486 5.6v1.829c0 0.114 0 0.114 0 0.229 0 0.343 0.343 0.686 0.686 0.686s0.686-0.343 0.686-0.686c0-0.114 0-0.229 0-0.229z"></path>
-                            <path d="M18.286 20v-6.857h-1.257l-2.171 1.714 0.457 1.257 1.486-0.914v4.8z"></path>
-                        </svg>
-                    </div>
-
                     <!-- 播放列表按钮 -->
                     <div class="ap-button ap-playlist-button" @click.stop="handleList">
-                        <div class="ap-playlist-button-bg">
+                        <div class="ap-playlist-button-bg" v-cloak>
                             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
                                 <path d="M5.371 6.857h9.943c0.457 0 0.8 0.343 0.8 0.8v0c0 0.457-0.343 0.8-0.8 0.8h-9.943c-0.457 0-0.8-0.343-0.8-0.8v0c0-0.457 0.343-0.8 0.8-0.8z"></path>
                                 <path d="M5.371 11.086h7.429c0.457 0 0.914 0.343 0.914 0.8v0c0 0.457-0.343 0.8-0.8 0.8h-7.543c-0.457 0-0.8-0.343-0.8-0.8v0c0-0.457 0.343-0.8 0.8-0.8z"></path>
@@ -844,7 +835,7 @@
                     </div>
 
                     <!-- 搜索歌曲按钮 -->
-                    <div class="ap-button ap-playlist-button" @click.stop="openSearch">
+                    <div class="ap-button ap-playlist-button" @click.stop="open_all">
                         <div class="ap-playlist-button-bg">
                             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
                                 <path d="M20.571 6.857v0c0.457 0 0.8 0.343 0.8 0.8v14.057c0 0.457-0.343 0.8-0.8 0.8v0c-0.457 0-0.8-0.343-0.8-0.8v-14.057c0-0.457 0.457-0.8 0.8-0.8z"></path>
@@ -859,7 +850,7 @@
             <search-box :is-show="showSearch" :open-fun="openSearch" @push-song="pushNewSong"
                         @play-song="playSong"></search-box>
             <!-- 提示区 -->
-            <div class="ap-toast" :class="{'ap-toast-hide': error.length<=0}">{{error}}</div>
+            <div class="ap-toast" :class="{'ap-toast-hide': error.length<=0}" v-cloak>{{error}}</div>
         </div>
     </div>
 </div>
@@ -867,18 +858,18 @@
 <template id="search-box">
     <transition name="search">
         <div v-if="isShow" class="search-main">
+            <button class="search-btn" @click="search(searchValue)">搜索</button>
             <input type="text" class="search-input" v-model="searchValue" placeholder="请输入歌曲名或歌手"
                    @keyup.enter="search(searchValue)">
-            <button class="search-btn" @click="search(searchValue)">搜索</button>
-            <div class="ps">
+            <div class="ps" v-cloak>
                 <ul class="result-list">
                     <!--<li class="item" v-for="(item, i) in resultList" :key="item.id" :data-index="i">-->
                     <li class="item" v-for="(item, i) in resultList" :data-index="i" @dblclick="playNow(item)">
+                        <button class="add-song" title="添加到播放列表" @click="pushInList(item)">+</button>
                         <span class="overflow-h song-name">{{item.name}}</span>
                         <span class="overflow-h album">{{item.album}}</span>
                         <span class="overflow-h singer">{{item.artist}}</span>
-                        <button class="add-song" title="添加到播放列表" @click="pushInList(item)">+</button>
-                        <button class="play-song" title="添加并播放此歌曲" @click="playNow(item)">播放</button>
+<!--                        <button class="play-song" title="添加并播放此歌曲" @click="playNow(item)">播放</button>-->
                     </li>
                 </ul>
             </div>
@@ -902,8 +893,8 @@
         lyric0 = data;
     }
 </script>
-<script src="static/songs/song.json?callback=callBack"></script>
-<script src="static/lyrics/lyric.json?callback=lyric"></script>
+<script src="static/songs/song.jsonp?callback=callBack"></script>
+<script src="static/lyrics/lyric.jsonp?callback=lyric"></script>
 
 <script>
     let audio = '';
@@ -918,8 +909,7 @@
         template: '#search-box',
         props: {
             isShow: Boolean,
-            openFun: Function,
-            search2: Function
+            openFun: Function
         },
         data: function () {
             return {
@@ -961,7 +951,7 @@
                     error: function (msg) {
                         console.log(msg);
                         $.ajax({
-                            url: 'static/2.json?callback=callBack',
+                            url: 'static/2.jsonp?callback=callBack',
                             dataType: 'jsonp',
                             data: '',
                             type: 'get',
@@ -1008,6 +998,8 @@
         }
     };
 
+    var time = null;
+
     var vm = new Vue({
         el: '#app',
         components: {
@@ -1049,40 +1041,8 @@
                     time: '04:31',
                     artist: '刘珂矣',
                     album: '半壶纱',
-                    cover: 'https://s4.music.126.net/style/web2/img/default/default_album.jpg',
+                    cover: '',
                     url: 'static/media/风筝误.mp3',
-                }, {
-                    id: 2,
-                    name: '遇见',
-                    time: '03:29',
-                    artist: '孙燕姿',
-                    album: '白羽毛之恋 华语典藏情歌 Vol.2',
-                    cover: 'https://s4.music.126.net/style/web2/img/default/default_album.jpg',
-                    url: 'http://www.ytmp3.cn/down/52946.mp3',
-                }, {
-                    id: 3,
-                    name: '后来',
-                    time: '05:41',
-                    artist: '刘若英',
-                    album: '我等你',
-                    cover: 'https://s4.music.126.net/style/web2/img/default/default_album.jpg',
-                    url: 'http://www.ytmp3.cn/down/48101.mp3',
-                }, {
-                    id: 4,
-                    name: '原来你也在这里',
-                    time: '03:38',
-                    artist: '刘若英',
-                    album: '我的失败与伟大',
-                    cover: 'https://s4.music.126.net/style/web2/img/default/default_album.jpg',
-                    url: 'http://www.ytmp3.cn/down/73352.mp3',
-                },{
-                    id: 5,
-                    name: '欧若拉',
-                    time: '04:18',
-                    artist: '张韶涵',
-                    album: '欧若拉',
-                    cover: 'https://s4.music.126.net/style/web2/img/default/default_album.jpg',
-                    url: 'http://www.ytmp3.cn/down/50699.mp3',
                 }
             ]
         },
@@ -1091,13 +1051,10 @@
             if (tempArr && tempArr.length > 0) {
                 this.songList = tempArr;
             }
-            this.song = this.songList[this.index];
-            // this.currentLyrics = this.getLyric(this.song.lyric);
-            // this.getLyric(this.song.lyric);
-            this.getLyric(this.song.name);
+            // this.song = this.songList[this.index];
+            // this.getLyric(this.song);
         },
         mounted() {
-            // audio的DOM结构获取需要在mounted中，在created中的话会变成 <audio :src="song.url" id="audio" controls autoplay></audio>
             audio = document.getElementById('audio');
             this.getData();
             this.setPageListen();
@@ -1111,16 +1068,12 @@
                     if (this.song === null){
                         console.log("song is null");
                     }
-                    // console.log("watch song ... " + this.song.name);
-                    // this.percent = 0;
-                    // this.getLyric(this.song.lyric);
-                    if (this.song.name)  this.getLyric(this.song.name);
+                    if (this.song.name)  this.getLyric(this.song);
                 },
                 deep: true
             },
             songList: {
                 handler() {
-                    // console.log("handle songList ...");
                     localStorage.setItem('songList', JSON.stringify(this.songList));
                 },
                 deep: true
@@ -1136,7 +1089,6 @@
                 }
             },
             deleteSong(index){
-                // console.log("deleteSong this.index begin: " + this.index);
                 this.songList.splice(index, 1);
                 if (this.songList.length === 0) {
                     this.index = -1;
@@ -1146,21 +1098,30 @@
 
                 if (index === this.index) {
                     this.index = this.index === this.songList.length ? this.index-2 : this.index-1;
-                    // console.log("deleteSong this.index: " + this.index);
                     if (this.playing) this.next();
                 }
                 else if (index < this.index){
                     this.index--;
                 }
-                // console.log("deleteSong this.index end: " + this.index);
             },
             openSearch(){
+                this.showSearch = !this.showSearch;
+            },
+            open_all(){
+                clearTimeout(time);
                 this.showSearch = !this.showSearch;
                 this.listShow = this.showSearch;
             },
             close_all(){
-                this.showSearch = false;
-                this.listShow = false;
+                clearTimeout(time);
+                time = setTimeout(() => {
+                    this.showSearch = false;
+                    this.listShow = false;
+                }, 300);
+            },
+            // 是否显示播放列表
+            handleList() {
+                this.listShow = !this.listShow;
             },
             alreadyExist(item){
                 for (let i in this.songList) {
@@ -1182,13 +1143,7 @@
             playSong(item){
                 let temp = this.alreadyExist(item);
                 if (temp === false) {
-                    // console.log("playSong this.songList: ");
-                    // console.log(this.songList);
-                    // console.log("playSong this.songList length: " + this.songList.length);
-                    // console.log("playSong this.index: " + this.index);
                     this.songList.splice(this.index + 1, 0, item);
-                    // console.log("playSong this songList 2: ");
-                    // console.log(this.songList);
                     this.next();
                 } else {
                     this.playExistSong(temp);
@@ -1213,7 +1168,6 @@
             },
             // 暂停与播放
             play() {
-                // console.log("my play");
                 if (this.playing) {
                     this.playing = false;
                     audio.pause();
@@ -1238,30 +1192,25 @@
                 this.audioInit();
             },
             next() {
-                // console.log("my next");
-                // console.log("my next this.index:" + this.index);
                 if (this.index === this.songList.length - 1) this.index = -1;
                 this.index++;
                 this.song = this.songList[this.index];
-                // console.log("my next this.song:" + this.song);
                 this.playing = false;
                 this.percent = 0;
                 this.$nextTick(() => {
                     this.play();
                 })
             },
-            getLyric(url) {
-                if (!url) {
+            getLyric(q) {
+                if (!q) {
                     self.currentLyrics = [{time: 0, text: '此歌曲暂无歌词~'}];
                     return;
                 }
-
                 let self = this;
                 self.currentLyrics = [{time: 0, text: '此歌曲暂无歌词~'}];
-                // console.log("get lyrics: " + url);
                 let lyc = null;
                 for (var v of lyric0) {
-                    if (url === v["name"]) {
+                    if (q.name === v["name"] && q.artist === v["artist"]) {
                         lyc = v["lyric"];
                     }
                 }
@@ -1273,7 +1222,6 @@
                 //     }, time);
                 // };
                 // sleep(fun, 100);
-
                 setTimeout(() => {
                     this.refactoringLyrics(lyc);  // this也可以? 此处的this是外面的this
                 }, 100);
@@ -1293,35 +1241,34 @@
                 //     }
                 // })
             },
-            refactoringLyrics(lyric){
-                console.log("refactoringLyrics");
-                // console.log(lyric);
-                if(!lyric){
+            refactoringLyrics(lyric) {
+                if (!lyric) {
                     console.log("refactoringLyrics return null");
                     return null;
                 }
-                let text = lyric.split('[offset:0]')[1];
+                //let text = lyric.split(/\[offset:[0-9]+\]/)[1];
+                let text = lyric;
                 let textArr = text.split('\n');
                 let lyricsArr = [],translate=[];
-                textArr.forEach((item,index)=>{
+                textArr.forEach((item, index) => {
                     let time = 0,text='';
-                    if(item.indexOf('[x-trans]') > -1){
+                    if (item.indexOf('[x-trans]') > -1) {
                         translate.push(item.split('[x-trans]')[1])
-                    } else if(item.trim() !=''){
+                    } else if (item.trim() != '') {
                         time = item.slice(1, 6).split(':');
                         time = parseInt(time[0]) * 60 + parseInt(time[1]);
+                        if (!time) return true;
                         text = item.slice(10);
                         let arr = text.split('>');
-                        let str = arr.reduce((a,b)=>{
+                        let str = arr.reduce((a, b) => {
                             return a.split('<')[0] + b.split('<')[0]
                         });
-
-                        // console.log("time, str" + ":" + time    + ", " + str);
                         str = str === "" ? "~~~" : str;
                         let obj = {
                             time: time,
                             text: str
                         };
+                        // console.log("time,str: " + time + "," + str);
                         lyricsArr.push(obj);
                     }
                 });
@@ -1410,6 +1357,7 @@
                             _this.error = '未找到资源';
                             break;
                     }
+
                     // audio.readyState == '0' && (_this.error = '音频地址错误');
                     setTimeout(() => {
                         _this.error = '';
@@ -1431,10 +1379,11 @@
                     }
                     _this.song = _this.songList[_this.index];
                     _this.thumbSlide = true;
-                    // 此处需要一定的延迟让audio的dom结构获取到，额，你们自己意会或者可以试着去掉看bug
+
                     setTimeout(() => {
                         audio.play();
                     }, 100);
+
                     // 解决因为transition的回弹bug
                     setTimeout(() => {
                         _this.thumbSlide = false;
@@ -1569,11 +1518,6 @@
                     }
                 };
                 document.addEventListener(visibilityChangeEvent, onVisibilityChange);
-            },
-
-            // 是否显示播放列表
-            handleList() {
-                this.listShow = !this.listShow;
             },
 
             // 列表选歌
