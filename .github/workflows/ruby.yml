@@ -19,6 +19,7 @@ jobs:
   update-blog:
     name: update hexo blog
     runs-on: ubuntu-latest
+    environment: github-pages
     
     steps:
     - name: 1. checkout
