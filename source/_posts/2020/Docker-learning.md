@@ -6,6 +6,7 @@ tags:
 categories:
     - DevOps
 copyright: false
+toc: true
 ---
 
 
@@ -331,14 +332,14 @@ CMD ["curl", "-s", "https://baidu.com/"]
   **wordpress**
   
   缺省情况下，wordpress容器内的/var/www/html目录会被随机挂载到宿主机docker数据目录下。
-  
-  ![image-20201114191120752](../../assets/images2020/docker-k8s.assets/image-20201114191120752.png)
-  
-  
-  
-  **wordpress mysql**
-  
-  ![image-20201114191512336](../../assets/images2020/docker-k8s.assets/image-20201114191512336.png)
+
+![image-20201114191120752](../../assets/images2020/docker-k8s.assets/image-20201114191120752.png)
+
+
+
+**wordpress mysql**
+
+![image-20201114191512336](../../assets/images2020/docker-k8s.assets/image-20201114191512336.png)
 
 
 

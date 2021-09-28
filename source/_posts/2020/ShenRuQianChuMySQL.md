@@ -6,6 +6,7 @@ tags:
 categories:
     - DevOps
 copyright: false
+toc: true
 ---
 
 
@@ -171,13 +172,5 @@ mysql> select * from t2;
     17～24成员的集合，占3个字节。
     25～32成员的集合，占4个字节。
     33～64成员的集合，占8个字节。
-
-
-
-
-
-
-
-
 
 

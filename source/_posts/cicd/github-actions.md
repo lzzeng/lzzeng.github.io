@@ -6,7 +6,6 @@ tags:
     - Github
 categories:
     - CICD
-toc: true
 ---
 
 
