@@ -1,5 +1,5 @@
 ---
-title: Docker笔记
+title: Docker学习笔记
 date: 2020-10-29 22:55:40
 tags:
     - Docker
@@ -258,67 +258,71 @@ Dockerfile 是一个描述如何构建镜像的文本文件，其中包含多条
 
     示例：
 
-    ```sh
+```sh
 [root@VM_0_13_centos demo]# cat Dockerfile-curl
-    FROM alpine:latest
-    
-    RUN apk add curl --no-cache
-    CMD ["curl", "-s", "https://baidu.com/"]
-    
-    [root@VM_0_13_centos demo]# cat Dockerfile-curl2 
-    FROM alpine:latest
-    
-    RUN apk add curl --no-cache
-    ENTRYPOINT ["curl", "-s", "https://baidu.com/"]
-    ```
-    
-    <img src="../../assets/images2020/docker-k8s.assets/image-20201114164336012.png" alt="image-20201114164336012" style="zoom:50%;" />
+FROM alpine:latest
 
-    
+RUN apk add curl --no-cache
+CMD ["curl", "-s", "https://baidu.com/"]
 
-    加CMD参数 `-I` 时，只有 mycurl2 支持：
+[root@VM_0_13_centos demo]# cat Dockerfile-curl2 
+FROM alpine:latest
 
-    <img src="../../assets/images2020/docker-k8s.assets/image-20201114164149433.png" alt="image-20201114164149433" style="zoom:50%;" />
+RUN apk add curl --no-cache
+ENTRYPOINT ["curl", "-s", "https://baidu.com/"]
+```
 
-    
 
-  - 有些时候，启动主进程前，需要一些准备工作，这些准备工作是和容器 `CMD` 无关的，无论 `CMD` 为什么，都需要事先进行一个预处理的工作。这种情况下，可以写一个脚本，然后放入 `ENTRYPOINT` 中去执行，而这个脚本会将接到的参数（也就是CMD）作为命令，在脚本最后执行。
 
-    示例：
+<img src="../../assets/images2020/docker-k8s.assets/image-20201114164336012.png" alt="image-20201114164336012" style="zoom:50%;" />
 
-    ```sh
-  [root@VM_0_13_centos demo]# cat start.sh
-    #!/bin/sh
-    
-    # begin: do sth
-    echo "do sth ..."
-    # end: do sth
-    
-    cmd="curl -s https://baidu.com/"
-    if which "$1" 1>/dev/null 2>&1; then
-        echo "exec 1:"
-        exec $@
-    else
-        echo "exec 2:"
-        exec $cmd $@
-    fi
-    echo "end."
-    
-    #########################################################
-    [root@VM_0_13_centos demo]# cat Dockerfile-curl3
-    FROM alpine:latest
-    
-    WORKDIR /opt
-    ADD start.sh start.sh
-    RUN chmod +x start.sh && apk add curl --no-cache
-    
-    ENTRYPOINT ["/opt/start.sh"]
-    CMD ["curl", "-s", "https://baidu.com/"]
-    ```
-  
-    <img src="../../assets/images2020/docker-k8s.assets/image-20201114174831869.png"  />
 
-    
+
+加CMD参数 `-I` 时，只有 mycurl2 支持：
+
+<img src="../../assets/images2020/docker-k8s.assets/image-20201114164149433.png" alt="image-20201114164149433" style="zoom:50%;" />
+
+
+
+- 有些时候，启动主进程前，需要一些准备工作，这些准备工作是和容器 `CMD` 无关的，无论 `CMD` 为什么，都需要事先进行一个预处理的工作。这种情况下，可以写一个脚本，然后放入 `ENTRYPOINT` 中去执行，而这个脚本会将接到的参数（也就是CMD）作为命令，在脚本最后执行。
+
+  示例：
+
+```sh
+[root@VM_0_13_centos demo]# cat start.sh
+#!/bin/sh
+
+# begin: do sth
+echo "do sth ..."
+# end: do sth
+
+cmd="curl -s https://baidu.com/"
+if which "$1" 1>/dev/null 2>&1; then
+    echo "exec 1:"
+    exec $@
+else
+    echo "exec 2:"
+    exec $cmd $@
+fi
+echo "end."
+
+#########################################################
+[root@VM_0_13_centos demo]# cat Dockerfile-curl3
+FROM alpine:latest
+
+WORKDIR /opt
+ADD start.sh start.sh
+RUN chmod +x start.sh && apk add curl --no-cache
+
+ENTRYPOINT ["/opt/start.sh"]
+CMD ["curl", "-s", "https://baidu.com/"]
+```
+
+
+
+<img src="../../assets/images2020/docker-k8s.assets/image-20201114174831869.png"  />
+
+
 
 - VOLUME指令
 

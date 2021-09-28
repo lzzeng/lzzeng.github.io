@@ -1,5 +1,5 @@
 ---
-title: K8s学习
+title: K8s学习笔记
 date: 2020-10-29 22:55:40
 tags:
     - K8s
@@ -237,7 +237,7 @@ https://<master节点ip>:6443/api/v1/namespaces/kube-system/services/https:kuber
 
 或者绑定域名访问（涉及ingress）
 
-![image-20201108223045757](C:\Users\ulwyc\AppData\Roaming\Typora\typora-user-images\image-20201108223045757.png)
+![image-20201108223045757](../../assets/images2020/docker-k8s.assets/image-20201108223045757.png)
 
 
 
@@ -328,12 +328,6 @@ Kubernetes里通常以千分之一的CPU配额为最小单位，用m来表示。
 
 
 <img src="../../assets/images2020/docker-k8s.assets/image-20201114221430793.png" alt="image-20201114221430793" style="zoom: 67%;" />
-
-
-
-
-
-
 
 
 
