@@ -56,15 +56,6 @@ Created topic topic-64.
 10000 records sent, 5614.823133 records/sec (5.48 MB/sec), 611.42 ms avg latency, 1299.00 ms max latency, 551 ms 50th, 1189 ms 95th, 1266 ms 99th, 1299 ms 99.9th.
 ```
 
-| 分区数（副本因子=2） | 发送速度（第二次测试） | 发送速度（第一次测试） |
-| ---- | ---- | ---- |
-|2|9.53 MB/sec|6.90 MB/sec|
-|4|8.74 MB/sec|5.92 MB/sec|
-|8|8.99 MB/sec|7.59 MB/sec|
-|16|11.37 MB/sec|8.43 MB/sec|
-|32|<font color=red>12.19 MB/sec</font>|<font color=red>10.34 MB/sec</font>|
-|64|10.90 MB/sec|5.48 MB/sec|
-
 
 
 ### 消费者性能测试

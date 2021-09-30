@@ -33,7 +33,7 @@ jobs:
         sed -i "s/<livere_uid>/${{ secrets.LIVERE_UID }}/" themes/next/_config.yml
         sed -i "s/<gitalk_client_id>/${{ secrets.GITALK_CLIENT_ID }}/" themes/next/_config.yml
         sed -i "s/<gitalk_client_secret>/${{ secrets.GITALK_CLIENT_SECRET }}/" themes/next/_config.yml
-        grep -rF '../assets/images' source/_posts/ | awk -F':' '{print $1}' |sort |uniq |xargs sed -i "s@(.*/assets/images@](https://${{ secrets.OSS_DOMAIN }}/images/@"
+        grep -rF '../assets/images' source/_posts/ | awk -F':' '{print $1}' |sort |uniq |xargs sed -i "s@\([\(\"\']\).*/assets/images@\1https://${{ secrets.OSS_DOMAIN }}/images/@"
         docker run --rm -v "$(pwd):/opt/docs" lzzeng/node-hexo-cli:alpine
         
     - name: 3. push to github pages

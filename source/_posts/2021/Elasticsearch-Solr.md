@@ -24,15 +24,15 @@ Solr可以独立运行，运行在Jetty、Tomcat等这些Servlet容器中，Solr
 
 
 
-![img](../../assets/images2021/es-solr/solr-1.jpg)
+<img src="../../assets/images2021/es-solr/solr-1.jpg" alt="img" style="zoom: 80%;" />
 
 
 
-![img](../../assets/images2021/es-solr/solr-2.jpg)
+<img src="../../assets/images2021/es-solr/solr-2.jpg" alt="img" style="zoom: 80%;" />
 
 
 
-![img](../../assets/images2021/es-solr/solr-3.jpg)
+<img src="../../assets/images2021/es-solr/solr-3.jpg" alt="img" style="zoom: 80%;" />
 
 
 
@@ -41,13 +41,9 @@ Solr可以独立运行，运行在Jetty、Tomcat等这些Servlet容器中，Solr
 Solr 利用 Zookeeper 进行分布式管理；Elasticsearch内置Zen，需要专用的主节点才能进行分裂脑保护。solr一般部署到web服务器上，比如tomcat，solr的本质是一个动态web项目。
 
 Solr 支持更多格式的数据(JSON/XML/CSV)，Elasticsearch 仅支持json文件格式。
-
 Solr 官方提供的功能更多，而 Elasticsearch 本身更注重于核心功能，高级功能多有第三方插件提供，例如图形化界面需要kibana友好支撑。
-
 Solr 查询快，但更新索引时慢（即插入删除慢），用于电商等查询多的应用；ES建立索引快（即查询慢），即实时性查询快。Solr是传统搜索应用的有力解决方案，但 Elasticsearch 更适用于新兴的实时搜索应用。
-
 Solr拥有更大，更成熟的用户，开发者和贡献者社区。ES拥有的规模较小但活跃的用户社区以及不断增长的贡献者社区。
-
 Solr更加面向文本搜索，Elasticsearch通常用于过滤和分组 - 分析查询工作负载 - 而不一定是文本搜索。
 
 
@@ -56,21 +52,14 @@ Solr更加面向文本搜索，Elasticsearch通常用于过滤和分组 - 分析
 
 ![img](../../assets/images2021/es-solr/lucene.jpg)
 
-
-
 数据总体分为两种：**结构化数据**和**非结构化数据**。
-
 **结构化数据**： 指具有固定格式或有限长度的数据，如数据库，元数据等。
-
 **非结构化数据**： 非结构化数据又可称为全文数据，指不定长或无固定格式的数据，如邮件，word文档等。
 
 
 
 非结构化数据查询方法包括以下两种方法：
-
 **顺序扫描**(Serial Scanning)
-
 **全文搜索**(Full-text Search)
 
 将非结构化数据中的一部分信息提取出来，重新组织，使其变得有一定结构，然后对此有一定结构的数据进行搜索，从而达到搜索相对较快的目的。这部分从非结构化数据中提取出的然后重新组织的信息，我们称之**索引**。
-

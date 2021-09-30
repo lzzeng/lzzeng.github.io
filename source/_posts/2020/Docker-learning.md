@@ -14,33 +14,21 @@ toc: true
 # Docker
 
 1. [**Docker**](https://docs.docker.com/engine/docker-overview/) 是一种[操作系统层面的虚拟化技术](https://en.wikipedia.org/wiki/Operating-system-level_virtualization)，基于 `Linux` 内核的 [cgroup](https://zh.wikipedia.org/wiki/Cgroups)，[namespace](https://en.wikipedia.org/wiki/Linux_namespaces)，以及 [OverlayFS](https://docs.docker.com/storage/storagedriver/overlayfs-driver/) 类的 [Union FS](https://en.wikipedia.org/wiki/Union_mount) 等技术对进程进行封装隔离 。
-
-   <!-- more -->
-
+<!-- more -->
 2. Docker是 C/S（客户端/服务器）架构。
-
 3. Docker客户端与Docker守护进程通信，后者负责构建，运行和分发Docker容器。
-
 4. Docker客户端和守护程序使用REST API，通过UNIX套接字或网络接口进行通信。
 
 <img src="../../assets/images2020/docker-k8s.assets/architecture.svg" alt="Docker Architecture Diagram" style="zoom:60%;" />
 
 
-
-
-
 ## 为什么使用Docker
 
 > - **更高效的利用系统资源**
->
 > - **更快速的启动时间**
->
 > - **一致的运行环境**
->
 > - **持续交付和部署**
->
 > - **更轻松的迁移**
->
 > - **更轻松的维护和扩展**
 
 
@@ -72,9 +60,9 @@ Docker的镜像提供了除内核外完整的运行时环境，确保了应用�
 
 
 
+
+
 # 基本概念
-
-
 
 ## 镜像
 
@@ -89,7 +77,6 @@ Docker的镜像提供了除内核外完整的运行时环境，确保了应用�
 1. 镜像（`Image`）和容器（`Container`）的关系，好比面向对象程序设计中的 `类` 和 `实例` 。
 2. 容器的实质是进程，但与直接在宿主执行的进程不同，容器进程运行于属于自己的独立的 [命名空间](https://en.wikipedia.org/wiki/Linux_namespaces)。
 3. 每一个容器运行时，是以镜像为基础层，在其上创建一个当前容器的存储层，这个为容器运行时读写而准备的存储层叫 **容器存储层**。
-
 4. 容器存储层的生存周期和容器一样。
 5. 不随容器销毁的数据的读写，应该使用 **数据卷**（Volume）、或者绑定宿主目录。
 
@@ -100,6 +87,8 @@ Docker的镜像提供了除内核外完整的运行时环境，确保了应用�
 仓库是镜像的版本库，不同的镜像标签代表该镜像的不同版本。Docker提供了**Docker Registry**作为镜像仓库管理服务，由于没有图形界面等原因，一般会使用Docker Hub （外部个人环境）或 Harbor（私服）托管Docker镜像。
 
 <img src="../../assets/images2020/docker-k8s.assets/1149398-20190917180200231-1649134988.png" alt="img" style="zoom:50%;" />
+
+
 
 
 
@@ -184,8 +173,6 @@ Server: Docker Engine - Community
 
 
 
-
-
 ## 磁盘空间管理
 
 `docker system` 命令用于管理磁盘空间。
@@ -205,9 +192,7 @@ Server: Docker Engine - Community
 ### 清理docker磁盘空间
 
 `docker system prune` 命令可以用于清理磁盘，删除关闭的容器、无用的数据卷和网络，以及dangling镜像(即无tag的镜像)。
-
 `docker system prune -a` 命令清理得更加彻底，可以将没有容器使用Docker镜像都删掉。
-
 注意，这两个命令会把你暂时关闭的容器，以及暂时没有用到的Docker镜像都删掉。
 
 ```sh
@@ -230,34 +215,25 @@ Total reclaimed space: 2.627GB
 # Dockerfile
 
 Dockerfile 是一个描述如何构建镜像的文本文件，其中包含多条**指令(Instruction)**，每条指令构建一层镜像。
-
 部分常用指令：
-
 - FROM：指定基础镜像，如 `FROM apline:latest`，alpine是一个精简的Linux系统镜像。
-
 - MAINTAINER：设置镜像的维护者信息
-
 - ARG：参数设置
-
 - ENV：环境变量设置
-
 - ADD：添加构建上下文，ADD添加tar.gz包会自动解压。
-
 - COPY：复制文件
-
 - RUN：编写一些shell命令
-
 - EXPOSE：暴露容器需监听的端口
-
 - CMD：容器启动后执行的命令
-
 - ENTRYPOINT：入口指令
 
-  <font color=red>问题：有了 `CMD` 后，为什么还要有 `ENTRYPOINT` ？</font>
 
-  - 当存在 `ENTRYPOINT` 后，`CMD` 的内容将会作为参数传给 `ENTRYPOINT`
 
-    示例：
+<font color=red>问题：有了 `CMD` 后，为什么还要有 `ENTRYPOINT` ？</font>
+
+当存在 `ENTRYPOINT` 后，`CMD` 的内容将会作为参数传给 `ENTRYPOINT`
+
+示例：
 
 ```sh
 [root@VM_0_13_centos demo]# cat Dockerfile-curl
@@ -285,9 +261,9 @@ ENTRYPOINT ["curl", "-s", "https://baidu.com/"]
 
 
 
-- 有些时候，启动主进程前，需要一些准备工作，这些准备工作是和容器 `CMD` 无关的，无论 `CMD` 为什么，都需要事先进行一个预处理的工作。这种情况下，可以写一个脚本，然后放入 `ENTRYPOINT` 中去执行，而这个脚本会将接到的参数（也就是CMD）作为命令，在脚本最后执行。
+有些时候，启动主进程前，需要一些准备工作，这些准备工作是和容器 `CMD` 无关的，无论 `CMD` 为什么，都需要事先进行一个预处理的工作。这种情况下，可以写一个脚本，然后放入 `ENTRYPOINT` 中去执行，而这个脚本会将接到的参数（也就是CMD）作为命令，在脚本最后执行。
 
-  示例：
+示例：
 
 ```sh
 [root@VM_0_13_centos demo]# cat start.sh
@@ -327,11 +303,13 @@ CMD ["curl", "-s", "https://baidu.com/"]
 
 - VOLUME指令
 
-  可以通过 `docker run` 命令的 `-v` 参数创建 volume 挂载点。如果通过 dockerfile 的 VOLUME 指令可以在镜像中创建挂载点，那么通过该镜像创建容器时不指定 -v 参数时，会在宿主机上随机生成一个数据目录绑定到 VOLUME 所指定的容器内目录。以Wordpress的volume为例：
+  可以通过 `docker run` 命令的 `-v` 参数创建 volume 挂载点。如果通过 dockerfile 的 VOLUME 指令可以在镜像中创建挂载点，那么通过该镜像创建容器时不指定 -v 参数时，会在宿主机上随机生成一个数据目录绑定到 VOLUME 所指定的容器内目录。
   
-  **wordpress**
-  
-  缺省情况下，wordpress容器内的/var/www/html目录会被随机挂载到宿主机docker数据目录下。
+  以Wordpress的volume为例：
+
+**wordpress**
+
+缺省情况下，wordpress容器内的/var/www/html目录会被随机挂载到宿主机docker数据目录下。
 
 ![image-20201114191120752](../../assets/images2020/docker-k8s.assets/image-20201114191120752.png)
 
@@ -344,8 +322,6 @@ CMD ["curl", "-s", "https://baidu.com/"]
 
 
 ## Dockerfile示例
-
-
 
 ### 示例 -- nginx
 
@@ -533,7 +509,6 @@ Successfully tagged myweb:0.1
 ## Dockerfile最佳实践
 
 精简Docker镜像的好处：
-
 1. 减少构建时间
 2. 减少磁盘使用量
 3. 减少下载时间
@@ -593,11 +568,8 @@ CMD ["java", "-jar", "demo.jar"]
 ### 其它建议
 
 - 可以在执行 `apt-get install -y` 时增加选项 `--no-install-recommends` ，不安装建议性（非必须）的依赖。
-
 - 可以在执行 `apk add` 时添加选项 `--no-cache`。
-
 - Ubuntu或Debian可以使用 `rm -rf /var/lib/apt/lists/*` 清理镜像中缓存文件。
-
 - CentOS等系统使用 `yum clean all` 命令清理。
 
 
@@ -605,11 +577,9 @@ CMD ["java", "-jar", "demo.jar"]
 # docker-compose
 
 Compose 项目是 Docker 官方的开源项目，负责实现对 Docker 容器集群的快速编排。
-
 Compose用于定义和运行多个 Docker 容器的应用（Defining and running multi-container Docker applications）。
 
 Compose 中有两个重要的概念：
-
 - 服务 (`service`)：一个应用的容器，实际上可以包括若干运行相同镜像的容器实例。
 - 项目 (`project`)：由一组关联的应用容器组成的一个完整业务单元，在 `docker-compose.yml` 文件中定义。
 
@@ -715,9 +685,7 @@ volumes:
 
 
 
-
 # 参考
 
 - <https://docs.docker.com/engine/docker-overview/>
-
 - <https://yeasy.gitbook.io/docker_practice>
