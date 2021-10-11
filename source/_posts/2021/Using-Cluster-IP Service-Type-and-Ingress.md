@@ -1,6 +1,6 @@
 ---
 title: Using Cluster IP Service Type and Ingress
-date: 2020-04-12 22:55:40
+date: 2021-01-12 22:55:40
 tags:
     - K8s
 categories:
