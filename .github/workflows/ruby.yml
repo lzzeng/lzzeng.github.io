@@ -24,8 +24,14 @@ jobs:
     steps:
     - name: 1. checkout
       uses: actions/checkout@v2
-
-    - name: 2. hexo build
+      
+    - name: 2. cache node modules
+      uses: actions/cache@v2
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        
+    - name: 3. hexo build
       run: |
         ls -al
         mv themes/next/_config.yml.bak themes/next/_config.yml
