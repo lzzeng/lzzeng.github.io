@@ -42,7 +42,7 @@ jobs:
         grep -rF '../assets/images' source/_posts/ | awk -F':' '{print $1}' |sort |uniq |xargs sed -i "s@\([\(\"\']\).*/assets/images@\1https://${{ secrets.OSS_DOMAIN }}/images/@"
         docker run --rm -v "$(pwd):/opt/docs" lzzeng/node-hexo-cli:alpine
         
-    - name: 3. push to github pages
+    - name: 4. push to github pages
       env:
         GIT_DEPLOY_REPO: https://${{ secrets.TOKEN }}@github.com/lzzeng/lzzeng.github.io.git
         GIT_DEPLOY_DIR: public
