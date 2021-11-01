@@ -29,8 +29,8 @@ HBase是Google Bigtable的开源实现，类似Google Bigtable利用GFS作为其
 
 
 
-为什么在HDFS上使用HBase？
 
+为什么在HDFS上使用HBase？
 - HBase 在 HDFS 之上提供了：
   - 高并发实时随机写，通过 LSM（内存+顺序写磁盘）的方式提供了 HDFS 所不拥有的实时随机写及修改功能
   - 高并发实时点读及扫描（了解一下 LSM 算法），在文件系统之上有数据库，在业务层面，HBase 完全可以独立于 HDFS

@@ -322,13 +322,12 @@ IPv4范围聚合
 ### 自动创建索引
 
 **elasticsearch.yml**
-
-当请求将JSON对象添加到特定索引时，如果该索引不存在，那么此API会自动创建该索引以及该特定JSON对象的基础映射。 可以通过将以下参数的值更改为false来禁用此功能，这个值是存在于elasticsearch.yml文件中，打开elasticsearch.yml文件设置如下 。
+当请求将JSON对象添加到特定索引时，如果该索引不存在，那么此API会自动创建该索引以及该特定JSON对象的基础映射。 可以通过将以下参数的值更改为false来禁用此功能，这个值是存在于elasticsearch.yml文件中，打开elasticsearch.yml文件设置如下：
 action.auto_create_index:false
 index.mapper.dynamic:false
-还可以限制自动创建索引，其中通过更改以下参数的值只允许指定模式的索引名称 -
-action.auto_create_index:+acc*,-bank*
-(其中+表示允许， - 表示不允许)
+
+还可以限制自动创建索引，其中通过更改以下参数的值只允许指定模式的索引名称：
+action.auto_create_index:+acc*,-bank* (其中+表示允许， - 表示不允许)
 
 
 
