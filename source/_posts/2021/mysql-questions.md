@@ -107,6 +107,7 @@ MySQL经典的**一主两从**是大多数创业公司初期使用的主流数�
 
 **2. 判断主备无延迟**
 第二种方案是使用 show slave status 语句结果中的部分值来判断主从同步的延迟时间：
+
 ```
 > show slave status
 *************************** 1. row ***************************
@@ -180,6 +181,7 @@ MySQL 在执行完事务后，会将该事务的 GTID 会给客户端，然后�
 ## 隐式类型转换导致的慢SQL
 
 业务方反馈了一个问题，说是某一服务每次在查询的时候会有0.5s的延迟：
+
 ```sql
 SELECT * FROM `account` 
 WHERE  
@@ -254,6 +256,7 @@ mysql >>select distinct appid  from account limit 10;
 key 'idx_accid' (accountid,uid,appid,accounttype)
 
 查看执行计划：
+
 ```sh
 mysql--dba_admin 13:05:51>>explain SELECT uid FROM `account` WHERE  `accountid` = 20000000528;
 +----+-------------+---------+-------+---------------+-----------+---------+------+-------+--------------------------+
@@ -269,6 +272,7 @@ mysql--dba_admin 13:05:51>>explain SELECT uid FROM `account` WHERE  `accountid` 
 最终定位到原因是：accountid在表中应该是一个char类型的，但是在SQL语句中写成了整数类型，发生了隐式类型转换，导致索引不可用。
 
 应修改为：
+
 ```sql
 SELECT uid FROM `account` 
 WHERE  

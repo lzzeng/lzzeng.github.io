@@ -18,6 +18,7 @@ toc: true
 ### 分割、逆序
 
 字符逆序
+
 ```python
 """ 字符串反转 数字颠倒 字符逆序 """
 
@@ -29,6 +30,7 @@ print raw_input()[::-1]
 
 
 单词逆序
+
 ```python
 """ 单词逆序
 i am a student
@@ -52,6 +54,7 @@ print " ".join(raw_input().split()[::-1])
 
 
 字符串最后一个单词的长度
+
 ```python
 """ 字符串最后一个单词的长度
 hello abc
@@ -67,6 +70,7 @@ print(len(lst[-1]))
 
 
 字符串分割
+
 ```python
 """ 字符串分割 每8个字符分割 不足则右补零
 abc
@@ -93,6 +97,7 @@ while True:
 ### 字符数
 
 统计不重复的字符总数
+
 ```python
 """ 统计不重复的字符总数
 abc
@@ -115,6 +120,7 @@ print(len(set(s)))
 
 
 统计各字符的数量
+
 ```python
 """ 统计各字符的数量
 hello
@@ -144,6 +150,7 @@ ADEFFFFFFFFF
 
 
 **正向查找法：**先假定边界 再比较长度
+
 ```python
 s = raw_input()
 nmax = 1
@@ -165,6 +172,7 @@ print nmax
 
 
 **逆向查找法：**先假定最大长度，再查找是否存在这样的子字符串
+
 ```python
 def f(s):
     for length in range(len(s), -1, -1):
@@ -181,6 +189,7 @@ if a:
 
 
 **单层循环法**：最快
+
 ```python
 s = raw_input()
 m = 0
@@ -198,6 +207,7 @@ print m
 ## 字典、列表
 
 合并表记录
+
 ```python
 """ 合并表记录
 3
@@ -226,6 +236,7 @@ for k, v in d.items():
 
 
 查找兄弟单词
+
 ```python
 """ 查找兄弟单词
 6 cab ad abcd cba abc bca abc 1
@@ -310,6 +321,7 @@ for i in xrange(1, a + 1):
 
 
 **循环求余法：**可同时求出 最小公倍数 和 最大公约数
+
 ```python
 m, n = map(int, raw_input().split())
 p = m * n
@@ -328,6 +340,7 @@ print p / m  # m 即最大公约数, p/m 即最小公倍数
 ## 生成器
 
 求斐波那契数列第n项
+
 ```python
 from timeit import default_timer as timer
 
@@ -389,6 +402,7 @@ while True:
 
 
 累计法：
+
 ```python
 while True:
     try:

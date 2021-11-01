@@ -80,6 +80,7 @@ bin/kafka-consumer-perf-test.sh --bootstrap-server 127.0.0.1:9092 --topic perf_t
 
 
 首先，`--broker-list` 选项是过时的，不建议继续使用。consumer无此选项。
+
 ```sh
 [root@kafka-1 kafka_2.12-2.8.0]# bin/kafka-console-producer.sh --help
 This tool helps to read data from standard input and publish it to Kafka.
@@ -103,6 +104,7 @@ Option                                   Description
 
 
 `server.properties` 配置如下：
+
 ```ini
 ############################# Socket Server Settings #############################
 
@@ -131,6 +133,7 @@ advertised.listeners=PLAINTEXT://192.168.19.208:9092
 <font color=red>问题2</font>：：pssh执行 `bin/kafka-server-stop.sh` 未能停止Kafka？
 
 查看stop脚本：
+
 ```sh
 OSNAME=$(uname -s)
 if [[ "$OSNAME" == "OS/390" ]]; then
@@ -197,6 +200,7 @@ start.time, end.time, data.consumed.in.MB, MB.sec, data.consumed.in.nMsg, nMsg.s
 
 
 结果如下：
+
 | 分区数（副本因子=2） | 生产速度（第二次测试） | 生产速度 |消费速度 |
 | ---- | ---- | ---- | ---- |
 |2|9.53 MB/sec|6.90 MB/sec|41.21 MB/sec|
@@ -205,4 +209,3 @@ start.time, end.time, data.consumed.in.MB, MB.sec, data.consumed.in.nMsg, nMsg.s
 |16|11.37 MB/sec|8.43 MB/sec|<font color=red>46.81 MB/sec</font>|
 |32|<font color=red>12.19 MB/sec</font>|<font color=red>10.34 MB/sec</font>|43.03 MB/sec|
 |64|10.90 MB/sec|5.48 MB/sec|38.90 MB/sec|
-

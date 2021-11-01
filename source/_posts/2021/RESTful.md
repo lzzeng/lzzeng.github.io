@@ -44,6 +44,7 @@ GET /authors/12?categories=2
 GET /articles?published=true
 
 传统 vs REST风格
+
 ```
 http://127.0.0.1/user/query/1 GET
 http://127.0.0.1/user/save POST 

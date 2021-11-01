@@ -22,6 +22,7 @@ toc: true
 
 
 递归拆解：
+
 ```python
 """
 以180为例，因子列表会依次变化如下：
@@ -61,6 +62,7 @@ for i in a:
 
 
 特别解法：
+
 ```python
 """
 能被2，3，5 ... 整除则print，接着以【商】递归。注意break的位置！
@@ -84,6 +86,7 @@ prime(int(input()))
 
 
 用循环替代递归：
+
 ```python
 from __future__ import print_function
 import math
@@ -121,6 +124,7 @@ get_result(int(a))
 
 
 参考解法：
+
 ```python
 """
 示例输入：
@@ -190,6 +194,7 @@ print dp[n]
 
 
 递归法：
+
 ```python
 def p_mn(m, n):
     if m == 1 or n == 1:
@@ -205,6 +210,7 @@ print p_mn(m, n)
 
 
 公式法（阶乘）：
+
 ```python
 from math import factorial as f
 
@@ -219,6 +225,7 @@ except:
 
 
 如果不知道从math导入，可自定义阶乘函数：
+
 ```python
 def factorial(n):
     ans = 1

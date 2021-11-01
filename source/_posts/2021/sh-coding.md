@@ -14,6 +14,7 @@ toc: true
 ## 固定时间间隔
 
 每5s执行一次命令：
+
 ```sh
 while true
 do
@@ -27,6 +28,7 @@ done
 <!-- more -->
 
 改成如下可自动校正，使每个周期的实际执行时刻和预期执行时刻的偏差保持在0.1s以内：
+
 ```sh
 tperiod=5
 let tnext=`date '+%s'`+tperiod
@@ -93,6 +95,7 @@ ywzqaop 631 2
 
 
 shell解法：
+
 ```sh
 txt=$(cat)
 fname_row_uniq_count=$(echo "$txt" |sed 's/^.*\\//' |awk '{print substr($1,length($1)-15)" "$2}' |sort |uniq -c)
