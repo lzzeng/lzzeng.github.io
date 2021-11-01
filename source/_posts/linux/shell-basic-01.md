@@ -26,6 +26,7 @@ toc: true
 
 
 
+
 ## 条件判断
 
 ```sh
@@ -87,9 +88,7 @@ ${a%%3*} abc12
 getopts 和 getopt 的用法
 
 ref: 
-
 - <https://www.cnblogs.com/FrankTan/archive/2010/03/01/1634516.html>
-
 - <https://www.cnblogs.com/tommyjiang/p/10629848.html>
 
 ```sh
@@ -156,5 +155,3 @@ ref: <https://blog.csdn.net/nwpulei/article/details/38556595>
 [root@VM_0_13_centos shell-basic]# echo $ab
 4 5
 ```
-
-

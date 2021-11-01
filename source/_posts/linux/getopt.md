@@ -1,11 +1,10 @@
 ---
-title: shell参数处理
+title: bash编程 —— getopt用法
 date: 2020-09-13 16:30:00
 tags:    
 	- Shell
 categories:
     - Shell
-
 copyright: 
 toc: 
 ---
@@ -13,8 +12,6 @@ toc:
 
 
 > getopt的用法
-
-
 
 <!-- more -->
 

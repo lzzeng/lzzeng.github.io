@@ -5,11 +5,9 @@ tags:
     - Python
 categories:
     - Python
-copyright: false
+copyright:
 toc: true
 ---
-
-
 
 
 
@@ -113,6 +111,10 @@ for c in s:
     sn.add(c)
 
 print(len(sn))
+
+
+# 其实一行就够了
+print(len(set(s)))
 ```
 
 

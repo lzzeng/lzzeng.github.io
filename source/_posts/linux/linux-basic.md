@@ -1,14 +1,20 @@
 ---
-title: Linux basic 01
+title: Linux basic 01 —— 读书笔记
 date: 2020-10-02 16:30:00
 tags:    
     - Linux
     - CentOS
 categories:
     - Linux
-copyright: 
+copyright: false
 toc: true
 ---
+
+
+
+
+
+> 《鸟哥的私房菜》在线书籍 <http://linux.vbird.org/linux_basic> 的笔记
 
 
 
@@ -40,12 +46,10 @@ P+E方案:
 
 
 简单地说，整个开机流程到操作系统之前的动作应该是这样：
-
-1. BIOS：开机自动执行的韧体，会识别第一个可开机的装置；
-2. MBR：第一个可开机装置的第一个分区内的主要启动记录区块，内含开机管理程序；
-3. 开机管理程序(boot loader)：一个可读取核心文件来执行的软件；
-4. 核心档案（文件）：开始操作系统的功能...
-
+- BIOS：开机自动执行的韧体，会识别第一个可开机的装置；
+- MBR：第一个可开机装置的第一个分区内的主要启动记录区块，内含开机管理程序；
+- 开机管理程序(boot loader)：一个可读取核心文件来执行的软件；
+- 核心档案（文件）：开始操作系统的功能...
 
 
 Linux内的所有资料都是以档案的形态来呈现的，所以啰，整个Linux系统最重要的地方就是在于目录树架构
@@ -56,24 +60,23 @@ Linux内的所有资料都是以档案的形态来呈现的，所以啰，整个
 这个在上面第二节已经谈过了，就是仅分割出根目录与记忆体置换空间( / & swap )即可。然后再预留一些剩余的磁碟以供后续的练习之用。不过，这当然是不保险的分割方法(所以鸟哥常常说这是『懒人分割法』)！因为如果任何一个小细节坏掉(例如坏轨的产生)，你的根目录将可能整个的损毁～挽救方面较困难！
 
 稍微麻烦一点的方式：
-较麻烦一点的分割方式就是先分析这部主机的未来用途，然后根据用途去分析需要较大容量的目录，以及读写较为频繁的目录，将这些重要的目录分别独立出来而不与根目录放在一起，那当这些读写较频繁的磁碟分割槽有问题时，至少不会影响到根目录的系统资料，那挽救方面就比较容易啊！在预设的CentOS环境中，底下的目录是比较符合容量大且(或)读写频繁的目录啰：
+较麻烦一点的分割方式就是先分析这部主机的未来用途，然后根据用途去分析需要较大容量的目录，以及读写较为频繁的目录，将这些重要的目录分别独立出来而不与根目录放在一起，那当这些读写较频繁的磁碟分割槽有问题时，至少不会影响到根目录的系统资料，那挽救方面就比较容易啊！在预设的CentOS环境中，底下的目录是比较符合容量大且(或)读写频繁的目录：
 /boot
 /
 /home
 /var
 Swap
 
-由二BIOS捉到的磁盘容量丌对，但是至少在整颗磁盘前面的扂区他还读得到啊！ 因此，你叧要将这个磁盘最前面的容量分割出一个小分割槽，幵将这个分割槽不系统启劢文件的放置目录摆在一起， 那就是 /boot 这个目录！就能够解决了！很简单吧！ 其实，重点是：『将启劢扂区所在分割槽规范在小二1024个磁柱以内～』 即可！那怎举做到呢？很简单，在进行安装的时候，规划出三个分区，分别是：
 
+
+由二BIOS捉到的磁盘容量丌对，但是至少在整颗磁盘前面的扂区他还读得到啊！ 因此，你叧要将这个磁盘最前面的容量分割出一个小分割槽，幵将这个分割槽不系统启劢文件的放置目录摆在一起， 那就是 /boot 这个目录！就能够解决了！很简单吧！ 其实，重点是：『将启劢扂区所在分割槽规范在小二1024个磁柱以内～』 即可！那怎举做到呢？很简单，在进行安装的时候，规划出三个分区，分别是：
 /boot
 /
 swap
 
-那个/boot叧要给100M Bytes左右即可！而丏/boot要放在整块硬盘的最前面
 
 
-
-在Linux里面，任何一个档案都具有『User, Group及Others』三种身份的个别权限
+那个/boot只要给100MB左右即可，而且/boot要放在整块硬盘的最前面。在Linux里面，任何一个文件都具有User,Group,Others三种身份的个别权限：
 
 drwxr-xr-- 1 test1 testgroup 5238 Jun 19 10:25 groups/
 
@@ -84,18 +87,17 @@ drwxr-xr-- 1 test1 testgroup 5238 Jun 19 10:25 groups/
 - 若是[ b ]则表示为装置档里面的可供储存的周边设备(可随机存取装置)；
 - 若是[ c ]则表示为装置档里面的序列埠设备，例如键盘、滑鼠(一次性读取装置)。
 
-接下来的字元中，以三个为一组，且均为『rwx』的三个参数的组合。
 
+
+接下来的字元中，以三个为一组，且均为『rwx』的三个参数的组合。
 u: user 即 owner
 g: group
 o: others  !! 不是owner
 
 
-
 目录的x代表的是使用者能否进入该目录成为工作目录的用途！
 
 除了基本r, w, x权限外，在Linux传统的Ext2/Ext3/Ext4档案系统下，我们还可以设定其他的系统隐藏属性，这部份可使用chattr来设定，而以lsattr 来查看，最重要的属性就是可以设定其不可修改的特性！让连档案的拥有者都不能进行修改！这个属性可是相当重要的，尤其是在安全机制上面(security)！
-
 
 
 CentOS 7.x 下：
@@ -112,11 +114,9 @@ lrwxrwxrwx. 1 root root 6 Mar  7  2019 /var/run -> ../run
 
 
 
-目录规范：http://linux.vbird.org/linux_basic/0210filepermission.php
+目录规范：<http://linux.vbird.org/linux_basic/0210filepermission.php>
 
-/proc目录：
-
-这个目录本身是一个『虚拟档案系统(virtual filesystem)』喔！他放置的资料都是在记忆体当中，例如系统核心、行程资讯(process)、周边装置的状态及网路状态等等。因为这个目录下的资料都是在记忆体当中，所以本身不占任何硬碟空间啊！比较重要的档案例如：/proc/cpuinfo, /proc/dma, /proc/interrupts, /proc/ioports, /proc/net/*等等。
+**/proc**目录：这个目录本身是一个『虚拟档案系统(virtual filesystem)』喔！他放置的资料都是在记忆体当中，例如系统核心、行程资讯(process)、周边装置的状态及网路状态等等。因为这个目录下的资料都是在记忆体当中，所以本身不占任何硬碟空间啊！比较重要的档案例如：/proc/cpuinfo, /proc/dma, /proc/interrupts, /proc/ioports, /proc/net/*等等。
 
 
 
@@ -157,11 +157,11 @@ CentOS Linux release 7.6.1810 (Core)
 
 ## 命令
 
-
-
 ### lsblk
 
-list block devices
+> list block devices
+
+
 
 ```sh
 [root@VM_0_13_centos linux-learning]# lsblk
@@ -175,7 +175,9 @@ vda    253:0    0   50G  0 disk
 
 ### vmstat
 
-vmstat reports information about processes, memory, paging, block IO, traps, disks and cpu activity.
+> vmstat reports information about processes, memory, paging, block IO, traps, disks and cpu activity.
+
+
 
 ```sh
 [root@VM_0_13_centos linux-learning]# vmstat
@@ -191,11 +193,15 @@ procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
 
 ls -Al  与 ls -al 的区别，不包含 . 和 ..
 
-ls -n       # 不需要 l
+ls -n       # 不需要l
 
--n ：列出UID 与GID 而非使用者与群组的名称(UID与GID会在帐号管理提到！)
+-n ：列出UID与GID而非使用者与群组的名称
 
 ```sh
+[root@localhost sh]# ls -n
+total 4
+-rw-r--r--. 1 0 0 309 Nov  1 10:33 fixed-ts.sh
+
 [root@VM_0_13_centos linux-learning]# ls -lS a    # 按大小降序
 total 8
 -rw-r--r-- 1 root root 4 Oct  4 01:54 b1
@@ -276,7 +282,7 @@ tac 可实现按行逆序输出
 
 ### 其它文件管理命令
 
-http://linux.vbird.org/linux_basic/0220filemanager.php#dir_path
+ref: <http://linux.vbird.org/linux_basic/0220filemanager.php#dir_path>
 
 
 
@@ -298,7 +304,9 @@ netstat -tnlp |awk '{print $4}' |awk -F: '{if($NF~/^[0-9]*$/) print $NF}' |sort 
 
 ## 防火墙
 
-见 https://www.linuxprobe.com/chapter-08.html#83_Firewalld
+ref: <https://www.linuxprobe.com/chapter-08.html#83_Firewalld>
+
+
 
 对指定IP开放指定端口
 
@@ -308,6 +316,8 @@ firewall-cmd --permanent --add-rich-rule="rule family="ipv4" source address="192
 firewall-cmd --reload
 ```
 
+
+
 添加、删除2201
 
 ```sh
@@ -316,7 +326,9 @@ firewall-cmd --zone=public --remove-port=2201/tcp --permanent
 firewall-cmd --reload
 ```
 
-`--zone=public`：拒绝流入的流量，除非与流出的流量相关；而如果流量与ssh、dhcpv6-client服务相关，则允许流量
+`--zone=public`：拒绝流入的流量，除非与流出的流量相关；而如果流量与ssh、dhcpv6-client服务相关，则允许流量。
+
+
 
 指定网段192.168.10.0/24 INPUT，拒绝其它网段INPUT:
 
@@ -352,7 +364,6 @@ iptables -I INPUT -p icmp -j ACCEPT
 
 ## 网络存储
 
-
 ### NFS
 
 ```sh
@@ -368,8 +379,6 @@ mount -t nfs   root@172.17.0.13:/nfs   /mnt
 
 
 
-
-
 ## Vim
 
 ```sh
@@ -378,4 +387,3 @@ mount -t nfs   root@172.17.0.13:/nfs   /mnt
 :g/^$/d     # 删除所有空行
 ...
 ```
-

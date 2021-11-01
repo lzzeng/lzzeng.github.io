@@ -1,6 +1,6 @@
 ---
 title: Shell basic 02
-date: 2020-07-01 16:30:00
+date: 2020-11-01 16:30:00
 tags:    
 	- Shell
 categories:

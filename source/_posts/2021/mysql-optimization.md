@@ -15,7 +15,7 @@ toc: true
 
 **ORDER BY，GROUP BY和DISTINCT优化**
 - ORDER BY的实现与优化
-	- 优化Query语句中的ORDER BY的时候，尽可能利用已有的索引来避免实际的排序计算，可以很大幅度的提升ORDER BY操作的性能。
+  - 优化Query语句中的ORDER BY的时候，尽可能利用已有的索引来避免实际的排序计算，可以很大幅度的提升ORDER BY操作的性能。
 <!-- more -->
 优化排序：
 1.加大max_length_for_sort_data参数的设置；
@@ -23,10 +23,10 @@ toc: true
 3.增大sort_buffer_size参数设置；
 
 - GROUP BY的实现与优化
-	- 由于GROUP BY实际上也同样需要进行排序操作，而且与ORDER BY相比，GROUP BY主要只是多了排序之后的分组操作。当然，如果在分组的时候还使用了其他的一些聚合函数，那么还需要一些聚合函数的计算。所以，在GROUP BY的实现过程中，与ORDER BY一样也可以利用到索引。
+  - 由于GROUP BY实际上也同样需要进行排序操作，而且与ORDER BY相比，GROUP BY主要只是多了排序之后的分组操作。当然，如果在分组的时候还使用了其他的一些聚合函数，那么还需要一些聚合函数的计算。所以，在GROUP BY的实现过程中，与ORDER BY一样也可以利用到索引。
 
 - DISTINCT的实现与优化
-	- DISTINCT实际上和GROUP BY的操作非常相似，只不过是在GROUP BY之后的每组中只取出一条记录而已。所以，DISTINCT的实现和GROUP BY的实现也基本差不多，没有太大的区别。同样可以通过松散索引扫描或者是紧凑索引扫描来实现，当然，在无法仅仅使用索引即能完成DISTINCT的时候，MySQL只能通过临时表来完成。但是，和GROUP BY有一点差别的是，DISTINCT并不需要进行排序。也就是说，在仅仅只是DISTINCT操作的Query如果无法仅仅利用索引完成操作的时候，MySQL会利用临时表来做一次数据的“缓存”，但是不会对临时表中的数据进行filesort操作。
+  - DISTINCT实际上和GROUP BY的操作非常相似，只不过是在GROUP BY之后的每组中只取出一条记录而已。所以，DISTINCT的实现和GROUP BY的实现也基本差不多，没有太大的区别。同样可以通过松散索引扫描或者是紧凑索引扫描来实现，当然，在无法仅仅使用索引即能完成DISTINCT的时候，MySQL只能通过临时表来完成。但是，和GROUP BY有一点差别的是，DISTINCT并不需要进行排序。也就是说，在仅仅只是DISTINCT操作的Query如果无法仅仅利用索引完成操作的时候，MySQL会利用临时表来做一次数据的“缓存”，但是不会对临时表中的数据进行filesort操作。
 
 
 
@@ -45,7 +45,6 @@ toc: true
 Mysql缓存主要包括关键字缓存（key cache）和查询缓存（query cache）
 
 查询缓存优化
-
 - 对于一些不常改变的数据且有大量相同sql查询的表，查询缓存会节约很大的性能
 - 如果系统确实存在一些性能问题，可以尝试打开查询缓存，并在数据库设计上做一些优化，比如：
 1.用多个小表代替一个大表，注意不要过度设计
@@ -54,18 +53,15 @@ Mysql缓存主要包括关键字缓存（key cache）和查询缓存（query cac
 4.可以通过SQL_CACHE和SQL_NO_CACHE来控制某个查询语句是否需要进行缓存
 - show status like '%qcache_hits%';
 - 配置查询缓存
-
-	- query_cache_type可以是0,1,2，0代表不使用缓存，1代表使用缓存，2代表根据需要使用
+  - query_cache_type可以是0,1,2，0代表不使用缓存，1代表使用缓存，2代表根据需要使用
 query_cache_size
 query_cache_limit
-- query_cache_type=1
-		query_cache_size=67108864
+    - query_cache_type=1
+query_cache_size=67108864
 query_cache_limit=67108864
 
 - MySql中可以在SQL中指定SQL_CACHE和SQL_NO_CACHE来控制某个查询语句是否需要进行缓存
-
-	- select SQL_NO_CACHE * from ...   不走缓存，不查询缓存，也不写入缓存
-
+  - select SQL_NO_CACHE * from ...   不走缓存，不查询缓存，也不写入缓存
 - Query Cache 命中率= Qcache_hits / ( Qcache_hits + Qcache_inserts )；
 
 

@@ -6,7 +6,7 @@ tags:
 categories:
     - Shell
 
-copyright: 
+copyright: true
 toc: true
 ---
 
@@ -26,11 +26,7 @@ sed 's/[^ -z]/*/g'
 sed -e '1!G; h; $!d'
 ```
 
-
-
 <!-- more -->
-
-
 
 示例：
 
@@ -48,17 +44,15 @@ sed -e '1!G; h; $!d'
 1
 ```
 
-解释：
 
-`1!G;h;$!d`可拆解为三个命令:
+
+`1!G;h;$!d` 可拆解为三个命令:
 
 - 1!G —— 只有第一行不执行G命令，将hold space中的内容append回到pattern space
-
 - h —— 第一行都执行h命令，将pattern space中的内容拷贝到hold space中
-
 - $!d —— 除了最后一行不执行d命令，其它行都执行d命令，删除当前行
 
-ref: <https://blog.csdn.net/weixin_38149264/article/details/78074300>
+*摘自:  <https://blog.csdn.net/weixin_38149264/article/details/78074300>*
 
 
 

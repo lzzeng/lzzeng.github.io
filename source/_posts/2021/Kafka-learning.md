@@ -80,7 +80,6 @@ bin/kafka-consumer-perf-test.sh --bootstrap-server 127.0.0.1:9092 --topic perf_t
 
 
 首先，`--broker-list` 选项是过时的，不建议继续使用。consumer无此选项。
-
 ```sh
 [root@kafka-1 kafka_2.12-2.8.0]# bin/kafka-console-producer.sh --help
 This tool helps to read data from standard input and publish it to Kafka.
@@ -103,8 +102,7 @@ Option                                   Description
 
 
 
- `server.properties` 配置如下：
-
+`server.properties` 配置如下：
 ```ini
 ############################# Socket Server Settings #############################
 
@@ -126,14 +124,13 @@ listeners=PLAINTEXT://192.168.19.208:9092
 advertised.listeners=PLAINTEXT://192.168.19.208:9092
 ```
 
-因此，是listeners 和advertised.listeners配置的问题，能使用已注册到zookeeper的地址。按默认配置的话，可以使用localhost或127.0.0.1，不指定具体IP的话，在客户端代码中通过API去连接Kafka就会报错，因为没有获取到服务端的IP，只能从服务器使用localhost连接（localhost可以，指定IP应该也可以吧）。
+因此，是listeners 和advertised.listeners配置的问题，能使用已注册到zookeeper的地址。按默认配置的话，可以使用localhost或127.0.0.1，不指定具体IP的话，在客户端代码中通过API去连接Kafka就会报错，因为没有获取到服务端的IP，只能从服务器使用localhost连接。
 
 
 
 <font color=red>问题2</font>：：pssh执行 `bin/kafka-server-stop.sh` 未能停止Kafka？
 
 查看stop脚本：
-
 ```sh
 OSNAME=$(uname -s)
 if [[ "$OSNAME" == "OS/390" ]]; then
@@ -156,23 +153,15 @@ fi
 [root@localhost zlz]# pssh -h kafka.ips -i "cd /opt/kafka/kafka_2.12-2.8.0; source ~/.bashrc; sh run-kafka.sh stop"
 ```
 
-
-
 再恢复重试时不加source也能正常停止了。最后发现命令没问题，不需要source。pssh 批量停止Kafka server时，不会马上停止，是陆续停止的，可能有几秒的延迟。即便在各server上手动执行stop，也是如此。
-
 因此没问题。
 
 
 
 <font color=red>问题3</font>：advertised.listeners和listeners配置都注释掉，Kafka server不能按默认localhost:9092启动？
-
 仅放开`listeners=PLAINTEXT://:9092`也不行。经测设置 `listeners=PLAINTEXT://localhost:9092` 可以启动，但是producer或consumer连接时会报错。
-
 如果继续设置 `advertised.listeners=PLAINTEXT://localhost:9092`  的话，就又会无法启动server了!
-
 可能需要集群状态数据吧，按localhost连接没试成，不折腾了，改回配置IP加端口的方式。
-
-
 
 
 
@@ -208,7 +197,6 @@ start.time, end.time, data.consumed.in.MB, MB.sec, data.consumed.in.nMsg, nMsg.s
 
 
 结果如下：
-
 | 分区数（副本因子=2） | 生产速度（第二次测试） | 生产速度 |消费速度 |
 | ---- | ---- | ---- | ---- |
 |2|9.53 MB/sec|6.90 MB/sec|41.21 MB/sec|

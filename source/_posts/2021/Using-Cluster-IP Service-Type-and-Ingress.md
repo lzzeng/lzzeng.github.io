@@ -10,10 +10,7 @@ copyright: false
 
 
 
-
-
 > [ingress四层转发配置参考](https://kubernetes.github.io/ingress-nginx/user-guide/exposing-tcp-udp-services/)
->
 > [Exposing the probe service - IBM Documentation](https://www.ibm.com/docs/en/netcoolomnibus/8?topic=private-exposing-probe-service)
 
 
@@ -27,10 +24,7 @@ A Cluster Administrator needs to reconfigure the nginx-ingress-controller with a
 
 
 > CAUTION:
->
 > Restarting the ingress controller would impact other workloads running. Consider performing the change during a planned downtime in production environments.
-
-
 
 To expose the probe TCP/UDP service to external networks using Ingress, you will need to configure the nginx-ingress-controller to specify the **--tcp-services-configmap** and **--udp-services-configmap** flags to point to an existing configuration map where the key is the external port to use and the value indicates the service to expose:
 
@@ -47,8 +41,6 @@ To expose the probe TCP/UDP service to external networks using Ingress, you will
   default/myprobe-ibm-netcool-probe-snmp:162
   ```
 
-  
-
 3. Create a configuration map to store the external port to use and service to expose using the format: <namespace/service name>:<service port>:[PROXY]:[PROXY] where [PROXY]:[PROXY] is optional. For example, create the configmap resource as shown below in the default namepace to expose a host port 1162 to myprobe-ibm-netcool-probe-snmp on port 162 which is deployed on default namespace. If an existing configmap already exists, add a new entry into the section data.
 
   ```
@@ -56,10 +48,7 @@ To expose the probe TCP/UDP service to external networks using Ingress, you will
       --from-literal=1162=default/myprobe-ibm-netcool-probe-snmp:162
   ```
 
-  
-
-  This creates the following config map:
-
+This creates the following config map:
   ```
   apiVersion: v1
   kind: ConfigMap
@@ -69,8 +58,6 @@ To expose the probe TCP/UDP service to external networks using Ingress, you will
   data:
       1162: "default/myprobe-ibm-netcool-probe-snmp:162"
   ```
-
-  ​	
 
 4. Optionally, to expose a UDP service, create a new config map as shown in the following example. If an existing configmap exists, add a new entry into the data section.
 
@@ -84,17 +71,13 @@ To expose the probe TCP/UDP service to external networks using Ingress, you will
       1162: "default/myprobe-ibm-netcool-probe-snmp:162"
   ```
 
-  
-
 5. Edit the nginx-ingress-controller daemon set to add the following items.
 
-   > **Note**: In IBM Cloud Private 2.1.0.2, the Nginx Controller name is nginx-ingress-lb-<arch>, where <arch> is the platform architecture such amd64 or ppc64le.
+  > **Note**: In IBM Cloud Private 2.1.0.2, the Nginx Controller name is nginx-ingress-lb-<arch>, where <arch> is the platform architecture such amd64 or ppc64le.
 
-   
+The TCP/UDP services configmap flags **--tcp-services-configmap=tcp-controller-configmap** and **--udp-services-configmap=udp-controller-configmap** in the .spec.template.spec.containers[].args[] attribute. An example is shown in the following JSON snippet:
 
-   The TCP/UDP services configmap flags **--tcp-services-configmap=tcp-controller-configmap** and **--udp-services-configmap=udp-controller-configmap** in the .spec.template.spec.containers[].args[] attribute. An example is shown in the following JSON snippet:
-
-   ```
+  ```
    "spec": {
        "containers": [
     {
@@ -109,23 +92,19 @@ To expose the probe TCP/UDP service to external networks using Ingress, you will
                "--udp-services-configmap=default/udp-controller-configmap",
                "--tcp-services-configmap=default/tcp-controller-configmap"
        	],
-   ```
+  ```
 
-   
+Add an additional hostport for the Ingress to open in the .spec.template.spec.containers[].ports[] attribute of the nginx-ingress-controller daemon set in the kube-system namespace. The default ports are ports 80 (TCP) and 443 (TCP). To add the additional hostports, use the following steps:
 
-   Add an additional hostport for the Ingress to open in the .spec.template.spec.containers[].ports[] attribute of the nginx-ingress-controller daemon set in the kube-system namespace. The default ports are ports 80 (TCP) and 443 (TCP). To add the additional hostports, use the following steps:
+Edit the nginx-ingress-controller and find the .spec.template.spec.containers[].ports[] attribute.
 
-   Edit the nginx-ingress-controller and find the .spec.template.spec.containers[].ports[] attribute.
+  ```
+  kubectl edit ds/nginx-ingress-controller -n kube-system
+  ```
 
-   ```
-   kubectl edit ds/nginx-ingress-controller -n kube-system
-   ```
+The example shown in the following JSON snippet adds two new hostports 1162 for both TCP/UDP in the Ingress controller.
 
-   
-
-   The example shown in the following JSON snippet adds two new hostports 1162 for both TCP/UDP in the Ingress controller.
-
-   ```
+  ```
    "name": "nginx-ingress",
    "ports": [
     {
@@ -153,13 +132,10 @@ To expose the probe TCP/UDP service to external networks using Ingress, you will
            "protocol": "UDP"
        }
    ],
-   ```
+  ```
 
-   
+Save/apply the changes to the nginx-ingress-controller daemon set. The nginx-ingress-controller will automatically restart its nginx-ingress-controller pod and load the new configuration.
 
-   Save/apply the changes to the nginx-ingress-controller daemon set. The nginx-ingress-controller will automatically restart its nginx-ingress-controller pod and load the new configuration.
-
-   
 
 6. After the nginx-ingress-controller pod is running, verify that you are able to reach the probe service via the hostport. For the SNMP Probe for example, test by sending a SNMP trap to <kubernetes-proxy-ip>:1162 as configured above and the SNMP Probe should log (if messageLevel=debug) indicating that trap is received.
 

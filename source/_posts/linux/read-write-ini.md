@@ -1,11 +1,10 @@
 ---
-title: shell读写配置
+title: bash编程 —— 读写配置
 date: 2020-09-13 16:30:00
 tags:    
 	- Shell
 categories:
     - Shell
-
 copyright: true
 toc: true
 ---

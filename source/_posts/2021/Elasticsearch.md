@@ -139,40 +139,35 @@ POST http://localhost:9200/index1,index2,index3/_search
 	
 
 ### 文档
-
 - 创建
-
   ```
   POST /schools/school/4
   ```
 
 - 更新
-
   ```
   PUT ...
   ```
 
 - 版本控制
-	- 内部控制（默认）
-		- 更新、删除、新增等操作时，自动+1，从1开始
-	- 外部控制 version_type: external
-		- ?version=2
+  - 内部控制（默认）
+    - 更新、删除、新增等操作时，自动+1，从1开始
+  - 外部控制 version_type: external
+    - ?version=2
 
 - 操作类型
+  ```
+  POST http://localhost:9200/tutorials/chapter/1?op_type=create
+  ```
+  是一种明确操作类型的操作，防止更新已有文档。指明create后，如果已有该index/type/id则报错version conflict
 
-	```
-	POST http://localhost:9200/tutorials/chapter/1?op_type=create
-	```
-	
-	是一种明确操作类型的操作，防止更新已有文档。指明create后，如果已有该index/type/id则报错version conflict
-	
 - 指定所需的字段
-
-	- ?fields = name,fees
-
+  
+- ?fields = name,fees
+  
 - 指定超时
-
-	- ?timeout = 3m
+  
+  - ?timeout = 3m
 
 
 
@@ -303,7 +298,6 @@ POST http://localhost:9200/schools*/_search
 ```
 
 还有许多其他特殊的桶聚合，这在许多其他情况下是有用的，它们分别是：
-
 日期直方图汇总/聚合
 日期范围汇总/聚合
 过滤聚合
