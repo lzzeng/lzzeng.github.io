@@ -1,5 +1,5 @@
 ---
-title: Redis问题笔记
+title: Redis笔记01
 date: 2021-03-17 22:55:40
 tags:
     - Redis
@@ -22,7 +22,7 @@ toc: true
 
 
 
-> 在项目中使用 Redis，主要考虑两个角度：性能和并发。如果只是为了分布式锁这些其他功能，还有其他中间件 Zookpeer 等代替，并非一定要使用 Redis。
+> 在项目中使用 Redis，主要考虑两个角度：性能和并发。如果只是为了分布式锁这些其他功能，还有其他中间件 Zookeeper 等代替，并非一定要使用 Redis。
 
 
 
@@ -39,6 +39,8 @@ toc: true
 **Set**
 
 **Sorted Set**
+
+**Bitmap**
 
 
 
