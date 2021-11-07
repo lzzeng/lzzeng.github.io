@@ -29,7 +29,7 @@ https://suggest3.sinajs.cn/suggest/key=万科A
 
 
 
-![image-20200928004218980](../assets/images2020/image-20200928004218980.png)
+<img src="../assets/images2020/image-20200928004218980.png" alt="image-20200928004218980" style="zoom:67%;" />
 
 
 
