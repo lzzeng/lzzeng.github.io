@@ -13,7 +13,7 @@ copyright:
 
 效果图：
 
-![image-20201008161147875](../../assets/images2020/image-20201008165358024.png)
+<img src="../../assets/images2020/image-20201008165358024.png" alt="image-20201008161147875" style="zoom: 67%;" />
 
 
 

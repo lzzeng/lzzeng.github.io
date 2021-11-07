@@ -15,7 +15,7 @@ copyright: true
 
 针对有时输出对不齐作了改进，效果如下：
 
-![image-20200928004218980](../../assets/images2020/stock-price-plus-01_20201008163516.png)
+<img src="../../assets/images2020/stock-price-plus-01_20201008163516.png" alt="image-20200928004218980" style="zoom: 67%;" />
 
 
 
