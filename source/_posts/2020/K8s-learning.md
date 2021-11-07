@@ -1,5 +1,5 @@
 ---
-title: K8s学习笔记
+title: K8s笔记
 date: 2020-10-29 22:55:40
 tags:
     - K8s

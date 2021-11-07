@@ -1,5 +1,5 @@
 ---
-title: python编程（二）—— 华为机试题
+title: 华为机试coding（二）
 date: 2021-10-27 23:55:40
 tags:
     - Python
