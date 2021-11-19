@@ -1,5 +1,5 @@
 ---
-title: 分苹果plus
+title: 分苹果
 date: 2021-11-16 18:20:40
 tags:
     - Python
@@ -12,8 +12,6 @@ toc: true
 
 
 
-
-## 分苹果plus
 
 > 题目：m个人分n个苹果，按分得个数排序前后相邻2个人最多相差3个，每个人最少分得1个，问有几种分法?
 
@@ -56,7 +54,7 @@ print(share(apple, basket))
 ```python
 # coding=utf8
 
-""" 分苹果plus
+""" 分苹果
 m个人 分n个苹果 按分得数排序 前后相邻2个人最多相差3个 每个人最少分得1个 有几种分法?
 
 注意：
@@ -85,16 +83,13 @@ while True:
             continue
 
         # 最后一个人最多km个，最少一个(n>=m)
-        km = n / m
+        km = n // m
         Q = 4  # 比后一位多 0 1 2 3 四种取值，所以模为4
 
         nS = 0
 
-        for i in range(1, km + 1):
-            # print "-------------------------->", "i:", i
-            pm = i  # 记最后一个人分得i个
-
-            print "pm:", pm
+        for pm in range(1, km + 1):
+            print "pm:", pm  # 记最后一个人分得pm个
             # 均分特例
             if m * pm == n:
                 nS += 1
@@ -108,9 +103,10 @@ while True:
             # 更新各位的模，以减少循环次数
             for y in range(m - 1):
                 # p[y]*(y+1) + pm*m <= n
-                QL[y] = min((n - m * pm) / (y + 1) + 1, Q)
+                QL[y] = min((n - m * pm) // (y + 1) + 1, Q)
             print "QL:", QL
 
+            is_break = False
             while True:
                 p[m - 2] += 1  # 循环+1，逐位检查是否进1退0，生成一个长度为m-1的序列p
                 for j in range(m - 2, -1, -1):
@@ -121,18 +117,18 @@ while True:
                             p[j - 1] += 1
                             p[j] = 0
                         elif j == 0:
-                            p[0] += 1
+                            is_break = True
 
-                if p[0] > QL[0]:
+                if is_break:
                     break
 
-                sum_p = pm
+                sum_p = pm * m
                 for x in range(m - 2, -1, -1):
-                    sum_p += p[x] * (x + 1) + pm
+                    sum_p += p[x] * (x + 1)
 
                 if sum_p != n:
                     continue
-                elif sum_p == n:
+                else:
                     # print "-------------------------->", p, pm, sum_p
                     nS += 1
                     t = p[-1] + pm
