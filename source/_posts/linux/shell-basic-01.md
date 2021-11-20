@@ -155,3 +155,47 @@ ref: <https://blog.csdn.net/nwpulei/article/details/38556595>
 [root@VM_0_13_centos shell-basic]# echo $ab
 4 5
 ```
+
+
+
+## 固定时间间隔
+
+每5s执行一次命令：
+
+```sh
+while true
+do
+  sleep 5
+  echo "`date '+%S'`: doing ..."
+done
+```
+
+此写法很简单，但可能会产生累积误差。
+
+改成如下可自动校正，使每个周期的实际执行时刻和预期执行时刻的偏差保持在0.5s以内（但sleep间隔不宜过小，0.1到1之间，0.5左右即可，越小CPU负载越高）：
+
+```sh
+tperiod=5
+let tnext=`date '+%s'`+tperiod
+let tend=`date '+%s'`+tperiod*1000  # 可设定截止时刻，如果无限循环，可去掉tend相关的行
+
+while true
+do
+  tnow=`date '+%s'`
+  sleep 0.5
+
+  if [ $tnow -gt $tend ]; then
+    echo "end."
+    break
+  fi
+
+  if [ $tnow -le $tnext ]; then
+    continue
+  fi
+
+  let tnext+=tperiod
+
+  echo "`date '+%S'`: doing ..."
+done
+```
+
