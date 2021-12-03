@@ -1,5 +1,5 @@
 ---
-title: Linux日志
+title: 【摘】Linux日志
 date: 2021-4-25 22:55:40
 tags:
     - Linux

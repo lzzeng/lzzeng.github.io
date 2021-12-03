@@ -22,17 +22,15 @@ toc: true
 > 题1：用链表存0-9的数字，然后从头到尾输出其代表的10进制数值（前面的0忽略）
 >
 > 题2：随机生成8字符的密码
-> ```
 > 包含1个特殊字符：!#$%&()+,-./:;<=>?@[]^_{}~
 > 包含1到2个数字
 > 包含大写字母
 > 包含小写字母
-> 
+>
 > 示例：
 > 4mOhNkV?
 > $pDz0Q9F
 > fXi?AGC9
-> ```
 
 
 
@@ -157,7 +155,7 @@ def create_psw():
     r_lst.append(choice(uppercase))
     r_lst.append(choice(lowercase))
     for j in range(8 - len(r_lst)):
-        r_lst.append(choice(letters + digits))
+        r_lst.append(choice(letters))
 
     shuffle(r_lst)
     return "".join(r_lst)

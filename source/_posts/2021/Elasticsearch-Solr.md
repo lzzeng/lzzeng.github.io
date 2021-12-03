@@ -1,5 +1,5 @@
 ---
-title: Elasticsearch和Solr
+title: 【摘】Elasticsearch和Solr
 date: 2021-7-30 22:55:40
 tags:
     - Elasticsearch

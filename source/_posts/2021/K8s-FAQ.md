@@ -1,5 +1,5 @@
 ---
-title: K8s的几个知识点
+title: K8s小知识
 date: 2021-6-20 22:55:40
 tags:
     - K8s

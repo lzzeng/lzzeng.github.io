@@ -1,5 +1,5 @@
 ---
-title: Redis笔记01
+title: 【摘】Redis笔记01
 date: 2021-03-17 22:55:40
 tags:
     - Redis
@@ -68,8 +68,8 @@ Redis 采用的是定期删除+惰性删除的过期策略。
 - volatile-random：当内存不足以容纳新写入数据时，在设置了过期时间的键空间中，随机移除某个 Key。（依然不推荐）
 - volatile-ttl：当内存不足以容纳新写入数据时，在设置了过期时间的键空间中，有更早过期时间的 Key 优先移除。（不推荐）
 
-默认配置的是： maxmemory-policy volatile-lru
-推荐： maxmemory-policy ***allkeys-lru
+默认配置的是： maxmemory-policy  volatile-lru
+推荐： maxmemory-policy  allkeys-lru
 
 
 

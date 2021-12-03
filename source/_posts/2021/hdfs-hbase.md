@@ -1,5 +1,5 @@
 ---
-title: HDFS和HBase
+title: 【摘】HDFS和HBase
 date: 2021-5-29 22:55:40
 tags:
     - Hadoop

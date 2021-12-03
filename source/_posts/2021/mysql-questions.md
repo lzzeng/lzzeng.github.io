@@ -1,5 +1,5 @@
 ---
-title: MySQL问题笔记
+title: 【摘】MySQL问题
 date: 2021-08-11 22:55:40
 tags:
     - MySQL
