@@ -7,6 +7,7 @@ categories:
     - Java
 
 copyright:
+toc: true
 ---
 
 
@@ -54,7 +55,7 @@ class Solution {
     }
 
     public Map<Point, Integer> walk(String s) {
-        Map<Point, Integer> Points = new HashMap<>();
+        Map<Point, Integer> points = new HashMap<>();
         Point p0 = new Point(0, 0);
         for (char ch : s.toCharArray()) {
             switch (ch) {
@@ -73,14 +74,14 @@ class Solution {
             }
 
             Point p = new Point(p0.x, p0.y);
-            if (Points.containsKey(p)) {
-                Points.put(p, Points.get(p) + 1);
+            if (points.containsKey(p)) {
+                points.put(p, points.get(p) + 1);
             } else {
-                Points.put(p, 1);
+                points.put(p, 1);
             }
         }
 
-        return Points;
+        return points;
     }
 }
 
