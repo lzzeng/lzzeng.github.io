@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+<meta name="viewport" content="width=device-width">
+<meta name="google-site-verification" content="V4j2XKWJOKRE9YZT6Bh0vioT5VWrnimuwjmS6cyIuJ8">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Python,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="列表和字典类型 —— 这可能是在Python程序中所见到并使用的两种最常见、最具有灵活性而且功能最为强大的集合体类型。">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python Basic 01">
+<meta property="og:url" content="https://lzzeng.github.io/python/python-basic-map-list-dict-set/index.html">
+<meta property="og:site_name" content="Zeng&#39;s Page">
+<meta property="og:description" content="列表和字典类型 —— 这可能是在Python程序中所见到并使用的两种最常见、最具有灵活性而且功能最为强大的集合体类型。">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2022-02-20T15:52:50.036Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python Basic 01">
+<meta name="twitter:description" content="列表和字典类型 —— 这可能是在Python程序中所见到并使用的两种最常见、最具有灵活性而且功能最为强大的集合体类型。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://lzzeng.github.io/python/python-basic-map-list-dict-set/">
+
+
+
+
+
+  <title>Python Basic 01 | Zeng's Page</title>
+  
+
+
+
+
+
+
+
+
+  <script src="/js/src/photoswipe.js?v=5.1.4"></script>
+  <script src="/js/src/photoswipe-ui-default.js?v=5.1.4"></script>
+</head>
+
+<body itemscope itemtype="https://schema.org/WebPage" lang="default">
+
+  
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="https://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Zeng's Page</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-photos">
+          <a href="/photos/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-photo"></i> <br>
+            
+            相册
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="https://schema.org/Article">
+  
+  
+  
+  <div class="post-block" id="container">
+    <link itemprop="mainEntityOfPage" href="https://lzzeng.github.io/python/python-basic-map-list-dict-set/">
+
+    <span hidden itemprop="author" itemscope itemtype="https://schema.org/Person">
+      <meta itemprop="name" content="Lz. Zeng">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+      <meta itemprop="name" content="Zeng's Page">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Python Basic 01</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-10-07T16:30:00+00:00">
+                2020-10-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          		 
+
+        </div>
+      </header>
+    	
+	
+	
+		<script type="text/javascript">
+			function showToc(){
+				var toc_article = document.getElementById("toc-article");
+				var show_toc_btn = document.getElementById("show-toc-btn");			
+				toc_article.setAttribute("style","display:block");
+				show_toc_btn.setAttribute("style","display:none");
+			};
+			function showBtn(){
+				var toc_article = document.getElementById("toc-article");
+				var show_toc_btn = document.getElementById("show-toc-btn");
+				toc_article.setAttribute("style","display:none");
+				show_toc_btn.setAttribute("style","display:block");
+			};
+		</script>
+		
+		<div id="my-toc">
+			<p class="show-toc-btn" id="show-toc-btn" onclick="showToc();">
+				<span class="btn-bg"></span>
+				<span class="btn-text">目录</span>
+			</p>
+			<div id="toc-article" class="toc-article" style="display:none">
+				<span id="toc-close" class="toc-close" title="隐藏" onclick="showBtn();">×</span>
+				<strong class="toc-title">文章目录</strong>
+				<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#map-映射"><span class="toc-number">1.</span> <span class="toc-text">map 映射</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#list-有序集"><span class="toc-number">2.</span> <span class="toc-text">list 有序集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#remove方法按给定元素删除"><span class="toc-number">2.1.</span> <span class="toc-text">remove方法按给定元素删除</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pop方法按index删除"><span class="toc-number">2.2.</span> <span class="toc-text">pop方法按index删除</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#del命令也可以删除列表元素，按index删除"><span class="toc-number">2.3.</span> <span class="toc-text">del命令也可以删除列表元素，按index删除</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#列表分片赋值"><span class="toc-number">2.4.</span> <span class="toc-text">列表分片赋值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sort"><span class="toc-number">2.5.</span> <span class="toc-text">sort</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#set-无序集"><span class="toc-number">3.</span> <span class="toc-text">set 无序集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dict-字典"><span class="toc-number">4.</span> <span class="toc-text">dict 字典</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#初始化"><span class="toc-number">4.1.</span> <span class="toc-text">初始化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2个list通过zip合并成dict"><span class="toc-number">4.2.</span> <span class="toc-text">2个list通过zip合并成dict</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#items"><span class="toc-number">4.3.</span> <span class="toc-text">items</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dict是可变类型"><span class="toc-number">4.4.</span> <span class="toc-text">dict是可变类型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#copy和deepcopy"><span class="toc-number">5.</span> <span class="toc-text">copy和deepcopy</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#copy"><span class="toc-number">5.1.</span> <span class="toc-text">copy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#deepcopy"><span class="toc-number">5.2.</span> <span class="toc-text">deepcopy</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#比较大小"><span class="toc-number">6.</span> <span class="toc-text">比较大小</span></a></li></ol>
+			</div>
+		</div>
+	
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>列表和字典类型 —— 这可能是在Python程序中所见到并使用的两种最常见、最具有灵活性而且功能最为强大的集合体类型。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="map-映射"><a href="#map-映射" class="headerlink" title="map 映射"></a>map 映射</h2><p>map()是Python内置的高阶函数，它接收一个函数 f 和一个 list，并通过把函数 f 依次作用在 list 的每个元素上，得到一个新的 list 并返回。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; L = map(str, [1, 2, 4])         <span class="comment"># int转str</span></span><br><span class="line">&gt;&gt;&gt; L2 = list(L)</span><br><span class="line">&gt;&gt;&gt; <span class="keyword">for</span> e <span class="keyword">in</span> L:                     <span class="comment"># L 已经迭代过了，不会print</span></span><br><span class="line">...   <span class="built_in">print</span>(e)</span><br><span class="line">... </span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line">&gt;&gt;&gt; L2</span><br><span class="line">[<span class="string">'1'</span>, <span class="string">'2'</span>, <span class="string">'4'</span>]</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; L = list(map(ord, <span class="string">'abcd'</span>))              <span class="comment"># ord 字符转ASC-II码</span></span><br><span class="line">&gt;&gt;&gt; L</span><br><span class="line">[97, 98, 99, 100]</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; L = list(map(chr, range(97,100)))       <span class="comment"># chr ASC-II码转字符</span></span><br><span class="line">&gt;&gt;&gt; L</span><br><span class="line">[<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>]</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; list(map(str.upper, [<span class="string">'a'</span>, <span class="string">'B'</span>, <span class="string">'c'</span>]))   <span class="comment"># 转大写</span></span><br><span class="line">[<span class="string">'A'</span>, <span class="string">'B'</span>, <span class="string">'C'</span>]</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; d2</span><br><span class="line">&#123;<span class="string">'b'</span>: <span class="string">'555'</span>, <span class="string">'c'</span>: [3, 4, 5], <span class="string">'a'</span>: &#123;<span class="string">'aa'</span>: [9, 11], <span class="string">'bb'</span>: 44&#125;, (1, 2, 6): <span class="string">'999'</span>&#125;</span><br><span class="line">&gt;&gt;&gt; list(map(str, d2))                      <span class="comment"># 提取keys，并转化为str了</span></span><br><span class="line">[<span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'a'</span>, <span class="string">'(1, 2, 6)'</span>]</span><br></pre></td></tr></table></figure>
+<h2 id="list-有序集"><a href="#list-有序集" class="headerlink" title="list 有序集"></a>list 有序集</h2><h3 id="remove方法按给定元素删除"><a href="#remove方法按给定元素删除" class="headerlink" title="remove方法按给定元素删除"></a>remove方法按给定元素删除</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; a = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'a'</span>, 2, 3, 2]</span><br><span class="line">&gt;&gt;&gt; a</span><br><span class="line">[<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'a'</span>, 2, 3, 2]</span><br><span class="line">&gt;&gt;&gt; a.remove(<span class="string">'a'</span>)</span><br><span class="line">&gt;&gt;&gt; a</span><br><span class="line">[<span class="string">'b'</span>, <span class="string">'a'</span>, 2, 3, 2]</span><br><span class="line">&gt;&gt;&gt; a.remove(2)</span><br><span class="line">&gt;&gt;&gt; a</span><br><span class="line">[<span class="string">'b'</span>, <span class="string">'a'</span>, 3, 2]    <span class="comment"># remove删除的是左边第一个找到的元素</span></span><br></pre></td></tr></table></figure>
+<h3 id="pop方法按index删除"><a href="#pop方法按index删除" class="headerlink" title="pop方法按index删除"></a>pop方法按index删除</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; a = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'a'</span>, 2, 3, 2]</span><br><span class="line">&gt;&gt;&gt; a.pop(2)</span><br><span class="line"><span class="string">'a'</span></span><br><span class="line">&gt;&gt;&gt; a</span><br><span class="line">[<span class="string">'a'</span>, <span class="string">'b'</span>, 2, 3, 2]</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; a = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'a'</span>, 2, 3, 2]</span><br><span class="line">&gt;&gt;&gt; a.pop()                         <span class="comment"># 不给定index时，pop的是末尾元素，等同于 a.pop(-1)</span></span><br><span class="line">2</span><br><span class="line">&gt;&gt;&gt; a</span><br><span class="line">[<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'a'</span>, 2, 3]</span><br></pre></td></tr></table></figure>
+<h3 id="del命令也可以删除列表元素，按index删除"><a href="#del命令也可以删除列表元素，按index删除" class="headerlink" title="del命令也可以删除列表元素，按index删除"></a>del命令也可以删除列表元素，按index删除</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; a = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'a'</span>, 2, 3, 2]</span><br><span class="line">&gt;&gt;&gt; del a[2]</span><br><span class="line">&gt;&gt;&gt; a</span><br><span class="line">[<span class="string">'a'</span>, <span class="string">'b'</span>, 2, 3, 2]</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; del a         <span class="comment"># del列表名 会删除此列表</span></span><br><span class="line">&gt;&gt;&gt; a</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line 1, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">NameError: name <span class="string">'a'</span> is not defined</span><br></pre></td></tr></table></figure>
+<h3 id="列表分片赋值"><a href="#列表分片赋值" class="headerlink" title="列表分片赋值"></a>列表分片赋值</h3><p>分片赋值最好分成两步来理解：</p>
+<blockquote>
+<p>1.删除, 删除等号左边指定的分片, 含头不含尾。</p>
+<p>2.插入, 将包含在等号右边对象中的片段插入旧分片被删除的位置。</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; L = [1, 3, 5, 7, 9]</span><br><span class="line">&gt;&gt;&gt; L</span><br><span class="line">[1, 3, 5, 7, 9]</span><br><span class="line">&gt;&gt;&gt; L[1:3] = [2, 4, 6, 8]</span><br><span class="line">&gt;&gt;&gt; L</span><br><span class="line">[1, 2, 4, 6, 8, 7, 9]</span><br><span class="line">&gt;&gt;&gt; </span><br><span class="line">&gt;&gt;&gt; L[1:5] = []                 <span class="comment"># 分片赋值[] 相当于删除分片元素</span></span><br><span class="line">&gt;&gt;&gt; L</span><br><span class="line">[1, 7, 9]</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; L[1:3] = [2, 4, 6, 8]</span><br><span class="line">&gt;&gt;&gt; L</span><br><span class="line">[1, 2, 4, 6, 8]</span><br><span class="line">&gt;&gt;&gt; del L[1:3]                  <span class="comment"># del命令删除分片</span></span><br><span class="line">&gt;&gt;&gt; L</span><br><span class="line">[1, 6, 8]</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; L2</span><br><span class="line">[<span class="string">'A'</span>, <span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'C'</span>]</span><br><span class="line">&gt;&gt;&gt; L2[:] = []                  <span class="comment"># [:]分片表示全部元素，此处删除全部元素</span></span><br><span class="line">&gt;&gt;&gt; L2</span><br><span class="line">[]</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; L2</span><br><span class="line">[<span class="string">'A'</span>, <span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'C'</span>]</span><br><span class="line">&gt;&gt;&gt; del L2[:]</span><br><span class="line">&gt;&gt;&gt; L2</span><br><span class="line">[]</span><br><span class="line">&gt;&gt;&gt; del L2</span><br><span class="line">&gt;&gt;&gt; L2</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line 1, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">NameError: name <span class="string">'L2'</span> is not defined</span><br></pre></td></tr></table></figure>
+<h3 id="sort"><a href="#sort" class="headerlink" title="sort"></a>sort</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; L = [<span class="string">'a'</span>, <span class="string">'A'</span>, <span class="string">'b'</span>, <span class="string">'C'</span>]</span><br><span class="line">&gt;&gt;&gt; L.sort()</span><br><span class="line">&gt;&gt;&gt; L</span><br><span class="line">[<span class="string">'A'</span>, <span class="string">'C'</span>, <span class="string">'a'</span>, <span class="string">'b'</span>]</span><br><span class="line">&gt;&gt;&gt; L.sort(reverse=True)</span><br><span class="line">&gt;&gt;&gt; L</span><br><span class="line">[<span class="string">'b'</span>, <span class="string">'a'</span>, <span class="string">'C'</span>, <span class="string">'A'</span>]</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; L</span><br><span class="line">[<span class="string">'A'</span>, <span class="string">'C'</span>, <span class="string">'a'</span>, <span class="string">'b'</span>]</span><br><span class="line">&gt;&gt;&gt; L.sort(key=str.lower)           <span class="comment"># ？统一按小写排序，小写后相同的保留原顺序</span></span><br><span class="line">&gt;&gt;&gt; L</span><br><span class="line">[<span class="string">'A'</span>, <span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'C'</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># L.sort(key=str.upper) 与 L.sort(key=str.lower) 效果相同</span></span><br></pre></td></tr></table></figure>
+<h2 id="set-无序集"><a href="#set-无序集" class="headerlink" title="set 无序集"></a>set 无序集</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; a = <span class="built_in">set</span>(1,2,3)                    <span class="comment"># set和list 不能通过参数列表的方式初始化元素</span></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line 1, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">TypeError: <span class="built_in">set</span> expected at most 1 arguments, got 3</span><br><span class="line">&gt;&gt;&gt; </span><br><span class="line">&gt;&gt;&gt; a = <span class="built_in">set</span>([1,2,3])                  <span class="comment"># 方式一：转化list为set</span></span><br><span class="line">&gt;&gt;&gt; a</span><br><span class="line">&#123;1, 2, 3&#125;</span><br><span class="line">&gt;&gt;&gt; a = &#123;1,2,3,4&#125;                     <span class="comment"># 方式二：使用&#123;&#125;</span></span><br><span class="line">&gt;&gt;&gt; a</span><br><span class="line">&#123;1, 2, 3, 4&#125;</span><br><span class="line">&gt;&gt;&gt; a.pop(3)                          <span class="comment"># 因无序，没有pop(index)方法，del命令也是</span></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line 1, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">TypeError: pop() takes no arguments (1 given)</span><br><span class="line">&gt;&gt;&gt; a.remove(3)                       <span class="comment"># 有remove(element)方法，按元素删除；不要混淆pop，没有pop(element)方法</span></span><br><span class="line">&gt;&gt;&gt; a</span><br><span class="line">&#123;1, 2, 4&#125;</span><br><span class="line">&gt;&gt;&gt; a = &#123;1,2,2,3&#125;                     <span class="comment"># 初始元素含重复，会自动剔除重复元素</span></span><br><span class="line">&gt;&gt;&gt; a</span><br><span class="line">&#123;1, 2, 3&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="dict-字典"><a href="#dict-字典" class="headerlink" title="dict 字典"></a>dict 字典</h2><p>Python 3.0中的keys返回一个迭代器，在Python 2.6中，keys构建并返回一个真正的列表</p>
+<h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; d = &#123;<span class="string">'a'</span>: 1, <span class="string">'b'</span>: 2, <span class="string">'c'</span>: [3,4,5]&#125;      <span class="comment"># 方式一</span></span><br><span class="line">&gt;&gt;&gt; d = dict(a=1, b=2, c=[3,4,5])           <span class="comment"># 方式二</span></span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; d = &#123;&#125;                                  <span class="comment"># 方式三，逐行赋值法</span></span><br><span class="line">&gt;&gt;&gt; d[<span class="string">'a'</span>] = 1</span><br><span class="line">&gt;&gt;&gt; d[<span class="string">'b'</span>] = 2</span><br><span class="line">&gt;&gt;&gt; d[<span class="string">'c'</span>] = [3,4,5]</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; d4 = dict.fromkeys([<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>], 0)  <span class="comment"># 方式四，此方法只能指定key，参数二是公共的值，不写则为None</span></span><br><span class="line">&gt;&gt;&gt; d4</span><br><span class="line">&#123;<span class="string">'a'</span>: 0, <span class="string">'b'</span>: 0, <span class="string">'c'</span>: 0&#125;</span><br><span class="line">&gt;&gt;&gt; d4 = dict.fromkeys([<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>])</span><br><span class="line">&gt;&gt;&gt; d4</span><br><span class="line">&#123;<span class="string">'a'</span>: None, <span class="string">'b'</span>: None, <span class="string">'c'</span>: None&#125;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; D3 = dict.fromkeys(<span class="string">'abcd'</span>)                    <span class="comment"># 四-2, 注意'dict'字符串被分割，如同 for e in 'abcd'</span></span><br><span class="line">&gt;&gt;&gt; D3</span><br><span class="line">&#123;<span class="string">'a'</span>: None, <span class="string">'b'</span>: None, <span class="string">'c'</span>: None, <span class="string">'d'</span>: None&#125;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; D2 = &#123;k:v <span class="keyword">for</span> k,v  <span class="keyword">in</span> zip([<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>], [1,2,3])&#125;     <span class="comment"># 解析法</span></span><br><span class="line">&gt;&gt;&gt; D2</span><br><span class="line">&#123;<span class="string">'a'</span>: 1, <span class="string">'b'</span>: 2, <span class="string">'c'</span>: 3&#125;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; <span class="comment"># 其它转化法</span></span><br></pre></td></tr></table></figure>
+<h3 id="2个list通过zip合并成dict"><a href="#2个list通过zip合并成dict" class="headerlink" title="2个list通过zip合并成dict"></a>2个list通过zip合并成dict</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; list_a = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>]</span><br><span class="line">&gt;&gt;&gt; list_b = [1, 2, [3,4,5]]</span><br><span class="line">&gt;&gt;&gt; zip(list_a,list_b)</span><br><span class="line">&lt;zip object at 0x7f8d0b714e08&gt;</span><br><span class="line">&gt;&gt;&gt; list(zip(list_a,list_b))</span><br><span class="line">[(<span class="string">'a'</span>, 1), (<span class="string">'b'</span>, 2), (<span class="string">'c'</span>, [3, 4, 5])]</span><br><span class="line">&gt;&gt;&gt; dict(zip(list_a, list_b))</span><br><span class="line">&#123;<span class="string">'a'</span>: 1, <span class="string">'b'</span>: 2, <span class="string">'c'</span>: [3, 4, 5]&#125;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; a = zip(list_a, list_b)                 <span class="comment"># zip 迭代器类型</span></span><br><span class="line">&gt;&gt;&gt; <span class="built_in">type</span>(a)</span><br><span class="line">&lt;class <span class="string">'zip'</span>&gt;</span><br><span class="line">&gt;&gt;&gt; <span class="keyword">for</span> m,n <span class="keyword">in</span> a:</span><br><span class="line">...     <span class="built_in">print</span>(f<span class="string">'&#123;m&#125;,&#123;n&#125;'</span>)</span><br><span class="line">... </span><br><span class="line">a,1</span><br><span class="line">b,2</span><br><span class="line">c,[3, 4, 5]</span><br></pre></td></tr></table></figure>
+<h3 id="items"><a href="#items" class="headerlink" title="items"></a>items</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; d = &#123;<span class="string">'a'</span>: 1, <span class="string">'b'</span>: 2, <span class="string">'c'</span>: [3,4,5]&#125;</span><br><span class="line">&gt;&gt;&gt; d</span><br><span class="line">&#123;<span class="string">'a'</span>: 1, <span class="string">'b'</span>: 2, <span class="string">'c'</span>: [3, 4, 5]&#125;</span><br><span class="line">&gt;&gt;&gt; d.items</span><br><span class="line">&lt;built-in method items of dict object at 0x7f8d0b7924c8&gt;</span><br><span class="line">&gt;&gt;&gt; d.items()</span><br><span class="line">dict_items([(<span class="string">'a'</span>, 1), (<span class="string">'b'</span>, 2), (<span class="string">'c'</span>, [3, 4, 5])])      <span class="comment"># d.items() 是dict_items类型</span></span><br><span class="line">&gt;&gt;&gt; items = list(d.items())</span><br><span class="line">&gt;&gt;&gt; items</span><br><span class="line">[(<span class="string">'a'</span>, 1), (<span class="string">'b'</span>, 2), (<span class="string">'c'</span>, [3, 4, 5])]</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; <span class="keyword">for</span> k,v <span class="keyword">in</span> d.items():</span><br><span class="line">...     <span class="built_in">print</span>(f<span class="string">"&#123;k&#125;:&#123;v&#125;"</span>)</span><br><span class="line">... </span><br><span class="line">a:1</span><br><span class="line">b:2</span><br><span class="line">c:[3, 4, 5]</span><br></pre></td></tr></table></figure>
+<h3 id="dict是可变类型"><a href="#dict是可变类型" class="headerlink" title="dict是可变类型"></a>dict是可变类型</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; d</span><br><span class="line">&#123;<span class="string">'a'</span>: 1, <span class="string">'b'</span>: 2, <span class="string">'c'</span>: [3, 4, 5]&#125;</span><br><span class="line">&gt;&gt;&gt; </span><br><span class="line">&gt;&gt;&gt; d2 = d</span><br><span class="line">&gt;&gt;&gt; d is d2</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; </span><br><span class="line">&gt;&gt;&gt; d[<span class="string">'a'</span>] = 1.1</span><br><span class="line">&gt;&gt;&gt; d</span><br><span class="line">&#123;<span class="string">'a'</span>: 1.1, <span class="string">'b'</span>: 2, <span class="string">'c'</span>: [3, 4, 5]&#125;</span><br><span class="line">&gt;&gt;&gt; d2</span><br><span class="line">&#123;<span class="string">'a'</span>: 1.1, <span class="string">'b'</span>: 2, <span class="string">'c'</span>: [3, 4, 5]&#125;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; d.pop(<span class="string">'a'</span>)                          <span class="comment"># dict 有pop(key)方法，相当于get(key)并del d[key]</span></span><br><span class="line">1.1</span><br><span class="line">&gt;&gt;&gt; d</span><br><span class="line">&#123;<span class="string">'b'</span>: 2, <span class="string">'c'</span>: [3, 4, 5]&#125;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; d.remove(<span class="string">'a'</span>)                       <span class="comment"># ! dict 没有remove或delete方法</span></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line 1, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">AttributeError: <span class="string">'dict'</span> object has no attribute <span class="string">'remove'</span></span><br><span class="line">&gt;&gt;&gt; d.delete(<span class="string">'a'</span>)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line 1, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">AttributeError: <span class="string">'dict'</span> object has no attribute <span class="string">'delete'</span></span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; del d[<span class="string">'a'</span>]                          <span class="comment"># del 命令可以按key删除</span></span><br><span class="line">&gt;&gt;&gt; d</span><br><span class="line">&#123;<span class="string">'b'</span>: 2, <span class="string">'c'</span>: [3, 4, 5]&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="copy和deepcopy"><a href="#copy和deepcopy" class="headerlink" title="copy和deepcopy"></a>copy和deepcopy</h2><h3 id="copy"><a href="#copy" class="headerlink" title="copy"></a>copy</h3><p>字典、列表本身有copy方法</p>
+<blockquote>
+<p>拷贝需要注意的是：无条件值的分片以及字典copy方法只能做顶层复制。也就是说，不能够复制嵌套的数据结构（如果有的话）。如果你需要一个深层嵌套的数据结构的完整的、完全独立的拷贝，那么就要使用标准的copy模块——包括import copy语句，并编辑X = copy.deepcopy（Y）对任意嵌套对象Y做完整的复制。</p>
+</blockquote>
+<ul>
+<li>没有限制条件的分片表达式(L[:])能够复制序列。</li>
+<li>字典copy方法(X.copy())能够复制字典。</li>
+<li>有些内置函数, 例如list, 能够生成拷贝(list(L))。</li>
+<li>copy标准库模块能够生成完整拷贝。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; d</span><br><span class="line">&#123;<span class="string">'b'</span>: 2, <span class="string">'c'</span>: [3, 4, 5], <span class="string">'a'</span>: &#123;<span class="string">'aa'</span>: [8, 9], <span class="string">'bb'</span>: 22&#125;&#125;</span><br><span class="line">&gt;&gt;&gt; d2 = d</span><br><span class="line">&gt;&gt;&gt; d2</span><br><span class="line">&#123;<span class="string">'b'</span>: 2, <span class="string">'c'</span>: [3, 4, 5], <span class="string">'a'</span>: &#123;<span class="string">'aa'</span>: [8, 9], <span class="string">'bb'</span>: 22&#125;&#125;</span><br><span class="line">&gt;&gt;&gt; d3 = d.copy()</span><br><span class="line">&gt;&gt;&gt; d3[<span class="string">'a'</span>] = <span class="string">'abc'</span></span><br><span class="line">&gt;&gt;&gt; d3</span><br><span class="line">&#123;<span class="string">'b'</span>: 2, <span class="string">'c'</span>: [3, 4, 5], <span class="string">'a'</span>: <span class="string">'abc'</span>&#125;</span><br><span class="line">&gt;&gt;&gt; d</span><br><span class="line">&#123;<span class="string">'b'</span>: 2, <span class="string">'c'</span>: [3, 4, 5], <span class="string">'a'</span>: &#123;<span class="string">'aa'</span>: [8, 9], <span class="string">'bb'</span>: 22&#125;&#125;</span><br><span class="line">&gt;&gt;&gt; </span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; d[<span class="string">'b'</span>] = 222</span><br><span class="line">&gt;&gt;&gt; d2</span><br><span class="line">&#123;<span class="string">'b'</span>: 222, <span class="string">'c'</span>: [3, 4, 5], <span class="string">'a'</span>: &#123;<span class="string">'aa'</span>: [8, 9], <span class="string">'bb'</span>: 22&#125;&#125;</span><br><span class="line">&gt;&gt;&gt; d</span><br><span class="line">&#123;<span class="string">'b'</span>: 222, <span class="string">'c'</span>: [3, 4, 5], <span class="string">'a'</span>: &#123;<span class="string">'aa'</span>: [8, 9], <span class="string">'bb'</span>: 22&#125;&#125;</span><br><span class="line">&gt;&gt;&gt; d3</span><br><span class="line">&#123;<span class="string">'b'</span>: 2, <span class="string">'c'</span>: [3, 4, 5], <span class="string">'a'</span>: <span class="string">'abc'</span>&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; L = [1,3,5,7]</span><br><span class="line">&gt;&gt;&gt; L2 = L</span><br><span class="line">&gt;&gt;&gt; L3 = L.copy()             <span class="comment"># L3是对L的独立的复制</span></span><br><span class="line">&gt;&gt;&gt; L3</span><br><span class="line">[1, 3, 5, 7]</span><br><span class="line">&gt;&gt;&gt; L3[1] = 2                 <span class="comment"># L3改变 L和L2不变</span></span><br><span class="line">&gt;&gt;&gt; L3</span><br><span class="line">[1, 2, 5, 7]</span><br><span class="line">&gt;&gt;&gt; L</span><br><span class="line">[1, 3, 5, 7]</span><br><span class="line">&gt;&gt;&gt; L2</span><br><span class="line">[1, 3, 5, 7]</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; L[1] = 100                <span class="comment"># L改变，L2跟着变，L3不变</span></span><br><span class="line">&gt;&gt;&gt; L</span><br><span class="line">[1, 100, 5, 7]</span><br><span class="line">&gt;&gt;&gt; L2</span><br><span class="line">[1, 100, 5, 7]</span><br><span class="line">&gt;&gt;&gt; L3</span><br><span class="line">[1, 2, 5, 7]</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; L4 = L[:]                 <span class="comment"># [:]分片相当于L.copy(), L[0:], L[0:4]也一样</span></span><br><span class="line">&gt;&gt;&gt; L4</span><br><span class="line">[1, 100, 5, 7]</span><br><span class="line">&gt;&gt;&gt; L4[1] = 99</span><br><span class="line">&gt;&gt;&gt; L4</span><br><span class="line">[1, 99, 5, 7]</span><br><span class="line">&gt;&gt;&gt; L</span><br><span class="line">[1, 100, 5, 7]</span><br><span class="line">&gt;&gt;&gt; L2</span><br><span class="line">[1, 100, 5, 7]</span><br><span class="line">&gt;&gt;&gt; L3</span><br><span class="line">[1, 2, 5, 7]</span><br></pre></td></tr></table></figure>
+<h3 id="deepcopy"><a href="#deepcopy" class="headerlink" title="deepcopy"></a>deepcopy</h3><p>copy只复制顶层结构, deepcopy可以复制嵌套的数据结构</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; d</span><br><span class="line">&#123;<span class="string">'b'</span>: 222, <span class="string">'c'</span>: [3, 4, 5], <span class="string">'a'</span>: &#123;<span class="string">'aa'</span>: [8, 9], <span class="string">'bb'</span>: 22&#125;&#125;</span><br><span class="line">&gt;&gt;&gt; </span><br><span class="line">&gt;&gt;&gt; d2 = d.copy()</span><br><span class="line">&gt;&gt;&gt; d2</span><br><span class="line">&#123;<span class="string">'b'</span>: 222, <span class="string">'c'</span>: [3, 4, 5], <span class="string">'a'</span>: &#123;<span class="string">'aa'</span>: [8, 9], <span class="string">'bb'</span>: 22&#125;&#125;</span><br><span class="line">&gt;&gt;&gt; d[<span class="string">'a'</span>][<span class="string">'aa'</span>] = [8, 9, 10]                                   <span class="comment"># 修改第二层数据，会发现d2 仍然随 d 变化，因为对key:'a'的value复制的是引用</span></span><br><span class="line">&gt;&gt;&gt; d</span><br><span class="line">&#123;<span class="string">'b'</span>: 222, <span class="string">'c'</span>: [3, 4, 5], <span class="string">'a'</span>: &#123;<span class="string">'aa'</span>: [8, 9, 10], <span class="string">'bb'</span>: 22&#125;&#125;</span><br><span class="line">&gt;&gt;&gt; d2 </span><br><span class="line">&#123;<span class="string">'b'</span>: 222, <span class="string">'c'</span>: [3, 4, 5], <span class="string">'a'</span>: &#123;<span class="string">'aa'</span>: [8, 9, 10], <span class="string">'bb'</span>: 22&#125;&#125;</span><br><span class="line">&gt;&gt;&gt; </span><br><span class="line">&gt;&gt;&gt; d[<span class="string">'b'</span>] = 333                                                <span class="comment"># 修改顶层数据则不会</span></span><br><span class="line">&gt;&gt;&gt; d</span><br><span class="line">&#123;<span class="string">'b'</span>: 333, <span class="string">'c'</span>: [3, 4, 5], <span class="string">'a'</span>: &#123;<span class="string">'aa'</span>: [8, 9, 10], <span class="string">'bb'</span>: 22&#125;&#125;</span><br><span class="line">&gt;&gt;&gt; d2</span><br><span class="line">&#123;<span class="string">'b'</span>: 222, <span class="string">'c'</span>: [3, 4, 5], <span class="string">'a'</span>: &#123;<span class="string">'aa'</span>: [8, 9, 10], <span class="string">'bb'</span>: 22&#125;&#125;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; import copy</span><br><span class="line">&gt;&gt;&gt; d3 = copy.deepcopy(d)                                       <span class="comment"># deepcopy可以实现嵌套引用结构的复制</span></span><br><span class="line">&gt;&gt;&gt; d3</span><br><span class="line">&#123;<span class="string">'b'</span>: 333, <span class="string">'c'</span>: [3, 4, 5], <span class="string">'a'</span>: &#123;<span class="string">'aa'</span>: [8, 9, 10], <span class="string">'bb'</span>: 22&#125;&#125;</span><br><span class="line">&gt;&gt;&gt; d[<span class="string">'a'</span>][<span class="string">'aa'</span>] = [9, 11]</span><br><span class="line">&gt;&gt;&gt; d</span><br><span class="line">&#123;<span class="string">'b'</span>: 333, <span class="string">'c'</span>: [3, 4, 5], <span class="string">'a'</span>: &#123;<span class="string">'aa'</span>: [9, 11], <span class="string">'bb'</span>: 22&#125;&#125;</span><br><span class="line">&gt;&gt;&gt; d3</span><br><span class="line">&#123;<span class="string">'b'</span>: 333, <span class="string">'c'</span>: [3, 4, 5], <span class="string">'a'</span>: &#123;<span class="string">'aa'</span>: [8, 9, 10], <span class="string">'bb'</span>: 22&#125;&#125;   <span class="comment"># 没变</span></span><br><span class="line">&gt;&gt;&gt; d2</span><br><span class="line">&#123;<span class="string">'b'</span>: 222, <span class="string">'c'</span>: [3, 4, 5], <span class="string">'a'</span>: &#123;<span class="string">'aa'</span>: [9, 11], <span class="string">'bb'</span>: 22&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>进一步测试</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; d2</span><br><span class="line">&#123;<span class="string">'b'</span>: <span class="string">'222'</span>, <span class="string">'c'</span>: [3, 4, 5], <span class="string">'a'</span>: &#123;<span class="string">'aa'</span>: [9, 11], <span class="string">'bb'</span>: 22&#125;&#125;</span><br><span class="line">&gt;&gt;&gt; d4 = d2.copy()</span><br><span class="line">&gt;&gt;&gt; d4 is d2</span><br><span class="line">False</span><br><span class="line">&gt;&gt;&gt; d4 == d2</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; d2[<span class="string">'b'</span>] is d4[<span class="string">'b'</span>]                <span class="comment"># 使用copy时，对于不可变对象和（嵌套的）可变对象，都是复制（顶层）地址</span></span><br><span class="line">True                                  <span class="comment"># 因此，当顶层不可变对象修改时，互不影响</span></span><br><span class="line">&gt;&gt;&gt; d2[<span class="string">'b'</span>] = <span class="string">'555'</span></span><br><span class="line">&gt;&gt;&gt; d4[<span class="string">'b'</span>]</span><br><span class="line">222</span><br><span class="line">&gt;&gt;&gt; d2[<span class="string">'b'</span>] is d4[<span class="string">'b'</span>]</span><br><span class="line">False</span><br><span class="line">&gt;&gt;&gt; </span><br><span class="line">&gt;&gt;&gt; d2[<span class="string">'a'</span>][<span class="string">'bb'</span>] = 44                <span class="comment"># 而嵌套结构修改时，因为是原地修改（顶层地址不变），原始对象和复制对象一起改变</span></span><br><span class="line">&gt;&gt;&gt; d2</span><br><span class="line">&#123;<span class="string">'b'</span>: <span class="string">'555'</span>, <span class="string">'c'</span>: [3, 4, 5], <span class="string">'a'</span>: &#123;<span class="string">'aa'</span>: [9, 11], <span class="string">'bb'</span>: 44&#125;&#125;</span><br><span class="line">&gt;&gt;&gt; d4</span><br><span class="line">&#123;<span class="string">'b'</span>: 222, <span class="string">'c'</span>: [3, 4, 5], <span class="string">'a'</span>: &#123;<span class="string">'aa'</span>: [9, 11], <span class="string">'bb'</span>: 44&#125;&#125;</span><br><span class="line">&gt;&gt;&gt; d2[<span class="string">'a'</span>][<span class="string">'bb'</span>] is d4[<span class="string">'a'</span>][<span class="string">'bb'</span>]    <span class="comment"># 虽然子层 d2['a']['bb'] 是int不可变类型修改时第二层的相应地址变了</span></span><br><span class="line">True                                  <span class="comment"># ，但因为所关联的顶层地址不变，所以复制对象与原始对象保持一致</span></span><br><span class="line">                                      <span class="comment"># copy复制的对象 可以看作时 栈内存中的一个内存位置所指向的堆内存的顶层地址列表</span></span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; d3 = copy.deepcopy(d2)</span><br><span class="line">&gt;&gt;&gt; d3</span><br><span class="line">&#123;<span class="string">'b'</span>: <span class="string">'555'</span>, <span class="string">'c'</span>: [3, 4, 5], <span class="string">'a'</span>: &#123;<span class="string">'aa'</span>: [9, 11], <span class="string">'bb'</span>: 22&#125;&#125;</span><br><span class="line">&gt;&gt;&gt; d3[<span class="string">'b'</span>] is d2[<span class="string">'b'</span>]</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; d3[<span class="string">'c'</span>] is d2[<span class="string">'c'</span>]</span><br><span class="line">False</span><br><span class="line">&gt;&gt;&gt; d3[<span class="string">'c'</span>][0] is d2[<span class="string">'c'</span>][0]</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; d3[<span class="string">'a'</span>] is d2[<span class="string">'a'</span>]</span><br><span class="line">False</span><br><span class="line">&gt;&gt;&gt; d3[<span class="string">'a'</span>][<span class="string">'bb'</span>] is d2[<span class="string">'a'</span>][<span class="string">'bb'</span>]</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; d3[<span class="string">'a'</span>][<span class="string">'aa'</span>] is d2[<span class="string">'a'</span>][<span class="string">'aa'</span>]</span><br><span class="line">False</span><br><span class="line">&gt;&gt;&gt; d3[<span class="string">'a'</span>][<span class="string">'aa'</span>][0] is d2[<span class="string">'a'</span>][<span class="string">'aa'</span>][0]</span><br><span class="line">True</span><br></pre></td></tr></table></figure>
+<h2 id="比较大小"><a href="#比较大小" class="headerlink" title="比较大小"></a>比较大小</h2><p>一般来说，Python中不同的类型的比较方法如下：</p>
+<ul>
+<li>数字通过相对大小进行比较。</li>
+<li>字符串是按照字典顺序，一个字符接一个字符地对比进行比较（”abc” &lt; “ac”）。</li>
+<li>列表和元组从左到右对每部分的内容进行比较。</li>
+<li>字典通过排序之后的（键、值）列表进行比较。字典的相对大小比较在Python 3.0中不支持</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; d</span><br><span class="line">&#123;<span class="string">'b'</span>: 333, <span class="string">'c'</span>: [3, 4, 5], <span class="string">'a'</span>: &#123;<span class="string">'aa'</span>: [8, 9, 10], <span class="string">'bb'</span>: 22&#125;&#125;</span><br><span class="line">&gt;&gt;&gt; d2</span><br><span class="line">&#123;<span class="string">'b'</span>: 222, <span class="string">'c'</span>: [3, 4, 5], <span class="string">'a'</span>: &#123;<span class="string">'aa'</span>: [8, 9, 10], <span class="string">'bb'</span>: 22&#125;&#125;</span><br><span class="line">&gt;&gt;&gt; </span><br><span class="line">&gt;&gt;&gt; d3 = d</span><br><span class="line">&gt;&gt;&gt; d3 is d</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; d4 = d2.copy()</span><br><span class="line">&gt;&gt;&gt; d4 is d2</span><br><span class="line">False</span><br><span class="line">&gt;&gt;&gt; d4 == d2                  <span class="comment"># 可以测试是否相等 ==</span></span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; d2 &lt; d                    <span class="comment"># 但 python3 中不支持比大小 &gt; &lt;</span></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line 1, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">TypeError: <span class="string">'&lt;'</span> not supported between instances of <span class="string">'dict'</span> and <span class="string">'dict'</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        
+
+      </div>
+    	
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/python/python-text-align/" rel="next" title="Python文本对齐">
+                <i class="fa fa-chevron-left"></i> Python文本对齐
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/python/python-pretty-column/" rel="prev" title="Python整齐输出多列">
+                Python整齐输出多列 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MjA1NC8xODYwMQ=="></div>
+    </div>
+
+  
+  
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="https://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/avatar.jpg" alt="Lz. Zeng">
+            
+              <p class="site-author-name" itemprop="name">Lz. Zeng</p>
+              <p class="site-description motion-element" itemprop="description">Continuous Self-Improvement</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-name">发布</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#map-映射"><span class="nav-number">1.</span> <span class="nav-text">map 映射</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#list-有序集"><span class="nav-number">2.</span> <span class="nav-text">list 有序集</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#remove方法按给定元素删除"><span class="nav-number">2.1.</span> <span class="nav-text">remove方法按给定元素删除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pop方法按index删除"><span class="nav-number">2.2.</span> <span class="nav-text">pop方法按index删除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#del命令也可以删除列表元素，按index删除"><span class="nav-number">2.3.</span> <span class="nav-text">del命令也可以删除列表元素，按index删除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列表分片赋值"><span class="nav-number">2.4.</span> <span class="nav-text">列表分片赋值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sort"><span class="nav-number">2.5.</span> <span class="nav-text">sort</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#set-无序集"><span class="nav-number">3.</span> <span class="nav-text">set 无序集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dict-字典"><span class="nav-number">4.</span> <span class="nav-text">dict 字典</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化"><span class="nav-number">4.1.</span> <span class="nav-text">初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2个list通过zip合并成dict"><span class="nav-number">4.2.</span> <span class="nav-text">2个list通过zip合并成dict</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#items"><span class="nav-number">4.3.</span> <span class="nav-text">items</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dict是可变类型"><span class="nav-number">4.4.</span> <span class="nav-text">dict是可变类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#copy和deepcopy"><span class="nav-number">5.</span> <span class="nav-text">copy和deepcopy</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#copy"><span class="nav-number">5.1.</span> <span class="nav-text">copy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#deepcopy"><span class="nav-number">5.2.</span> <span class="nav-text">deepcopy</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#比较大小"><span class="nav-number">6.</span> <span class="nav-text">比较大小</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lz. Zeng</span>
+  
+  
+</div>
+
+
+
+
+
+
+  <div class="theme-info"><i class="fa fa-life-ring" aria-hidden="true"></i><span></span>  NexT.Pisces</div>
+
+
+
+
+<div class="theme-info">
+  <span>&nbsp;|&nbsp;</span>
+  <i class="fa fa-eye" aria-hidden="true"></i><span id="busuanzi_container_site_pv">&nbsp;<span id="busuanzi_value_site_pv">
+  </span>&nbsp;</span>
+  <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">&nbsp;<span id="busuanzi_value_site_uv"></span>&nbsp;</span>
+  <i class="fa fa-area-chart" aria-hidden="true"></i>
+  <span class="post-count">Words: 97.2k</span>
+</div>
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/photoswipe.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/photoswipe-ui-default.js?v=5.1.4"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

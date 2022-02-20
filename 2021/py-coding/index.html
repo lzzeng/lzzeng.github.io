@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+<meta name="viewport" content="width=device-width">
+<meta name="google-site-verification" content="V4j2XKWJOKRE9YZT6Bh0vioT5VWrnimuwjmS6cyIuJ8">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Python,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="字符串分割、逆序字符逆序 123&quot;&quot;&quot; 字符串反转 数字颠倒 字符逆序 &quot;&quot;&quot;print raw_input()[::-1]">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HJ-01">
+<meta property="og:url" content="https://lzzeng.github.io/2021/py-coding/index.html">
+<meta property="og:site_name" content="Zeng&#39;s Page">
+<meta property="og:description" content="字符串分割、逆序字符逆序 123&quot;&quot;&quot; 字符串反转 数字颠倒 字符逆序 &quot;&quot;&quot;print raw_input()[::-1]">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2022-02-20T15:52:50.032Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HJ-01">
+<meta name="twitter:description" content="字符串分割、逆序字符逆序 123&quot;&quot;&quot; 字符串反转 数字颠倒 字符逆序 &quot;&quot;&quot;print raw_input()[::-1]">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://lzzeng.github.io/2021/py-coding/">
+
+
+
+
+
+  <title>HJ-01 | Zeng's Page</title>
+  
+
+
+
+
+
+
+
+
+  <script src="/js/src/photoswipe.js?v=5.1.4"></script>
+  <script src="/js/src/photoswipe-ui-default.js?v=5.1.4"></script>
+</head>
+
+<body itemscope itemtype="https://schema.org/WebPage" lang="default">
+
+  
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="https://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Zeng's Page</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-photos">
+          <a href="/photos/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-photo"></i> <br>
+            
+            相册
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="https://schema.org/Article">
+  
+  
+  
+  <div class="post-block" id="container">
+    <link itemprop="mainEntityOfPage" href="https://lzzeng.github.io/2021/py-coding/">
+
+    <span hidden itemprop="author" itemscope itemtype="https://schema.org/Person">
+      <meta itemprop="name" content="Lz. Zeng">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+      <meta itemprop="name" content="Zeng's Page">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">HJ-01</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-08-25T23:55:40+00:00">
+                2021-08-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          		 
+
+        </div>
+      </header>
+    	
+	
+	
+		<script type="text/javascript">
+			function showToc(){
+				var toc_article = document.getElementById("toc-article");
+				var show_toc_btn = document.getElementById("show-toc-btn");			
+				toc_article.setAttribute("style","display:block");
+				show_toc_btn.setAttribute("style","display:none");
+			};
+			function showBtn(){
+				var toc_article = document.getElementById("toc-article");
+				var show_toc_btn = document.getElementById("show-toc-btn");
+				toc_article.setAttribute("style","display:none");
+				show_toc_btn.setAttribute("style","display:block");
+			};
+		</script>
+		
+		<div id="my-toc">
+			<p class="show-toc-btn" id="show-toc-btn" onclick="showToc();">
+				<span class="btn-bg"></span>
+				<span class="btn-text">目录</span>
+			</p>
+			<div id="toc-article" class="toc-article" style="display:none">
+				<span id="toc-close" class="toc-close" title="隐藏" onclick="showBtn();">×</span>
+				<strong class="toc-title">文章目录</strong>
+				<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串"><span class="toc-number">1.</span> <span class="toc-text">字符串</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#分割、逆序"><span class="toc-number">1.1.</span> <span class="toc-text">分割、逆序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字符数"><span class="toc-number">1.2.</span> <span class="toc-text">字符数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#回文"><span class="toc-number">1.3.</span> <span class="toc-text">回文</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#字典、列表"><span class="toc-number">2.</span> <span class="toc-text">字典、列表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数字"><span class="toc-number">3.</span> <span class="toc-text">数字</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#二进制"><span class="toc-number">3.1.</span> <span class="toc-text">二进制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#最小公倍数"><span class="toc-number">3.2.</span> <span class="toc-text">最小公倍数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#生成器"><span class="toc-number">4.</span> <span class="toc-text">生成器</span></a></li></ol>
+			</div>
+		</div>
+	
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><h3 id="分割、逆序"><a href="#分割、逆序" class="headerlink" title="分割、逆序"></a>分割、逆序</h3><p>字符逆序</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">""" 字符串反转 数字颠倒 字符逆序 """</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> raw_input()[::<span class="number">-1</span>]</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>单词逆序</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">""" 单词逆序</span></span><br><span class="line"><span class="string">i am a student</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">student a am i</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># S1:</span></span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line">line = raw_input()</span><br><span class="line">a = re.findall(<span class="string">"[A-Za-z]+"</span>, line)</span><br><span class="line"><span class="keyword">print</span> <span class="string">' '</span>.join(a[::<span class="number">-1</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># S2:</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">" "</span>.join(reversed(raw_input().split()))</span><br><span class="line"></span><br><span class="line"><span class="comment"># S3:</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">" "</span>.join(raw_input().split()[::<span class="number">-1</span>])</span><br></pre></td></tr></table></figure>
+<p>字符串最后一个单词的长度</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">""" 字符串最后一个单词的长度</span></span><br><span class="line"><span class="string">hello abc</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">3</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line">s = raw_input()</span><br><span class="line">lst = s.split(<span class="string">' '</span>)</span><br><span class="line">print(len(lst[<span class="number">-1</span>]))</span><br></pre></td></tr></table></figure>
+<p>字符串分割</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">""" 字符串分割 每8个字符分割 不足则右补零</span></span><br><span class="line"><span class="string">abc</span></span><br><span class="line"><span class="string">123456789</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">abc00000</span></span><br><span class="line"><span class="string">12345678</span></span><br><span class="line"><span class="string">90000000</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        s = raw_input()</span><br><span class="line">        <span class="keyword">while</span> len(s) &gt; <span class="number">8</span>:</span><br><span class="line">            <span class="keyword">print</span> s[:<span class="number">8</span>]</span><br><span class="line">            s = s[<span class="number">8</span>:]</span><br><span class="line">        <span class="keyword">print</span> s.ljust(<span class="number">8</span>, <span class="string">"0"</span>)</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+<h3 id="字符数"><a href="#字符数" class="headerlink" title="字符数"></a>字符数</h3><p>统计不重复的字符总数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">""" 统计不重复的字符总数</span></span><br><span class="line"><span class="string">abc</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">3</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line">s = raw_input()</span><br><span class="line">sn = set()</span><br><span class="line"><span class="keyword">for</span> c <span class="keyword">in</span> s:</span><br><span class="line">    sn.add(c)</span><br><span class="line"></span><br><span class="line">print(len(sn))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 其实一行就够了</span></span><br><span class="line">print(len(set(s)))</span><br></pre></td></tr></table></figure>
+<p>统计各字符的数量</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">""" 统计各字符的数量</span></span><br><span class="line"><span class="string">hello</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&#123;'h': 1, 'e': 1, 'l': 2, 'o': 1&#125;</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line">s = raw_input()</span><br><span class="line">d = dict(zip(s, [<span class="number">0</span>] * len(s)))</span><br><span class="line"><span class="keyword">for</span> c <span class="keyword">in</span> s:</span><br><span class="line">    d[c] += <span class="number">1</span></span><br><span class="line"><span class="keyword">print</span> d</span><br></pre></td></tr></table></figure>
+<h3 id="回文"><a href="#回文" class="headerlink" title="回文"></a>回文</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">""" 最长的对称部分 最长回文长度问题</span></span><br><span class="line"><span class="string">ADEFFFFFFFFF</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">9</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+<p><strong>正向查找法：</strong>先假定边界 再比较长度</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">s = raw_input()</span><br><span class="line">nmax = <span class="number">1</span></span><br><span class="line">j = len(s)</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    <span class="keyword">if</span> j &lt;= nmax:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    j -= <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> k <span class="keyword">in</span> xrange(<span class="number">0</span>, j):</span><br><span class="line">        ss = s[k:j + <span class="number">1</span>]</span><br><span class="line">        <span class="keyword">if</span> ss == ss[::<span class="number">-1</span>]:</span><br><span class="line">            <span class="keyword">if</span> j - k + <span class="number">1</span> &gt; nmax:</span><br><span class="line">                nmax = j - k + <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> nmax</span><br></pre></td></tr></table></figure>
+<p><strong>逆向查找法：</strong>先假定最大长度，再查找是否存在这样的子字符串</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(s)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> length <span class="keyword">in</span> range(len(s), <span class="number">-1</span>, <span class="number">-1</span>):</span><br><span class="line">        <span class="keyword">for</span> index <span class="keyword">in</span> range(<span class="number">0</span>, len(s) - length + <span class="number">1</span>):</span><br><span class="line">            sub_string = s[index:length + index]</span><br><span class="line">            <span class="keyword">if</span> sub_string == sub_string[::<span class="number">-1</span>]:</span><br><span class="line">                <span class="keyword">return</span> len(sub_string)</span><br><span class="line"></span><br><span class="line">a = input()</span><br><span class="line"><span class="keyword">if</span> a:</span><br><span class="line">    print(f(a))</span><br></pre></td></tr></table></figure>
+<p><strong>单层循环法</strong>：最快</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">s = raw_input()</span><br><span class="line">m = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(s)):</span><br><span class="line">    <span class="keyword">if</span> i - m &gt;= <span class="number">1</span> <span class="keyword">and</span> s[i - m - <span class="number">1</span>:i + <span class="number">1</span>] == s[i - m - <span class="number">1</span>:i + <span class="number">1</span>][::<span class="number">-1</span>]:</span><br><span class="line">        m += <span class="number">2</span></span><br><span class="line">    <span class="keyword">elif</span> i - m &gt;= <span class="number">0</span> <span class="keyword">and</span> s[i - m:i + <span class="number">1</span>] == s[i - m:i + <span class="number">1</span>][::<span class="number">-1</span>]:</span><br><span class="line">        m += <span class="number">1</span></span><br><span class="line">        </span><br><span class="line"><span class="keyword">print</span> m</span><br></pre></td></tr></table></figure>
+<h2 id="字典、列表"><a href="#字典、列表" class="headerlink" title="字典、列表"></a>字典、列表</h2><p>合并表记录</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">""" 合并表记录</span></span><br><span class="line"><span class="string">3</span></span><br><span class="line"><span class="string">0 1</span></span><br><span class="line"><span class="string">0 2</span></span><br><span class="line"><span class="string">1 2</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">0 3</span></span><br><span class="line"><span class="string">1 2</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line">d = &#123;&#125;</span><br><span class="line">n = int(raw_input())</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(n):</span><br><span class="line">    <span class="comment"># k, v = [int(e) for e in raw_input().split()]</span></span><br><span class="line">    k, v = map(int, raw_input().split())</span><br><span class="line">    <span class="keyword">if</span> k <span class="keyword">in</span> d:</span><br><span class="line">        d[k] += v</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        d[k] = v</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> k, v <span class="keyword">in</span> d.items():</span><br><span class="line">    <span class="keyword">print</span> k, v</span><br></pre></td></tr></table></figure>
+<p>查找兄弟单词</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">""" 查找兄弟单词</span></span><br><span class="line"><span class="string">6 cab ad abcd cba abc bca abc 1</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">3</span></span><br><span class="line"><span class="string">bca</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">说明：</span></span><br><span class="line"><span class="string">abc的兄弟单词有cab cba bca，所以输出3</span></span><br><span class="line"><span class="string">经字典序排列后，变为bca cab cba，所以第1个字典序兄弟单词为bca</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line">s = raw_input().strip().split()</span><br><span class="line">n = int(s.pop(<span class="number">0</span>))</span><br><span class="line">a, x, k = s[:n], s[n], int(s[<span class="number">-1</span>])</span><br><span class="line">y = sorted(x)</span><br><span class="line">temp = sorted([i <span class="keyword">for</span> i <span class="keyword">in</span> a <span class="keyword">if</span> i != x <span class="keyword">and</span> sorted(i) == y])</span><br><span class="line"><span class="keyword">print</span> len(temp)</span><br><span class="line"><span class="keyword">if</span> k &lt;= len(temp):</span><br><span class="line">    <span class="keyword">print</span> temp[k - <span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+<h2 id="数字"><a href="#数字" class="headerlink" title="数字"></a>数字</h2><h3 id="二进制"><a href="#二进制" class="headerlink" title="二进制"></a>二进制</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">""" 十进制数 二进制形式1的个数</span></span><br><span class="line"><span class="string">7</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">3</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> bin(input()).count(<span class="string">"1"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 注意类型：</span></span><br><span class="line"><span class="keyword">print</span> type(input())         <span class="comment"># int</span></span><br><span class="line"><span class="keyword">print</span> type(raw_input())     <span class="comment"># str</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">""" 二进制数问题 最长的连续1的个数 """</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># S0:</span></span><br><span class="line">s = bin(int(raw_input()))[<span class="number">2</span>:]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(s), <span class="number">0</span>, <span class="number">-1</span>):</span><br><span class="line">    <span class="keyword">if</span> <span class="string">'1'</span> * i <span class="keyword">in</span> s:</span><br><span class="line">        <span class="keyword">print</span> i</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">        </span><br><span class="line"><span class="comment"># S2: 正则法 稍慢一点点</span></span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> len(max(re.findall(<span class="string">r'1&#123;1,&#125;'</span>, bin(int(raw_input()))[<span class="number">2</span>:]), key=len))</span><br></pre></td></tr></table></figure>
+<h3 id="最小公倍数"><a href="#最小公倍数" class="headerlink" title="最小公倍数"></a>最小公倍数</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">a, b = map(int, raw_input().split())</span><br><span class="line"><span class="keyword">if</span> a == b:</span><br><span class="line">    <span class="keyword">print</span> a</span><br><span class="line">    exit()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> a &gt; b:</span><br><span class="line">    a, b = b, a</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> xrange(<span class="number">1</span>, a + <span class="number">1</span>):</span><br><span class="line">    c = b * i</span><br><span class="line">    <span class="keyword">if</span> c % a == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">print</span> c</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+<p><strong>循环求余法：</strong>可同时求出 最小公倍数 和 最大公约数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">m, n = map(int, raw_input().split())</span><br><span class="line">p = m * n</span><br><span class="line">t = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> n != <span class="number">0</span>:</span><br><span class="line">    t = m</span><br><span class="line">    m = n</span><br><span class="line">    n = t % n</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> p / m  <span class="comment"># m 即最大公约数, p/m 即最小公倍数</span></span><br></pre></td></tr></table></figure>
+<h2 id="生成器"><a href="#生成器" class="headerlink" title="生成器"></a>生成器</h2><p>求斐波那契数列第n项</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> timeit <span class="keyword">import</span> default_timer <span class="keyword">as</span> timer</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">g</span><span class="params">(n)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    有边界，限制n个，就需要根据 n 来判断是否 yield</span></span><br><span class="line"><span class="string">    :param n:</span></span><br><span class="line"><span class="string">    :return:</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">if</span> n &gt; <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">yield</span> <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> n &gt; <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">yield</span> <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> n &gt; <span class="number">2</span>:</span><br><span class="line">        a, b, i = <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span></span><br><span class="line">        <span class="keyword">while</span> i != n:</span><br><span class="line">            a, b = b, a + b</span><br><span class="line">            <span class="keyword">yield</span> b</span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者：</span></span><br><span class="line"><span class="comment"># def g(n):</span></span><br><span class="line"><span class="comment">#     a, b, counter = 1, 1, 0</span></span><br><span class="line"><span class="comment">#     while True:</span></span><br><span class="line"><span class="comment">#         if (counter &gt; n):</span></span><br><span class="line"><span class="comment">#             return</span></span><br><span class="line"><span class="comment">#         yield a</span></span><br><span class="line"><span class="comment">#         a, b = b, a + b</span></span><br><span class="line"><span class="comment">#         counter += 1</span></span><br><span class="line">            </span><br><span class="line"><span class="comment"># def g():</span></span><br><span class="line"><span class="comment">#     """</span></span><br><span class="line"><span class="comment">#     无边界限制</span></span><br><span class="line"><span class="comment">#     :return:</span></span><br><span class="line"><span class="comment">#     """</span></span><br><span class="line"><span class="comment">#     yield 1</span></span><br><span class="line"><span class="comment">#     yield 1</span></span><br><span class="line"><span class="comment">#     a, b = 1, 1</span></span><br><span class="line"><span class="comment">#     while True:</span></span><br><span class="line"><span class="comment">#         a, b = b, a + b</span></span><br><span class="line"><span class="comment">#         yield b</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        n = int(raw_input())</span><br><span class="line">        tic = timer()</span><br><span class="line">        <span class="keyword">for</span> i, e <span class="keyword">in</span> enumerate(g(n), start=<span class="number">1</span>):</span><br><span class="line">            <span class="keyword">if</span> i == n:</span><br><span class="line">                <span class="keyword">print</span> e</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">        toc = timer()</span><br><span class="line">        <span class="keyword">print</span> toc - tic</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+<p>累计法：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        i = int(raw_input())</span><br><span class="line">        tic = timer()</span><br><span class="line">        a, b = <span class="number">1</span>, <span class="number">1</span></span><br><span class="line">        n = <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> i &gt; <span class="number">2</span>:</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">3</span>, i + <span class="number">1</span>):</span><br><span class="line">                n = a + b</span><br><span class="line">                a = b</span><br><span class="line">                b = n</span><br><span class="line">        <span class="keyword">print</span> n</span><br><span class="line">        toc = timer()</span><br><span class="line">        <span class="keyword">print</span> toc - tic</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        
+
+      </div>
+    	
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/elasticsearch-note/" rel="next" title="Elasticsearch笔记02">
+                <i class="fa fa-chevron-left"></i> Elasticsearch笔记02
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/sh-coding/" rel="prev" title="HJ-02">
+                HJ-02 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MjA1NC8xODYwMQ=="></div>
+    </div>
+
+  
+  
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="https://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/avatar.jpg" alt="Lz. Zeng">
+            
+              <p class="site-author-name" itemprop="name">Lz. Zeng</p>
+              <p class="site-description motion-element" itemprop="description">Continuous Self-Improvement</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-name">发布</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串"><span class="nav-number">1.</span> <span class="nav-text">字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分割、逆序"><span class="nav-number">1.1.</span> <span class="nav-text">分割、逆序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符数"><span class="nav-number">1.2.</span> <span class="nav-text">字符数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#回文"><span class="nav-number">1.3.</span> <span class="nav-text">回文</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字典、列表"><span class="nav-number">2.</span> <span class="nav-text">字典、列表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数字"><span class="nav-number">3.</span> <span class="nav-text">数字</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#二进制"><span class="nav-number">3.1.</span> <span class="nav-text">二进制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最小公倍数"><span class="nav-number">3.2.</span> <span class="nav-text">最小公倍数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成器"><span class="nav-number">4.</span> <span class="nav-text">生成器</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lz. Zeng</span>
+  
+  
+</div>
+
+
+
+
+
+
+  <div class="theme-info"><i class="fa fa-life-ring" aria-hidden="true"></i><span></span>  NexT.Pisces</div>
+
+
+
+
+<div class="theme-info">
+  <span>&nbsp;|&nbsp;</span>
+  <i class="fa fa-eye" aria-hidden="true"></i><span id="busuanzi_container_site_pv">&nbsp;<span id="busuanzi_value_site_pv">
+  </span>&nbsp;</span>
+  <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">&nbsp;<span id="busuanzi_value_site_uv"></span>&nbsp;</span>
+  <i class="fa fa-area-chart" aria-hidden="true"></i>
+  <span class="post-count">Words: 97.2k</span>
+</div>
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/photoswipe.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/photoswipe-ui-default.js?v=5.1.4"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

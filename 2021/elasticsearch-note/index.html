@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+<meta name="viewport" content="width=device-width">
+<meta name="google-site-verification" content="V4j2XKWJOKRE9YZT6Bh0vioT5VWrnimuwjmS6cyIuJ8">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Elasticsearch,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="倒排索引倒排索引是单词文档矩阵的一种存储形式分词系统将文档切分成单词序列  单词文档矩阵 = 单词词典 + 倒排文件单词词典：所有单词的集合，包括单词本身的信息和指向倒排列表的指针倒排文件：所有单词的倒排列表顺序地存储在磁盘里形成的文件  倒排列表最简单的形式仅记录包含某个单词的文档编号(DocID)，复杂一些的，还记录了单词在某个文档出现的次数，即单词频率（TF），还可能包含某个单词的文档数，即">
+<meta name="keywords" content="Elasticsearch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Elasticsearch笔记02">
+<meta property="og:url" content="https://lzzeng.github.io/2021/elasticsearch-note/index.html">
+<meta property="og:site_name" content="Zeng&#39;s Page">
+<meta property="og:description" content="倒排索引倒排索引是单词文档矩阵的一种存储形式分词系统将文档切分成单词序列  单词文档矩阵 = 单词词典 + 倒排文件单词词典：所有单词的集合，包括单词本身的信息和指向倒排列表的指针倒排文件：所有单词的倒排列表顺序地存储在磁盘里形成的文件  倒排列表最简单的形式仅记录包含某个单词的文档编号(DocID)，复杂一些的，还记录了单词在某个文档出现的次数，即单词频率（TF），还可能包含某个单词的文档数，即">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2022-02-20T15:52:50.032Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Elasticsearch笔记02">
+<meta name="twitter:description" content="倒排索引倒排索引是单词文档矩阵的一种存储形式分词系统将文档切分成单词序列  单词文档矩阵 = 单词词典 + 倒排文件单词词典：所有单词的集合，包括单词本身的信息和指向倒排列表的指针倒排文件：所有单词的倒排列表顺序地存储在磁盘里形成的文件  倒排列表最简单的形式仅记录包含某个单词的文档编号(DocID)，复杂一些的，还记录了单词在某个文档出现的次数，即单词频率（TF），还可能包含某个单词的文档数，即">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://lzzeng.github.io/2021/elasticsearch-note/">
+
+
+
+
+
+  <title>Elasticsearch笔记02 | Zeng's Page</title>
+  
+
+
+
+
+
+
+
+
+  <script src="/js/src/photoswipe.js?v=5.1.4"></script>
+  <script src="/js/src/photoswipe-ui-default.js?v=5.1.4"></script>
+</head>
+
+<body itemscope itemtype="https://schema.org/WebPage" lang="default">
+
+  
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="https://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Zeng's Page</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-photos">
+          <a href="/photos/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-photo"></i> <br>
+            
+            相册
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="https://schema.org/Article">
+  
+  
+  
+  <div class="post-block" id="container">
+    <link itemprop="mainEntityOfPage" href="https://lzzeng.github.io/2021/elasticsearch-note/">
+
+    <span hidden itemprop="author" itemscope itemtype="https://schema.org/Person">
+      <meta itemprop="name" content="Lz. Zeng">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+      <meta itemprop="name" content="Zeng's Page">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Elasticsearch笔记02</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-08-15T22:55:40+00:00">
+                2021-08-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/DevOps/" itemprop="url" rel="index">
+                    <span itemprop="name">DevOps</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          		 
+
+        </div>
+      </header>
+    	
+	
+	
+		<script type="text/javascript">
+			function showToc(){
+				var toc_article = document.getElementById("toc-article");
+				var show_toc_btn = document.getElementById("show-toc-btn");			
+				toc_article.setAttribute("style","display:block");
+				show_toc_btn.setAttribute("style","display:none");
+			};
+			function showBtn(){
+				var toc_article = document.getElementById("toc-article");
+				var show_toc_btn = document.getElementById("show-toc-btn");
+				toc_article.setAttribute("style","display:none");
+				show_toc_btn.setAttribute("style","display:block");
+			};
+		</script>
+		
+		<div id="my-toc">
+			<p class="show-toc-btn" id="show-toc-btn" onclick="showToc();">
+				<span class="btn-bg"></span>
+				<span class="btn-text">目录</span>
+			</p>
+			<div id="toc-article" class="toc-article" style="display:none">
+				<span id="toc-close" class="toc-close" title="隐藏" onclick="showBtn();">×</span>
+				<strong class="toc-title">文章目录</strong>
+				<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#倒排索引"><span class="toc-number">1.</span> <span class="toc-text">倒排索引</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ES操作记录"><span class="toc-number">2.</span> <span class="toc-text">ES操作记录</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建索引（同时创建映射）"><span class="toc-number">2.1.</span> <span class="toc-text">创建索引（同时创建映射）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#用PUT还是POST？"><span class="toc-number">2.2.</span> <span class="toc-text">用PUT还是POST？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查看映射"><span class="toc-number">2.3.</span> <span class="toc-text">查看映射</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建一个文档、查看"><span class="toc-number">2.4.</span> <span class="toc-text">创建一个文档、查看</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更新一个文档"><span class="toc-number">2.5.</span> <span class="toc-text">更新一个文档</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#乐观更新"><span class="toc-number">2.6.</span> <span class="toc-text">乐观更新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#批量创建文档"><span class="toc-number">2.7.</span> <span class="toc-text">批量创建文档</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查看索引"><span class="toc-number">2.8.</span> <span class="toc-text">查看索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查看集群健康状态"><span class="toc-number">2.9.</span> <span class="toc-text">查看集群健康状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查看分片"><span class="toc-number">2.10.</span> <span class="toc-text">查看分片</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查看文档数"><span class="toc-number">2.11.</span> <span class="toc-text">查看文档数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基数聚合"><span class="toc-number">2.12.</span> <span class="toc-text">基数聚合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#获取索引前50个文档"><span class="toc-number">2.13.</span> <span class="toc-text">获取索引前50个文档</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#用GET还是POST"><span class="toc-number">2.14.</span> <span class="toc-text">用GET还是POST?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其它API"><span class="toc-number">2.15.</span> <span class="toc-text">其它API</span></a></li></ol></li></ol>
+			</div>
+		</div>
+	
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="倒排索引"><a href="#倒排索引" class="headerlink" title="倒排索引"></a>倒排索引</h2><p>倒排索引是单词文档矩阵的一种存储形式<br>分词系统将文档切分成单词序列</p>
+<blockquote>
+<p>单词文档矩阵 = 单词词典 + 倒排文件<br>单词词典：所有单词的集合，包括单词本身的信息和指向倒排列表的指针<br>倒排文件：所有单词的倒排列表顺序地存储在磁盘里形成的文件</p>
+</blockquote>
+<p>倒排列表最简单的形式仅记录包含某个单词的文档编号(DocID)，复杂一些的，还记录了单词在某个文档出现的次数，即单词频率（TF），还可能包含某个单词的文档数，即文档频率（DF）,和单词在文档中的位置（Pos）</p>
+<a id="more"></a>
+<h2 id="ES操作记录"><a href="#ES操作记录" class="headerlink" title="ES操作记录"></a>ES操作记录</h2><p>版本：7.5</p>
+<h3 id="创建索引（同时创建映射）"><a href="#创建索引（同时创建映射）" class="headerlink" title="创建索引（同时创建映射）"></a>创建索引（同时创建映射）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">curl -XPUT http://localhost:9200/book -H &quot;Content-Type: application/json&quot; -d &apos;&#123;</span><br><span class="line">  &quot;settings&quot;: &#123;</span><br><span class="line">    &quot;number_of_shards&quot;: 1,</span><br><span class="line">    &quot;number_of_replicas&quot;: 1</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;mappings&quot;: &#123;</span><br><span class="line">    &quot;properties&quot;: &#123;</span><br><span class="line">      &quot;id&quot;: &#123;</span><br><span class="line">        &quot;type&quot;: &quot;long&quot;</span><br><span class="line">      &#125;,</span><br><span class="line">      &quot;name&quot;: &#123;</span><br><span class="line">        &quot;type&quot;: &quot;text&quot;</span><br><span class="line">      &#125;,</span><br><span class="line">      &quot;book_url&quot;: &#123;</span><br><span class="line">        &quot;type&quot;: &quot;keyword&quot;</span><br><span class="line">      &#125;,</span><br><span class="line">      &quot;price&quot;: &#123;</span><br><span class="line">        &quot;type&quot;: &quot;double&quot;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;&apos;</span><br></pre></td></tr></table></figure>
+<p>7.0之后的版本没有type的概念（见<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/removal-of-types.html" rel="external nofollow noopener noreferrer" target="_blank">Removal of mapping types</a>）。如果需要迁移包含多个type的旧索引到新版本ES里，可以创建多个index分别对应一个type，或者只创建一个index并增加type字段，然后使用<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.15/docs-reindex.html" rel="external nofollow noopener noreferrer" target="_blank">reindex</a>迁移文档。</p>
+<h3 id="用PUT还是POST？"><a href="#用PUT还是POST？" class="headerlink" title="用PUT还是POST？"></a>用PUT还是POST？</h3><p>操作具体的资源用PUT，操作集合资源用POST，POST非幂等性。</p>
+<blockquote>
+<p>_settings需用PUT不能用POST<br>_search不能用PUT</p>
+</blockquote>
+<h3 id="查看映射"><a href="#查看映射" class="headerlink" title="查看映射"></a>查看映射</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost es_api_test]# curl -s -XGET http://localhost:9200/book/_mapping |jq</span><br></pre></td></tr></table></figure>
+<h3 id="创建一个文档、查看"><a href="#创建一个文档、查看" class="headerlink" title="创建一个文档、查看"></a>创建一个文档、查看</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">PUT /user/_doc/1</span><br><span class="line">&#123;</span><br><span class="line">  &quot;username&quot;: &quot;dream-hammer&quot;,</span><br><span class="line">  &quot;message&quot;: &quot;abc123&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># curl创建</span><br><span class="line">curl -XPUT  -H &apos;Content-Type: application/json&apos; http://localhost:9200/user/_doc/1 -d &apos;&#123;&quot;username&quot;: &quot;dream-hammer&quot;,&quot;message&quot;: &quot;abc123&quot;&#125;&apos;</span><br><span class="line"># curl查询</span><br><span class="line">curl -s -XPOST localhost:9200/user/_search -H &apos;Content-Type: application/json&apos; -d &apos;&#123;&quot;query&quot;: &#123;&quot;match_all&quot;: &#123;&#125;&#125;&#125;&apos; |jq</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;took&quot;: 0,</span><br><span class="line">  &quot;timed_out&quot;: false,</span><br><span class="line">  &quot;_shards&quot;: &#123;</span><br><span class="line">    &quot;total&quot;: 1,</span><br><span class="line">    &quot;successful&quot;: 1,</span><br><span class="line">    &quot;skipped&quot;: 0,</span><br><span class="line">    &quot;failed&quot;: 0</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;hits&quot;: &#123;</span><br><span class="line">    &quot;total&quot;: &#123;</span><br><span class="line">      &quot;value&quot;: 1,</span><br><span class="line">      &quot;relation&quot;: &quot;eq&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;max_score&quot;: 1,</span><br><span class="line">    &quot;hits&quot;: [</span><br><span class="line">      &#123;</span><br><span class="line">        &quot;_index&quot;: &quot;user&quot;,</span><br><span class="line">        &quot;_type&quot;: &quot;_doc&quot;,</span><br><span class="line">        &quot;_id&quot;: &quot;1&quot;,</span><br><span class="line">        &quot;_score&quot;: 1,</span><br><span class="line">        &quot;_source&quot;: &#123;</span><br><span class="line">          &quot;username&quot;: &quot;dream-hammer&quot;,</span><br><span class="line">          &quot;message&quot;: &quot;abc123&quot;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="更新一个文档"><a href="#更新一个文档" class="headerlink" title="更新一个文档"></a>更新一个文档</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">PUT /user/_doc/1</span><br><span class="line">&#123;</span><br><span class="line">  &quot;message&quot;: &quot;def321&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;_index&quot; : &quot;user&quot;,</span><br><span class="line">  &quot;_type&quot; : &quot;_doc&quot;,</span><br><span class="line">  &quot;_id&quot; : &quot;1&quot;,</span><br><span class="line">  &quot;_version&quot; : 7,</span><br><span class="line">  &quot;result&quot; : &quot;updated&quot;,</span><br><span class="line">  &quot;_shards&quot; : &#123;</span><br><span class="line">    &quot;total&quot; : 2,</span><br><span class="line">    &quot;successful&quot; : 1,</span><br><span class="line">    &quot;failed&quot; : 0</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;_seq_no&quot; : 10,</span><br><span class="line">  &quot;_primary_term&quot; : 1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="乐观更新"><a href="#乐观更新" class="headerlink" title="乐观更新"></a>乐观更新</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">PUT /user/_doc/1?version=7</span><br><span class="line">&#123;</span><br><span class="line">  &quot;message&quot;: &quot;def3210&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>报错如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;error&quot;: &#123;</span><br><span class="line">    &quot;root_cause&quot;: [</span><br><span class="line">      &#123;</span><br><span class="line">        &quot;type&quot;: &quot;action_request_validation_exception&quot;,</span><br><span class="line">        &quot;reason&quot;: &quot;Validation Failed: 1: internal versioning can not be used for optimistic concurrency control. Please use `if_seq_no` and `if_primary_term` instead;&quot;</span><br><span class="line">      &#125;</span><br><span class="line">    ],</span><br><span class="line">    &quot;type&quot;: &quot;action_request_validation_exception&quot;,</span><br><span class="line">    &quot;reason&quot;: &quot;Validation Failed: 1: internal versioning can not be used for optimistic concurrency control. Please use `if_seq_no` and `if_primary_term` instead;&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;status&quot;: 400</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>version不能用于乐观并发更新。改用seq_no和primary_term如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">GET /user/_doc/1  # 查看当前seq_no, primary_term</span><br><span class="line">PUT /user/_doc/1?if_seq_no=10&amp;if_primary_term=1</span><br><span class="line">&#123;</span><br><span class="line">  &quot;message&quot;: &quot;def3210&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="批量创建文档"><a href="#批量创建文档" class="headerlink" title="批量创建文档"></a>批量创建文档</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost es_api_test]<span class="comment"># cat songs.bulk</span></span><br><span class="line">&#123;<span class="string">"index"</span>: &#123;<span class="string">"_index"</span>: <span class="string">"songs"</span>, <span class="string">"_type"</span>: <span class="string">"_doc"</span>&#125;&#125;</span><br><span class="line">&#123;<span class="string">"id"</span>: 1, <span class="string">"name"</span>: <span class="string">"风筝误"</span>, <span class="string">"time"</span>: <span class="string">"04:31"</span>, <span class="string">"artist"</span>: <span class="string">"刘珂矣"</span>, <span class="string">"album"</span>: <span class="string">"半壶纱"</span>, <span class="string">"cover"</span>: <span class="string">"https://s5.music.126.net/style/web2/img/default/default_album.jpg"</span>, <span class="string">"url"</span>: <span class="string">"static/media/风筝误.mp3"</span>&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -s -H &quot;Content-Type: application/x-ndjson&quot; -XPOST localhost:9200/_bulk --data-binary &quot;@songs.bulk&quot;    #是--data-binary，不是-d，否则提示parse_exception</span><br></pre></td></tr></table></figure>
+<h3 id="查看索引"><a href="#查看索引" class="headerlink" title="查看索引"></a>查看索引</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost es_api_test]# curl http://localhost:9200/_cat/indices?v</span><br><span class="line">health status index                    uuid                   pri rep docs.count docs.deleted store.size pri.store.size</span><br><span class="line">green  open   .kibana_task_manager_1   zKnjGTdrRgyElkST2F-Bdw   1   0          2            0     31.6kb         31.6kb</span><br><span class="line">yellow open   songs                    2-yMj8ikTYay4k8f_CIQ2g   1   1         25            0     28.4kb         28.4kb</span><br><span class="line">green  open   .apm-agent-configuration nP5HnnIYQhWqjcd17By6lA   1   0          0            0       283b           283b</span><br><span class="line">green  open   .kibana_1                zZuFlefIRhaHHBdJiYovuw   1   0         10            3     43.4kb         43.4kb</span><br></pre></td></tr></table></figure>
+<h3 id="查看集群健康状态"><a href="#查看集群健康状态" class="headerlink" title="查看集群健康状态"></a>查看集群健康状态</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost es_api_test]<span class="comment"># curl http://localhost:9200/_cluster/health?pretty</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"cluster_name"</span> : <span class="string">"docker-cluster"</span>,</span><br><span class="line">  <span class="string">"status"</span> : <span class="string">"yellow"</span>,    <span class="comment">#yellow状态</span></span><br><span class="line">  <span class="string">"timed_out"</span> : <span class="literal">false</span>,</span><br><span class="line">  <span class="string">"number_of_nodes"</span> : 1,</span><br><span class="line">  <span class="string">"number_of_data_nodes"</span> : 1,</span><br><span class="line">  <span class="string">"active_primary_shards"</span> : 4,</span><br><span class="line">  <span class="string">"active_shards"</span> : 4,</span><br><span class="line">  <span class="string">"relocating_shards"</span> : 0,</span><br><span class="line">  <span class="string">"initializing_shards"</span> : 0,</span><br><span class="line">  <span class="string">"unassigned_shards"</span> : 1,    <span class="comment">#unassigned 1</span></span><br><span class="line">  <span class="string">"delayed_unassigned_shards"</span> : 0,</span><br><span class="line">  <span class="string">"number_of_pending_tasks"</span> : 0,</span><br><span class="line">  <span class="string">"number_of_in_flight_fetch"</span> : 0,</span><br><span class="line">  <span class="string">"task_max_waiting_in_queue_millis"</span> : 0,</span><br><span class="line">  <span class="string">"active_shards_percent_as_number"</span> : 80.0</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="查看分片"><a href="#查看分片" class="headerlink" title="查看分片"></a>查看分片</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost es_api_test]<span class="comment"># curl http://localhost:9200/_cat/shards/songs?v</span></span><br><span class="line">index shard prirep state      docs  store ip         node</span><br><span class="line">songs 0     p      STARTED      25 28.4kb 172.24.0.2 1583abe64b70</span><br><span class="line">songs 0     r      UNASSIGNED</span><br></pre></td></tr></table></figure>
+<h3 id="查看文档数"><a href="#查看文档数" class="headerlink" title="查看文档数"></a>查看文档数</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost es_api_test]<span class="comment"># curl http://localhost:9200/songs/_count?pretty</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"count"</span> : 25,</span><br><span class="line">  <span class="string">"_shards"</span> : &#123;</span><br><span class="line">    <span class="string">"total"</span> : 1,</span><br><span class="line">    <span class="string">"successful"</span> : 1,</span><br><span class="line">    <span class="string">"skipped"</span> : 0,</span><br><span class="line">    <span class="string">"failed"</span> : 0</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="基数聚合"><a href="#基数聚合" class="headerlink" title="基数聚合"></a>基数聚合</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">POST /songs/_search</span><br><span class="line">&#123;</span><br><span class="line">  &quot;aggs&quot;: &#123;</span><br><span class="line">    &quot;distinct_name_count&quot;: &#123;&quot;cardinality&quot;: &#123;&quot;field&quot;: &quot;name&quot;&#125;&#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>报错信息如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;error&quot;: &#123;</span><br><span class="line">    &quot;root_cause&quot;: [</span><br><span class="line">      &#123;</span><br><span class="line">        &quot;type&quot;: &quot;illegal_argument_exception&quot;,</span><br><span class="line">        &quot;reason&quot;: &quot;Fielddata is disabled on text fields by default. Set fielddata=true on [name] in order to load fielddata in memory by uninverting the inverted index. Note that this can however use significant memory. Alternatively use a keyword field instead.&quot;</span><br><span class="line">      &#125;</span><br><span class="line">    ],</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>解决方法：</p>
+<ol>
+<li>改name为name.keyword</li>
+<li>设置fileddata=true</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">POST /songs/_mapping</span><br><span class="line">&#123;</span><br><span class="line">  &quot;properties&quot;: &#123;</span><br><span class="line">     &quot;name&quot;: &#123;</span><br><span class="line">       &quot;type&quot;: &quot;text&quot;, </span><br><span class="line">       &quot;fielddata&quot;: true</span><br><span class="line">     &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="获取索引前50个文档"><a href="#获取索引前50个文档" class="headerlink" title="获取索引前50个文档"></a>获取索引前50个文档</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">GET|POST /songs/_search?size=50</span><br><span class="line"></span><br><span class="line">GET|POST /songs/_search?size=50</span><br><span class="line">&#123;</span><br><span class="line">  &quot;query&quot;: &#123;</span><br><span class="line">    &quot;match_all&quot;: &#123;&#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">GET|POST /songs/_search</span><br><span class="line">&#123;</span><br><span class="line">  &quot;query&quot;: &#123;</span><br><span class="line">    &quot;match&quot;: &#123;</span><br><span class="line">      &quot;name.keyword&quot;: &quot;风筝误&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="用GET还是POST"><a href="#用GET还是POST" class="headerlink" title="用GET还是POST?"></a>用GET还是POST?</h3><p>有点奇怪，GET也可以带请求体，ES官网的search语法<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-span-containing-query.html" rel="external nofollow noopener noreferrer" target="_blank">示例</a>都是GET。</p>
+<blockquote>
+<p>GET请求是是依靠URI检索数据的，RFC没有规定不能有响应体，只是说GET通过URI标识并<strong>获取</strong>了一个资源，且再次获取不会重新请求，可以减少网络负担。</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># curl -s -XPOST localhost:9200/songs/_search?size=50 -H 'Content-Type: application/json' -d '&#123;"query": &#123;"match_all": &#123;&#125;&#125;&#125;' 2&gt;/dev/null  |jq</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"took"</span>: 0,</span><br><span class="line">  <span class="string">"timed_out"</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="string">"_shards"</span>: &#123;</span><br><span class="line">    <span class="string">"total"</span>: 1,</span><br><span class="line">    <span class="string">"successful"</span>: 1,</span><br><span class="line">    <span class="string">"skipped"</span>: 0,</span><br><span class="line">    <span class="string">"failed"</span>: 0</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"hits"</span>: &#123;</span><br><span class="line">    <span class="string">"total"</span>: &#123;</span><br><span class="line">      <span class="string">"value"</span>: 25,</span><br><span class="line">      <span class="string">"relation"</span>: <span class="string">"eq"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"max_score"</span>: 1,</span><br><span class="line">    <span class="string">"hits"</span>: [</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="string">"_index"</span>: <span class="string">"songs"</span>,</span><br><span class="line">        <span class="string">"_type"</span>: <span class="string">"_doc"</span>,</span><br><span class="line">        <span class="string">"_id"</span>: <span class="string">"vwFbiHsBbxOPhTYXJGC2"</span>,</span><br><span class="line">        <span class="string">"_score"</span>: 1,</span><br><span class="line">        <span class="string">"_source"</span>: &#123;</span><br><span class="line">          <span class="string">"id"</span>: 1,</span><br><span class="line">          <span class="string">"name"</span>: <span class="string">"风筝误"</span>,</span><br><span class="line">          <span class="string">"time"</span>: <span class="string">"04:31"</span>,</span><br><span class="line">          <span class="string">"artist"</span>: <span class="string">"刘珂矣"</span>,</span><br><span class="line">          <span class="string">"album"</span>: <span class="string">"半壶纱"</span>,</span><br><span class="line">          <span class="string">"cover"</span>: <span class="string">"https://s4.music.126.net/style/web2/img/default/default_album.jpg"</span>,</span><br><span class="line">          <span class="string">"url"</span>: <span class="string">"static/media/风筝误.mp3"</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      ...</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>生成jsonp</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># curl -s -XPOST localhost:9200/songs/_doc/_search?size=50 -H 'Content-Type: application/json' -d '&#123;"query": &#123;"match_all": &#123;&#125;&#125;&#125;' 2&gt;/dev/null  |jq |awk 'BEGIN&#123;flag=0&#125;&#123;if($0~/"_source":/)&#123;print "&#123;"; flag=1&#125;else if(flag)&#123;print $0;&#125; if($0~/^\s*&#125;$/)&#123;flag=0&#125;&#125;' |sed 's/\s*&#125;/&#125;,/g;' |sed '1 s/^&#123;/&#123;"data": [&#123;/' |sed '$ s/,$/]&#125;/' |jq |sed '1 i callBack(' |sed '$ s/$/);/'</span></span><br><span class="line">callBack(</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"data"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">"id"</span>: 1,</span><br><span class="line">      <span class="string">"name"</span>: <span class="string">"风筝误"</span>,</span><br><span class="line">      <span class="string">"time"</span>: <span class="string">"04:31"</span>,</span><br><span class="line">      <span class="string">"artist"</span>: <span class="string">"刘珂矣"</span>,</span><br><span class="line">      <span class="string">"album"</span>: <span class="string">"半壶纱"</span>,</span><br><span class="line">      <span class="string">"cover"</span>: <span class="string">"https://s4.music.126.net/style/web2/img/default/default_album.jpg"</span>,</span><br><span class="line">      <span class="string">"url"</span>: <span class="string">"static/media/风筝误.mp3"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    ...</span><br><span class="line">  ]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="其它API"><a href="#其它API" class="headerlink" title="其它API"></a>其它API</h3><ul>
+<li><a href="https://lzzeng.github.io/docs/docs/log-analysis/es-api-memo.html">es-api-memo</a></li>
+<li><a href="https://lzzeng.github.io/2021/Elasticsearch/">Elasticsearch笔记01</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        
+
+      </div>
+    	
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Elasticsearch/" rel="tag"><i class="fa fa-tag"></i> Elasticsearch</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/mysql-questions/" rel="next" title="【摘】MySQL问题">
+                <i class="fa fa-chevron-left"></i> 【摘】MySQL问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/py-coding/" rel="prev" title="HJ-01">
+                HJ-01 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MjA1NC8xODYwMQ=="></div>
+    </div>
+
+  
+  
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="https://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/avatar.jpg" alt="Lz. Zeng">
+            
+              <p class="site-author-name" itemprop="name">Lz. Zeng</p>
+              <p class="site-description motion-element" itemprop="description">Continuous Self-Improvement</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-name">发布</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#倒排索引"><span class="nav-number">1.</span> <span class="nav-text">倒排索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ES操作记录"><span class="nav-number">2.</span> <span class="nav-text">ES操作记录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建索引（同时创建映射）"><span class="nav-number">2.1.</span> <span class="nav-text">创建索引（同时创建映射）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用PUT还是POST？"><span class="nav-number">2.2.</span> <span class="nav-text">用PUT还是POST？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看映射"><span class="nav-number">2.3.</span> <span class="nav-text">查看映射</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建一个文档、查看"><span class="nav-number">2.4.</span> <span class="nav-text">创建一个文档、查看</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新一个文档"><span class="nav-number">2.5.</span> <span class="nav-text">更新一个文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#乐观更新"><span class="nav-number">2.6.</span> <span class="nav-text">乐观更新</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#批量创建文档"><span class="nav-number">2.7.</span> <span class="nav-text">批量创建文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看索引"><span class="nav-number">2.8.</span> <span class="nav-text">查看索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看集群健康状态"><span class="nav-number">2.9.</span> <span class="nav-text">查看集群健康状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看分片"><span class="nav-number">2.10.</span> <span class="nav-text">查看分片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看文档数"><span class="nav-number">2.11.</span> <span class="nav-text">查看文档数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基数聚合"><span class="nav-number">2.12.</span> <span class="nav-text">基数聚合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取索引前50个文档"><span class="nav-number">2.13.</span> <span class="nav-text">获取索引前50个文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用GET还是POST"><span class="nav-number">2.14.</span> <span class="nav-text">用GET还是POST?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其它API"><span class="nav-number">2.15.</span> <span class="nav-text">其它API</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lz. Zeng</span>
+  
+  
+</div>
+
+
+
+
+
+
+  <div class="theme-info"><i class="fa fa-life-ring" aria-hidden="true"></i><span></span>  NexT.Pisces</div>
+
+
+
+
+<div class="theme-info">
+  <span>&nbsp;|&nbsp;</span>
+  <i class="fa fa-eye" aria-hidden="true"></i><span id="busuanzi_container_site_pv">&nbsp;<span id="busuanzi_value_site_pv">
+  </span>&nbsp;</span>
+  <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">&nbsp;<span id="busuanzi_value_site_uv"></span>&nbsp;</span>
+  <i class="fa fa-area-chart" aria-hidden="true"></i>
+  <span class="post-count">Words: 97.2k</span>
+</div>
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/photoswipe.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/photoswipe-ui-default.js?v=5.1.4"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+<meta name="viewport" content="width=device-width">
+<meta name="google-site-verification" content="V4j2XKWJOKRE9YZT6Bh0vioT5VWrnimuwjmS6cyIuJ8">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Zabbix,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Linux环境：CentOS Linux release 7.5.1804 (Core)  1. 安装MySQL 安装mariadb  1234yum -y install mariadb mariadb-server mariadb-develsystemctl start mariadbsystemctl enable mariadbmysql_secure_installation #">
+<meta name="keywords" content="Zabbix">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Zabbix的安装与使用">
+<meta property="og:url" content="https://lzzeng.github.io/monitoring/zabbix/zabbix-intro/index.html">
+<meta property="og:site_name" content="Zeng&#39;s Page">
+<meta property="og:description" content="Linux环境：CentOS Linux release 7.5.1804 (Core)  1. 安装MySQL 安装mariadb  1234yum -y install mariadb mariadb-server mariadb-develsystemctl start mariadbsystemctl enable mariadbmysql_secure_installation #">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/zabbix-intro.assets/1551234474023.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/zabbix-intro.assets/1551235105076.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/zabbix-intro.assets/1551235235750.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/zabbix-intro.assets/1551235576710.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/zabbix-intro.assets/1551260458874.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/zabbix-intro.assets/1551235817902.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/zabbix-intro.assets/1551236027506.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/zabbix-intro.assets/1551236331993.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/zabbix-intro.assets/1551236436165.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/zabbix-intro.assets/1551236245002.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/zabbix-intro.assets/1551236816850.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/zabbix-intro.assets/1551237146452.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/zabbix-intro.assets/1551260715724.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/zabbix-intro.assets/1551249076606.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/zabbix-intro.assets/1551248906136.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/zabbix-intro.assets/1551249389835.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/zabbix-intro.assets/1551255673570.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/zabbix-intro.assets/1551249482028.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/zabbix-intro.assets/1551249617900.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/zabbix-intro.assets/1551249780128.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/zabbix-intro.assets/1551241908732.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/zabbix-intro.assets/1551241947776.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/zabbix-intro.assets/1551250126172.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/zabbix-intro.assets/1551252223032.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/zabbix-intro.assets/1551253201767.png">
+<meta property="og:updated_time" content="2022-02-20T15:52:53.684Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Zabbix的安装与使用">
+<meta name="twitter:description" content="Linux环境：CentOS Linux release 7.5.1804 (Core)  1. 安装MySQL 安装mariadb  1234yum -y install mariadb mariadb-server mariadb-develsystemctl start mariadbsystemctl enable mariadbmysql_secure_installation #">
+<meta name="twitter:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/zabbix-intro.assets/1551234474023.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://lzzeng.github.io/monitoring/zabbix/zabbix-intro/">
+
+
+
+
+
+  <title>Zabbix的安装与使用 | Zeng's Page</title>
+  
+
+
+
+
+
+
+
+
+  <script src="/js/src/photoswipe.js?v=5.1.4"></script>
+  <script src="/js/src/photoswipe-ui-default.js?v=5.1.4"></script>
+</head>
+
+<body itemscope itemtype="https://schema.org/WebPage" lang="default">
+
+  
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="https://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Zeng's Page</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-photos">
+          <a href="/photos/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-photo"></i> <br>
+            
+            相册
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="https://schema.org/Article">
+  
+  
+  
+  <div class="post-block" id="container">
+    <link itemprop="mainEntityOfPage" href="https://lzzeng.github.io/monitoring/zabbix/zabbix-intro/">
+
+    <span hidden itemprop="author" itemscope itemtype="https://schema.org/Person">
+      <meta itemprop="name" content="Lz. Zeng">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+      <meta itemprop="name" content="Zeng's Page">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Zabbix的安装与使用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-12T14:51:24+00:00">
+                2019-03-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/监控/" itemprop="url" rel="index">
+                    <span itemprop="name">监控</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          		 
+
+        </div>
+      </header>
+    	
+	
+	
+		<script type="text/javascript">
+			function showToc(){
+				var toc_article = document.getElementById("toc-article");
+				var show_toc_btn = document.getElementById("show-toc-btn");			
+				toc_article.setAttribute("style","display:block");
+				show_toc_btn.setAttribute("style","display:none");
+			};
+			function showBtn(){
+				var toc_article = document.getElementById("toc-article");
+				var show_toc_btn = document.getElementById("show-toc-btn");
+				toc_article.setAttribute("style","display:none");
+				show_toc_btn.setAttribute("style","display:block");
+			};
+		</script>
+		
+		<div id="my-toc">
+			<p class="show-toc-btn" id="show-toc-btn" onclick="showToc();">
+				<span class="btn-bg"></span>
+				<span class="btn-text">目录</span>
+			</p>
+			<div id="toc-article" class="toc-article" style="display:none">
+				<span id="toc-close" class="toc-close" title="隐藏" onclick="showBtn();">×</span>
+				<strong class="toc-title">文章目录</strong>
+				<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-安装MySQL"><span class="toc-number">1.</span> <span class="toc-text">1. 安装MySQL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-安装Zabbix"><span class="toc-number">2.</span> <span class="toc-text">2. 安装Zabbix</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Zabbix监控"><span class="toc-number">3.</span> <span class="toc-text">3. Zabbix监控</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-添加主机"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 添加主机</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-添加监控项"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 添加监控项</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-创建触发器"><span class="toc-number">3.3.</span> <span class="toc-text">3.3 创建触发器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-自定义报警媒介"><span class="toc-number">3.4.</span> <span class="toc-text">3.4 自定义报警媒介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-用户-告警绑定"><span class="toc-number">3.5.</span> <span class="toc-text">3.5 用户-告警绑定</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-6-创建动作"><span class="toc-number">3.6.</span> <span class="toc-text">3.6 创建动作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-7-模拟报警"><span class="toc-number">3.7.</span> <span class="toc-text">3.7 模拟报警</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考资料"><span class="toc-number">4.</span> <span class="toc-text">参考资料</span></a></li></ol>
+			</div>
+		</div>
+	
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<blockquote>
+<p>Linux环境：CentOS Linux release 7.5.1804 (Core)</p>
+</blockquote>
+<h3 id="1-安装MySQL"><a href="#1-安装MySQL" class="headerlink" title="1. 安装MySQL"></a>1. 安装MySQL</h3><ul>
+<li>安装mariadb</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">yum -y install mariadb mariadb-server mariadb-devel</span><br><span class="line">systemctl start mariadb</span><br><span class="line">systemctl <span class="built_in">enable</span> mariadb</span><br><span class="line">mysql_secure_installation <span class="comment"># 通过mysql配置向导完成某些设置，也可通过修改表的方式完成设置</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<ul>
+<li>配置字符集</li>
+</ul>
+<p>在/etc/my.cnf的[mysqld]下添加：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">init_connect</span>=<span class="string">'SET collation_connection = utf8_unicode_ci'</span></span><br><span class="line"><span class="attr">init_connect</span>=<span class="string">'SET NAMES utf8'</span></span><br><span class="line"><span class="attr">character-set-server</span>=utf8</span><br><span class="line"><span class="attr">collation-server</span>=utf8_unicode_ci</span><br><span class="line">skip-character-set-client-handshake</span><br></pre></td></tr></table></figure>
+<p>在/etc/my.cnf.d/client.cnf的[client]中添加：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">default-character-set</span>=utf8</span><br></pre></td></tr></table></figure>
+<p>在/etc/my.cnf.d/<a href="https://www.centos.bz/tag/mysql-2/" rel="external nofollow noopener noreferrer" target="_blank">mysql</a>-clients.cnf的[mysql]中添加：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">default-character-set</span>=utf8</span><br></pre></td></tr></table></figure>
+<p>重启使生效：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart mariadb</span><br></pre></td></tr></table></figure>
+<p>查看字符集：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [(none)]&gt; show variables like &quot;%character%&quot;;</span><br><span class="line">+--------------------------+----------------------------+</span><br><span class="line">| Variable_name            | Value                      |</span><br><span class="line">+--------------------------+----------------------------+</span><br><span class="line">| character_set_client     | utf8                       |</span><br><span class="line">| character_set_connection | utf8                       |</span><br><span class="line">| character_set_database   | utf8                       |</span><br><span class="line">| character_set_filesystem | binary                     |</span><br><span class="line">| character_set_results    | utf8                       |</span><br><span class="line">| character_set_server     | utf8                       |</span><br><span class="line">| character_set_system     | utf8                       |</span><br><span class="line">| character_sets_dir       | /usr/share/mysql/charsets/ |</span><br><span class="line">+--------------------------+----------------------------+</span><br><span class="line">8 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [(none)]&gt; show variables like &quot;%collation%&quot;;</span><br><span class="line">+----------------------+-----------------+</span><br><span class="line">| Variable_name        | Value           |</span><br><span class="line">+----------------------+-----------------+</span><br><span class="line">| collation_connection | utf8_general_ci |</span><br><span class="line">| collation_database   | utf8_general_ci |</span><br><span class="line">| collation_server     | utf8_general_ci |</span><br><span class="line">+----------------------+-----------------+</span><br><span class="line">3 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+<p>MySQL的安装及配置完成。</p>
+<hr>
+<h3 id="2-安装Zabbix"><a href="#2-安装Zabbix" class="headerlink" title="2. 安装Zabbix"></a>2. 安装Zabbix</h3><p>Zabbix安装步骤见：<a href="https://www.zabbix.com/download?zabbix=3.0&amp;os_distribution=centos&amp;os_version=7&amp;db=mysql" rel="external nofollow noopener noreferrer" target="_blank">CentOS 7安装zabbix 3.0</a>，基于RPM方式安装Zabbix 3.0.25。</p>
+<p><em>如果想通过编译源码安装，可参考<a href="https://github.com/zlzgithub/docs/blob/master/zabbix/make-install-zabbix.md" rel="external nofollow noopener noreferrer" target="_blank">Zabbix源码安装过程记录</a>。</em></p>
+<p>另外，安装zabbix_get以便测试：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_6_centos ~]<span class="comment"># yum install zabbix-get</span></span><br><span class="line"><span class="comment"># 添加监控项时，可在zabbix_server上通过zabbix_get测试命令是否有效</span></span><br><span class="line">[root@VM_0_6_centos ~]<span class="comment"># zabbix_get -s 188.131.133.107 -k vfs.fs.size[/,pused]</span></span><br><span class="line">17.268719</span><br></pre></td></tr></table></figure>
+<p>在安装完zabbix之后，需在MySQL中创建zabbix数据库并导入初始数据表。</p>
+<p>安装配置完成并启动所有服务后，以<code>http://&lt;zabbix_server_ip&gt;/zabbix</code>访问zabbix控制面板，初始用户名/密码为：Admin/zabbix。</p>
+<hr>
+<h3 id="3-Zabbix监控"><a href="#3-Zabbix监控" class="headerlink" title="3. Zabbix监控"></a>3. Zabbix监控</h3><p>以下添加一个<strong>被监控主机</strong>cvm001，监控其cpu、磁盘、80端口等。</p>
+<table>
+<thead>
+<tr>
+<th>主机</th>
+<th>监控项</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cvm001</td>
+<td>cpu 平均负载、cpu 上下文切换频率</td>
+</tr>
+<tr>
+<td>cvm001</td>
+<td>根分区剩余空间百分比</td>
+</tr>
+<tr>
+<td>cvm001</td>
+<td>80端口状态（httpd服务）</td>
+</tr>
+<tr>
+<td>cvm001</td>
+<td>mysql进程数</td>
+</tr>
+</tbody>
+</table>
+<h4 id="3-1-添加主机"><a href="#3-1-添加主机" class="headerlink" title="3.1 添加主机"></a>3.1 添加主机</h4><p>【配置】&gt;【主机】&gt;【创建主机】：</p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/zabbix-intro.assets/1551234474023.png" alt="1551234474023"></p>
+<h4 id="3-2-添加监控项"><a href="#3-2-添加监控项" class="headerlink" title="3.2 添加监控项"></a>3.2 添加监控项</h4><p>【配置】&gt;【主机】，在刚刚新加的主机所在行，【监控项】&gt;【创建监控项】：</p>
+<p>1）CPU负载</p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/zabbix-intro.assets/1551235105076.png" alt="1551235105076"></p>
+<p>设置历史数据保留7天，并为cpu相关的监控定义了一个名为cpu的应用集。</p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/zabbix-intro.assets/1551235235750.png" alt="1551235235750"></p>
+<p>2）CPU上下文切换次数</p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/zabbix-intro.assets/1551235576710.png" alt="1551235576710"></p>
+<p>储存值选择“差量（每秒速率）”：</p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/zabbix-intro.assets/1551260458874.png" alt="1551260458874"></p>
+<p>3）根分区使用率</p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/zabbix-intro.assets/1551235817902.png" alt="1551235817902"></p>
+<p>“pused”表示已使用空间所占百分比。</p>
+<p>4）mysql的进程</p>
+<p>通过<code>proc.num[mysqld,mysql]</code>获取用户mysql的进程mysqld的数目：</p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/zabbix-intro.assets/1551236027506.png" alt="1551236027506"></p>
+<p>5）80端口状态</p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/zabbix-intro.assets/1551236331993.png" alt="1551236331993"></p>
+<p>查看值选择的是Service state，正常状态值是”Up”：</p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/zabbix-intro.assets/1551236436165.png" alt="1551236436165"></p>
+<p>如下图，已添加完上面的5个监控项：</p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/zabbix-intro.assets/1551236245002.png" alt="1551236245002"></p>
+<p>查看最新监控数据如下：</p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/zabbix-intro.assets/1551236816850.png" alt="1551236816850"></p>
+<p>查看cpu上下文切换次数的【图形】：</p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/zabbix-intro.assets/1551237146452.png" alt="1551237146452"></p>
+<p><em>图表标题中文字符显示不出来，是字体的原因，可自行替换，此处从略。</em></p>
+<h4 id="3-3-创建触发器"><a href="#3-3-创建触发器" class="headerlink" title="3.3 创建触发器"></a>3.3 创建触发器</h4><p>【配置】&gt;【主机】，主机所在行的【触发器】&gt;【创建触发器】：</p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/zabbix-intro.assets/1551260715724.png" alt="1551260715724"></p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/zabbix-intro.assets/1551249076606.png" alt="1551249076606"></p>
+<h4 id="3-4-自定义报警媒介"><a href="#3-4-自定义报警媒介" class="headerlink" title="3.4 自定义报警媒介"></a>3.4 自定义报警媒介</h4><p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/zabbix-intro.assets/1551248906136.png" alt="1551248906136"></p>
+<p>写一个模拟报警脚本如下，放置在<code>/usr/lib/zabbix/alertscripts/myAlert.sh</code>:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"></span><br><span class="line">alert_path=/var/www/html/myalert</span><br><span class="line">mkdir -p <span class="variable">$alert_path</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">gen_html</span></span>() &#123;</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">""</span><span class="string">"&lt;html&gt;</span></span><br><span class="line"><span class="string">    &lt;head&gt;&lt;/head&gt;</span></span><br><span class="line"><span class="string">    &lt;body&gt;</span></span><br><span class="line"><span class="string">    &lt;h1&gt;Alert&lt;/h1&gt;</span></span><br><span class="line"><span class="string">    &lt;pre&gt;</span></span><br><span class="line"><span class="string">    "</span><span class="string">""</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"SENDTO:<span class="variable">$1</span>"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"SUBJECT:<span class="variable">$2</span>"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"MESSAGE:<span class="variable">$3</span>"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">""</span><span class="string">"</span></span><br><span class="line"><span class="string">    &lt;/pre&gt;</span></span><br><span class="line"><span class="string">    &lt;/body&gt;</span></span><br><span class="line"><span class="string">    &lt;/html&gt;"</span><span class="string">""</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">gen_html <span class="variable">$@</span> &gt; <span class="variable">$alert_path</span>/1.html</span><br><span class="line">chmod -R 755 <span class="variable">$alert_path</span></span><br></pre></td></tr></table></figure>
+<p>并修改/etc/zabbix/zabbix_server.conf配置：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">AllowRoot</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">User</span>=root</span><br></pre></td></tr></table></figure>
+<h4 id="3-5-用户-告警绑定"><a href="#3-5-用户-告警绑定" class="headerlink" title="3.5 用户-告警绑定"></a>3.5 用户-告警绑定</h4><p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/zabbix-intro.assets/1551249389835.png" alt="1551249389835"></p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/zabbix-intro.assets/1551255673570.png" alt="1551255673570"></p>
+<h4 id="3-6-创建动作"><a href="#3-6-创建动作" class="headerlink" title="3.6 创建动作"></a>3.6 创建动作</h4><p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/zabbix-intro.assets/1551249482028.png" alt="1551249482028"></p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/zabbix-intro.assets/1551249617900.png" alt="1551249617900"></p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/zabbix-intro.assets/1551249780128.png" alt="1551249780128"></p>
+<h4 id="3-7-模拟报警"><a href="#3-7-模拟报警" class="headerlink" title="3.7 模拟报警"></a>3.7 模拟报警</h4><p>模拟报警条件：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 假设当前占用率19%，写一个大小约1GB的文件，使根分区占用率 &gt; 20% 达到触发报警</span></span><br><span class="line">[root@VM_0_7_centos ~]<span class="comment"># dd if=/dev/zero bs=1024 count=1000000 of=/root/1Gb.file</span></span><br></pre></td></tr></table></figure>
+<p>查看监控图形（设定的阈值是16%）：</p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/zabbix-intro.assets/1551241908732.png" alt="1551241908732"></p>
+<p>查看触发器状态：</p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/zabbix-intro.assets/1551241947776.png" alt="1551241947776"></p>
+<p>查看事件记录：</p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/zabbix-intro.assets/1551250126172.png" alt="1551250126172"></p>
+<p>查看报警通知结果：</p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/zabbix-intro.assets/1551252223032.png" alt="1551252223032"></p>
+<p>当报警解除后：</p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/zabbix-intro.assets/1551253201767.png" alt="1551253201767"></p>
+<p>经测试，报警机制正常。正式环境中，配置内置的Email或SMS报警媒介，或使用自定义的邮件、微信、短信告警脚本等替代。</p>
+<hr>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><a href="https://www.zabbix.com/documentation/3.0/manual/quickstart" rel="external nofollow noopener noreferrer" target="_blank">zabbix 3.0 quickstart</a></p>
+<hr>
+<p>（End)</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        
+
+      </div>
+    	
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Zabbix/" rel="tag"><i class="fa fa-tag"></i> Zabbix</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/config-management/multi-git-account-configure/" rel="next" title="Git多账号配置">
+                <i class="fa fa-chevron-left"></i> Git多账号配置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/config-management/ansible-intro/" rel="prev" title="Ansible使用小结">
+                Ansible使用小结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MjA1NC8xODYwMQ=="></div>
+    </div>
+
+  
+  
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="https://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/avatar.jpg" alt="Lz. Zeng">
+            
+              <p class="site-author-name" itemprop="name">Lz. Zeng</p>
+              <p class="site-description motion-element" itemprop="description">Continuous Self-Improvement</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-name">发布</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-安装MySQL"><span class="nav-number">1.</span> <span class="nav-text">1. 安装MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-安装Zabbix"><span class="nav-number">2.</span> <span class="nav-text">2. 安装Zabbix</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Zabbix监控"><span class="nav-number">3.</span> <span class="nav-text">3. Zabbix监控</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-添加主机"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 添加主机</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-添加监控项"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 添加监控项</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-创建触发器"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 创建触发器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-4-自定义报警媒介"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 自定义报警媒介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-5-用户-告警绑定"><span class="nav-number">3.5.</span> <span class="nav-text">3.5 用户-告警绑定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-6-创建动作"><span class="nav-number">3.6.</span> <span class="nav-text">3.6 创建动作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-7-模拟报警"><span class="nav-number">3.7.</span> <span class="nav-text">3.7 模拟报警</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料"><span class="nav-number">4.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lz. Zeng</span>
+  
+  
+</div>
+
+
+
+
+
+
+  <div class="theme-info"><i class="fa fa-life-ring" aria-hidden="true"></i><span></span>  NexT.Pisces</div>
+
+
+
+
+<div class="theme-info">
+  <span>&nbsp;|&nbsp;</span>
+  <i class="fa fa-eye" aria-hidden="true"></i><span id="busuanzi_container_site_pv">&nbsp;<span id="busuanzi_value_site_pv">
+  </span>&nbsp;</span>
+  <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">&nbsp;<span id="busuanzi_value_site_uv"></span>&nbsp;</span>
+  <i class="fa fa-area-chart" aria-hidden="true"></i>
+  <span class="post-count">Words: 97.2k</span>
+</div>
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/photoswipe.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/photoswipe-ui-default.js?v=5.1.4"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

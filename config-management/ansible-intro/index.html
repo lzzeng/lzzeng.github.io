@@ -1,0 +1,1625 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+<meta name="viewport" content="width=device-width">
+<meta name="google-site-verification" content="V4j2XKWJOKRE9YZT6Bh0vioT5VWrnimuwjmS6cyIuJ8">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Ansible,CMDB,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="概述 ​    正如Ansible官网的标题“Ansible is Simple IT Automation”含义，Ansible简化了IT自动化的实现，是高效运维的一个重要工具。 ​    Ansible的设计初衷就是在若干服务器上从零开始执行所有必需的配置与操作。例如，在启动Web 服务器之前先启动数据库，或者为了实现零停机升级，将Web 服务器逐一从负载均衡上摘除并升级。Ansible通过">
+<meta name="keywords" content="Ansible,CMDB">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ansible使用小结">
+<meta property="og:url" content="https://lzzeng.github.io/config-management/ansible-intro/index.html">
+<meta property="og:site_name" content="Zeng&#39;s Page">
+<meta property="og:description" content="概述 ​    正如Ansible官网的标题“Ansible is Simple IT Automation”含义，Ansible简化了IT自动化的实现，是高效运维的一个重要工具。 ​    Ansible的设计初衷就是在若干服务器上从零开始执行所有必需的配置与操作。例如，在启动Web 服务器之前先启动数据库，或者为了实现零停机升级，将Web 服务器逐一从负载均衡上摘除并升级。Ansible通过">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/ansible-intro.assets/1550564146145.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/ansible-intro.assets/201621695411869.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/ansible-intro.assets/1551012654701.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/ansible-intro.assets/1551012868529.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/ansible-intro.assets/1551014113584.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/ansible-intro.assets/1550722583627.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/ansible-intro.assets/1551014256905.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/ansible-intro.assets/1551015508452.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/ansible-intro.assets/1551016061521.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/ansible-intro.assets/1551016281860.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/ansible-intro.assets/1551016392519.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/ansible-intro.assets/1551016579264.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/ansible-intro.assets/1551016791550.png">
+<meta property="og:updated_time" content="2022-02-20T15:52:53.676Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ansible使用小结">
+<meta name="twitter:description" content="概述 ​    正如Ansible官网的标题“Ansible is Simple IT Automation”含义，Ansible简化了IT自动化的实现，是高效运维的一个重要工具。 ​    Ansible的设计初衷就是在若干服务器上从零开始执行所有必需的配置与操作。例如，在启动Web 服务器之前先启动数据库，或者为了实现零停机升级，将Web 服务器逐一从负载均衡上摘除并升级。Ansible通过">
+<meta name="twitter:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/ansible-intro.assets/1550564146145.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://lzzeng.github.io/config-management/ansible-intro/">
+
+
+
+
+
+  <title>Ansible使用小结 | Zeng's Page</title>
+  
+
+
+
+
+
+
+
+
+  <script src="/js/src/photoswipe.js?v=5.1.4"></script>
+  <script src="/js/src/photoswipe-ui-default.js?v=5.1.4"></script>
+</head>
+
+<body itemscope itemtype="https://schema.org/WebPage" lang="default">
+
+  
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="https://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Zeng's Page</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-photos">
+          <a href="/photos/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-photo"></i> <br>
+            
+            相册
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="https://schema.org/Article">
+  
+  
+  
+  <div class="post-block" id="container">
+    <link itemprop="mainEntityOfPage" href="https://lzzeng.github.io/config-management/ansible-intro/">
+
+    <span hidden itemprop="author" itemscope itemtype="https://schema.org/Person">
+      <meta itemprop="name" content="Lz. Zeng">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+      <meta itemprop="name" content="Zeng's Page">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Ansible使用小结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-15T14:51:24+00:00">
+                2019-03-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/CMDB/" itemprop="url" rel="index">
+                    <span itemprop="name">CMDB</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          		 
+
+        </div>
+      </header>
+    	
+	
+	
+		<script type="text/javascript">
+			function showToc(){
+				var toc_article = document.getElementById("toc-article");
+				var show_toc_btn = document.getElementById("show-toc-btn");			
+				toc_article.setAttribute("style","display:block");
+				show_toc_btn.setAttribute("style","display:none");
+			};
+			function showBtn(){
+				var toc_article = document.getElementById("toc-article");
+				var show_toc_btn = document.getElementById("show-toc-btn");
+				toc_article.setAttribute("style","display:none");
+				show_toc_btn.setAttribute("style","display:block");
+			};
+		</script>
+		
+		<div id="my-toc">
+			<p class="show-toc-btn" id="show-toc-btn" onclick="showToc();">
+				<span class="btn-bg"></span>
+				<span class="btn-text">目录</span>
+			</p>
+			<div id="toc-article" class="toc-article" style="display:none">
+				<span id="toc-close" class="toc-close" title="隐藏" onclick="showBtn();">×</span>
+				<strong class="toc-title">文章目录</strong>
+				<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#概述"><span class="toc-number">1.</span> <span class="toc-text">概述</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Ansible的主要特点"><span class="toc-number">1.1.</span> <span class="toc-text">Ansible的主要特点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Ansible架构图"><span class="toc-number">1.2.</span> <span class="toc-text">Ansible架构图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#适用场景"><span class="toc-number">1.3.</span> <span class="toc-text">适用场景</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基本知识"><span class="toc-number">2.</span> <span class="toc-text">基本知识</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#常用模块"><span class="toc-number">2.1.</span> <span class="toc-text">常用模块</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置文件"><span class="toc-number">2.2.</span> <span class="toc-text">配置文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#执行过程"><span class="toc-number">2.3.</span> <span class="toc-text">执行过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#剧本（Playbook）"><span class="toc-number">2.4.</span> <span class="toc-text">剧本（Playbook）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装方法"><span class="toc-number">3.</span> <span class="toc-text">安装方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-从Github获取源码安装"><span class="toc-number">3.1.</span> <span class="toc-text">1. 从Github获取源码安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-Yum安装"><span class="toc-number">3.2.</span> <span class="toc-text">2. Yum安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-其它系统安装Ansible"><span class="toc-number">3.3.</span> <span class="toc-text">3. 其它系统安装Ansible</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#操作示例"><span class="toc-number">4.</span> <span class="toc-text">操作示例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#使用ansible"><span class="toc-number">4.1.</span> <span class="toc-text">使用ansible</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-执行简单命令"><span class="toc-number">4.1.1.</span> <span class="toc-text">1. 执行简单命令</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-执行控制主机上的脚本"><span class="toc-number">4.1.2.</span> <span class="toc-text">2. 执行控制主机上的脚本</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#使用ansible-playbook"><span class="toc-number">4.2.</span> <span class="toc-text">使用ansible-playbook</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#3-使用ansible-playbook部署一个tomcat集群"><span class="toc-number">4.2.1.</span> <span class="toc-text">3. 使用ansible-playbook部署一个tomcat集群</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Ansible参考"><span class="toc-number">5.</span> <span class="toc-text">Ansible参考</span></a></li></ol>
+			</div>
+		</div>
+	
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/ansible-intro.assets/1550564146145.png" alt="Ansible官网"></p>
+<p>​    正如<a href="https://www.ansible.com/" rel="external nofollow noopener noreferrer" target="_blank">Ansible官网</a>的标题“Ansible is Simple IT Automation”含义，Ansible简化了IT自动化的实现，是高效运维的一个重要工具。</p>
+<p>​    Ansible的设计初衷就是在若干服务器上从零开始执行所有必需的配置与操作。例如，在启动Web 服务器之前先启动数据库，或者为了实现零停机升级，将Web 服务器逐一从负载均衡上摘除并升级。Ansible通过极简的模型来控制各种操作按照所需顺序执行。其它同类工具有：Chef、Puppet 及Saltstack。</p>
+<a id="more"></a>
+<h4 id="Ansible的主要特点"><a href="#Ansible的主要特点" class="headerlink" title="Ansible的主要特点"></a>Ansible的主要特点</h4><ul>
+<li>基于Python语言实现，由Paramiko（Python的一个可并发连接ssh主机功能库），PyYAML和Jinja2（模板化）三个关键模块实现</li>
+<li>模块化设计，ansible自身是一个核心组件，调用特定的模块来完成特定任务</li>
+<li>基于SSH协议工作，免客户端，有两种认证方式：密码、公钥</li>
+<li>使用yaml语言编排剧本，连续任务按先后设置顺序完成</li>
+<li>是一个<strong>声明式</strong>的管理工具，在编写脚本时使用的是声明式语言</li>
+</ul>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">声明式语言表示“期望目标是什么状态”，如果已经是则返回"ok"，否则改变目标状态并返回"changed"。</span><br></pre></td></tr></table></figure>
+<ul>
+<li>具有<strong>幂等性</strong>的特点，执行一次或多次，安装出来的环境是一样的</li>
+</ul>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1中对“幂等性”的定义是：一次和多次请求某一个资源对于资源本身应该具有同样的结果（网络超时等问题除外）。</span><br><span class="line">也就是说，其任意多次执行对资源本身所产生的影响均与一次执行的影响相同。</span><br></pre></td></tr></table></figure>
+<h4 id="Ansible架构图"><a href="#Ansible架构图" class="headerlink" title="Ansible架构图"></a>Ansible架构图</h4><p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/ansible-intro.assets/201621695411869.png" alt="Ansible架构图"></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">组件</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">ansible core</td>
+<td>ansible自身核心模块</td>
+</tr>
+<tr>
+<td style="text-align:left">host inventory</td>
+<td>主机清单，定义可管控的主机列表</td>
+</tr>
+<tr>
+<td style="text-align:left">connection plugins</td>
+<td>连接插件，一般默认基于ssh协议连接</td>
+</tr>
+<tr>
+<td style="text-align:left">modules</td>
+<td>core modules（自带的核心模块）、custom modules（自定义模块）</td>
+</tr>
+<tr>
+<td style="text-align:left">playbooks</td>
+<td>剧本，按照所设定编排的顺序执行命令</td>
+</tr>
+</tbody>
+</table>
+<h4 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h4><p>​    在自动化运维方面，关于Ansible适用场景，，可以从与同类工具Saltstack对比的角度来理解。</p>
+<p><strong>共同点</strong>：</p>
+<ul>
+<li><p>Ansible和SaltStack都是的目前最流行的自动化运维工具，能满足企业IT系统的自动化运维管理。这两个工具都是用python开发的，可以部署到不同的系统环境中和具有良好的二次开发特性。</p>
+</li>
+<li><p>在执行的命令的时候，Ansible和SaltStack都支持Ad-hoc操作模式，也可以支持将命令写入yaml格式文件中再批量执行。</p>
+</li>
+<li><p>在处理返回结果方面，Ansible和SaltStack的返回结果格式都是JSON格式，比较易懂和方便解析。</p>
+</li>
+</ul>
+<p><strong>差异</strong>：</p>
+<ul>
+<li><p>响应速度：SaltStack更快，在文件传输方面快一个量级，但在批量脚本执行、多机器部署方面相近</p>
+<p>  SaltStack的master和minion主机是通过ZeroMQ传输数据，而Ansible是通过标准SSH进行数据传输，SaltStack的响应速度要比Ansible快很多。标准SSH连接的时候比较耗费时间，ZeroMQ传输的速度会快很多，所以单单从响应速度方面考虑SaltStack会是更好的选择。但是在一般的运维场景下Ansible的响应速度也可以满足需求。<br>  有测试数据表明，在执行命令、分发文件、读取文件方面，SaltStack的响应速度是Ansible的10倍左右。但在批量脚本执行、多机器部署方面，二者速度相当。</p>
+</li>
+<li><p>安全性：Ansible更安全</p>
+<p>  Ansible使用标准SSH连接传输数据，不需要在远程主机上启动守护进程，并且标准SSH数据传输本身就是加密传输，这样远程主机不容易被攻击。</p>
+</li>
+<li><p>自身运维：Ansible更友好</p>
+<p>  Ansible和远端主机之间的通过标准SSH通信，远程主机上只需要运行SSH进程就可以进行运维操作，而SSH是机房主机中一般都安装和启动的进程，所以Ansible对机房运维不会增加过多的运维成本。</p>
+</li>
+</ul>
+<p>​    综合以上，可以认为1000台以内的服务器自动化运维，使用Ansible做配置管理、应用部署、批量脚本执行等工作无需顾虑太多。</p>
+<hr>
+<h3 id="基本知识"><a href="#基本知识" class="headerlink" title="基本知识"></a>基本知识</h3><h4 id="常用模块"><a href="#常用模块" class="headerlink" title="常用模块"></a>常用模块</h4><p>​    Ansible的常用模块主要有以下十来个：</p>
+<table>
+<thead>
+<tr>
+<th>模块名称</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ping</td>
+<td>尝试连接主机，如果测试成功会返回”pong”</td>
+</tr>
+<tr>
+<td>command</td>
+<td>在远程节点执行命令</td>
+</tr>
+<tr>
+<td>yum</td>
+<td>使用yum软件包管理工具管理软件包</td>
+</tr>
+<tr>
+<td>shell</td>
+<td>和command模块类似，执行命令，支持变量等符号</td>
+</tr>
+<tr>
+<td>cron</td>
+<td>管理定时任务</td>
+</tr>
+<tr>
+<td>service</td>
+<td>管理程序服务</td>
+</tr>
+<tr>
+<td>file</td>
+<td>设置文件属性</td>
+</tr>
+<tr>
+<td>copy</td>
+<td>复制本地文件到远程主机</td>
+</tr>
+<tr>
+<td>script</td>
+<td>传送本地的一个脚本并在远程主机上执行</td>
+</tr>
+<tr>
+<td>setup</td>
+<td>获取远程主机的参数信息</td>
+</tr>
+<tr>
+<td>user</td>
+<td>管理用户账户</td>
+</tr>
+<tr>
+<td>group</td>
+<td>添加或者删除用户组</td>
+</tr>
+<tr>
+<td>…</td>
+<td>…</td>
+</tr>
+</tbody>
+</table>
+<h4 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h4><p>​    Ansible配置是以ini格式存储数据的，在Ansible中，几乎所有配置都可以通过Playbook或环境变量来重新赋值。加载配置文件的优先顺序如下：</p>
+<ul>
+<li><p>ANSIBLE_CONFIG：优先查找环境变量ANSIBLE_CONFIG指向的配置文件</p>
+</li>
+<li><p>./ansible.cfg：当前目录下的ansible.cfg配置文件</p>
+</li>
+<li><p>~/.ansible.cfg：当前用户home目录下的.ansible.cfg配置文件</p>
+</li>
+<li><p>/etc/ansible/ansible.cfg：安装ansible生成的默认配置文件</p>
+<p>Ansible按顺序查找并应用最先找到的ansible配置。ansible.cfg中的配置可被playbook中的自定义配置覆盖</p>
+</li>
+</ul>
+<p>常用的配置参数：</p>
+<table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>inventory</td>
+<td>资源清单文件，就是一些Ansible需要连接管理的主机列表</td>
+</tr>
+<tr>
+<td>library</td>
+<td>Ansible模块的安装目录</td>
+</tr>
+<tr>
+<td>forks</td>
+<td>默认并发进程数5，可根据控制主机的性能和被管理节点的数量调整</td>
+</tr>
+<tr>
+<td>sudo_user</td>
+<td>执行命令的用户，可在playbook中重新设置</td>
+</tr>
+<tr>
+<td>remote_port</td>
+<td>SSH连接端口一般是22，如有个别特殊的，可在inventory中单独指定</td>
+</tr>
+<tr>
+<td>host_key_checking</td>
+<td>是否检查公钥，一般设置为false</td>
+</tr>
+<tr>
+<td>timeout</td>
+<td>SSH连接的超时间隔，默认20s</td>
+</tr>
+<tr>
+<td>log_path</td>
+<td>ansible日志路径</td>
+</tr>
+<tr>
+<td>…</td>
+<td>…</td>
+</tr>
+</tbody>
+</table>
+<h4 id="执行过程"><a href="#执行过程" class="headerlink" title="执行过程"></a>执行过程</h4><ul>
+<li>加载自己的配置文件，默认<code>/etc/ansible/ansible.cfg</code></li>
+<li>查找对应的主机配置文件，找到要执行的主机或者组</li>
+<li>加载自己对应的模块文件，如 command</li>
+<li>通过ansible将模块或命令生成对应的临时py文件(python脚本)， 并将该文件传输至远程服务器</li>
+<li>对应执行用户的家目录的<code>.ansible/tmp/XXX/XXX.PY</code>文件</li>
+<li>给文件 +x 执行权限</li>
+<li>执行并返回结果</li>
+<li>删除临时py文件，<code>sleep 0</code>退出</li>
+</ul>
+<h4 id="剧本（Playbook）"><a href="#剧本（Playbook）" class="headerlink" title="剧本（Playbook）"></a>剧本（Playbook）</h4><p><strong>playbook的构成</strong>：</p>
+<ul>
+<li>Target section：定义将要执行 playbook 的远程主机组</li>
+<li>Variable section：定义 playbook 运行时需要使用的变量</li>
+<li>Task section：定义将要在远程主机上执行的任务列表</li>
+<li>Handler section：定义 task 执行完成以后需要调用的任务</li>
+</ul>
+<p>一般所需的<strong>目录层</strong>：</p>
+<ul>
+<li>vars：变量层</li>
+<li>tasks：任务层</li>
+<li>handlers：触发条件</li>
+<li>files：文件</li>
+<li>template：模板</li>
+</ul>
+<h3 id="安装方法"><a href="#安装方法" class="headerlink" title="安装方法"></a>安装方法</h3><p>​    以root用户安装ansible为例，方式如下：</p>
+<h4 id="1-从Github获取源码安装"><a href="#1-从Github获取源码安装" class="headerlink" title="1. 从Github获取源码安装"></a>1. 从Github获取源码安装</h4><p>​    需预先安装好Python2.5以上版本。另外，对于Ansible，Windows系统不可以做控制主机。如果控制主机没有预装Python，从<a href="https://www.python.org/download/releases/" rel="external nofollow noopener noreferrer" target="_blank">Python官网</a>选择<a href="https://www.python.org/ftp/python/2.7.15/Python-2.7.15.tgz" rel="external nofollow noopener noreferrer" target="_blank">2.7.15版本的源码包</a>，解压到控制主机执行安装即可。</p>
+<p>安装过Python环境之后，更新以下模块：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装python的包管理工具pip</span></span><br><span class="line">[root@VM_0_6_centos ~]<span class="comment"># easy_install pip</span></span><br><span class="line"><span class="comment"># 通过pip安装ansible必需的若干python模块</span></span><br><span class="line">[root@VM_0_6_centos ~]<span class="comment"># pip install paramiko PyYAML Jinja2 httplib2 six</span></span><br></pre></td></tr></table></figure>
+<p>下载、安装ansible</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git://github.com/ansible/ansible.git --recursive</span><br><span class="line"><span class="built_in">cd</span> ./ansible</span><br><span class="line"><span class="comment"># Bash命令</span></span><br><span class="line"><span class="built_in">source</span> ./hacking/env-setup</span><br></pre></td></tr></table></figure>
+<h4 id="2-Yum安装"><a href="#2-Yum安装" class="headerlink" title="2. Yum安装"></a>2. Yum安装</h4><p>Fedora 用户可直接安装Ansible，但RHEL或CentOS用户，需要 <a href="http://fedoraproject.org/wiki/EPEL" rel="external nofollow noopener noreferrer" target="_blank">配置 EPEL</a>。</p>
+<p>更新EPEL源</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># rpm方式安装EPEL源</span></span><br><span class="line">rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm</span><br><span class="line"><span class="comment"># 或者从阿里镜像源获取</span></span><br><span class="line">wget -O /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo</span><br></pre></td></tr></table></figure>
+<p>然后更新一下缓存</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_6_centos ~]<span class="comment"># yum clean all</span></span><br><span class="line">[root@VM_0_6_centos ~]<span class="comment"># yum makecache</span></span><br></pre></td></tr></table></figure>
+<p>安装ansible</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_6_centos ~]<span class="comment"># yum install ansible -y</span></span><br></pre></td></tr></table></figure>
+<h4 id="3-其它系统安装Ansible"><a href="#3-其它系统安装Ansible" class="headerlink" title="3. 其它系统安装Ansible"></a>3. 其它系统安装Ansible</h4><p>​    其它操作系统，详见<a href="http://www.ansible.com.cn/docs/intro_installation.html" rel="external nofollow noopener noreferrer" target="_blank">Ansible安装方法</a>。</p>
+<h3 id="操作示例"><a href="#操作示例" class="headerlink" title="操作示例"></a>操作示例</h3><p>​    我们主要使用ansible和ansible-playbook这两个命令。批量执行简单命令时，使用ansible；执行更复杂的批量安装部署时用ansible-playbook。以下是我在云主机上使用ansible的三个示例：</p>
+<p>个人云主机主机环境如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_7_centos ~]<span class="comment"># cat /etc/redhat-release                                </span></span><br><span class="line">CentOS Linux release 7.3.1611 (Core) </span><br><span class="line">[root@VM_0_7_centos ~]<span class="comment"># df -h</span></span><br><span class="line">Filesystem      Size  Used Avail Use% Mounted on</span><br><span class="line">/dev/vda1        50G  6.8G   40G  15% /</span><br><span class="line">devtmpfs        911M     0  911M   0% /dev</span><br><span class="line">tmpfs           920M   24K  920M   1% /dev/shm</span><br><span class="line">tmpfs           920M  436K  920M   1% /run</span><br><span class="line">tmpfs           920M     0  920M   0% /sys/fs/cgroup</span><br><span class="line">tmpfs           184M     0  184M   0% /run/user/0</span><br><span class="line">tmpfs           184M     0  184M   0% /run/user/1000</span><br></pre></td></tr></table></figure>
+<h4 id="使用ansible"><a href="#使用ansible" class="headerlink" title="使用ansible"></a>使用ansible</h4><h5 id="1-执行简单命令"><a href="#1-执行简单命令" class="headerlink" title="1. 执行简单命令"></a>1. 执行简单命令</h5><p>​    安装好ansible之后，在当前目录编写一个hosts文件，定义一个主机群组vm，配置好待部署机器的主机别名、IP地址等信息，格式可以如下:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cat myhosts</span><br><span class="line">[vm]</span><br><span class="line">vm01 ansible_host=192.168.xxx.xx1 <span class="comment"># ansible2.0之前的版本应该使用ansible_ssh_host</span></span><br><span class="line">vm02 ansible_host=192.168.xxx.xx2</span><br></pre></td></tr></table></figure>
+<p>​    然后，通过指定<code>-i</code>参数指定自定义hosts文件执行一个简单的命令，如查询系统（redhat系列）版本：<code>cat /etc/redhat-release</code></p>
+<p><strong>1) 仅查询vm01</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_7_centos ~]<span class="comment"># ansible -i myhosts vm01 -m shell -a "cat /etc/redhat-release"</span></span><br><span class="line">vm01 | CHANGED | rc=0 &gt;&gt;</span><br><span class="line">CentOS Linux release 7.3.1611 (Core)</span><br></pre></td></tr></table></figure>
+<p><strong>2) 查询主机群组vm中的所有主机</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_7_centos ~]<span class="comment"># ansible -i myhosts vm -m shell -a "cat /etc/redhat-release"</span></span><br><span class="line">vm02 | CHANGED | rc=0 &gt;&gt;</span><br><span class="line">CentOS Linux release 7.3.1611 (Core) </span><br><span class="line"></span><br><span class="line">vm01 | CHANGED | rc=0 &gt;&gt;</span><br><span class="line">CentOS Linux release 7.3.1611 (Core)</span><br></pre></td></tr></table></figure>
+<p><strong>3) 查询hosts文件中的所有主机</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_7_centos ~]<span class="comment"># ansible -i myhosts all -m shell -a "cat /etc/redhat-release"</span></span><br><span class="line">vm02 | CHANGED | rc=0 &gt;&gt;</span><br><span class="line">CentOS Linux release 7.3.1611 (Core) </span><br><span class="line"></span><br><span class="line">vm01 | CHANGED | rc=0 &gt;&gt;</span><br><span class="line">CentOS Linux release 7.3.1611 (Core)</span><br></pre></td></tr></table></figure>
+<p><strong>！注意：<code>command</code>模块不支持管道</strong></p>
+<p>例如，企图通过<code>&quot;df -h |sed -n 2p&quot;</code>获取第一个列出的文件系统的数据时，报错如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_7_centos ~]<span class="comment"># ansible -i myhosts vm01 -m command -a "df -h |sed -n 2p"</span></span><br><span class="line">vm01 | FAILED | rc=1 &gt;&gt;</span><br><span class="line">df: invalid option -- <span class="string">'n'</span></span><br><span class="line">Try <span class="string">'df --help'</span> <span class="keyword">for</span> more information.non-zero <span class="built_in">return</span> code</span><br></pre></td></tr></table></figure>
+<p>此时，可以使用<strong><code>shell</code>模块</strong>替代，如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_7_centos ~]<span class="comment"># ansible -i myhosts vm01 -m shell -a "df -h | sed -n 2p"</span></span><br><span class="line">vm01 | CHANGED | rc=0 &gt;&gt;</span><br><span class="line">/dev/vda1        50G  3.5G   44G   8% /</span><br></pre></td></tr></table></figure>
+<h5 id="2-执行控制主机上的脚本"><a href="#2-执行控制主机上的脚本" class="headerlink" title="2. 执行控制主机上的脚本"></a>2. 执行控制主机上的脚本</h5><p>​    如果需要执行多条shell命令，而又不想编写playbook，可以将包含这些命令的shell脚本放在控制主机上，通过script模块执行。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">cat &lt;&lt;EOF &gt; /root/test.sh</span><br><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line">yum install httpd -y</span><br><span class="line">systemctl start httpd</span><br><span class="line">systemctl status httpd</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在vm01上安装httpd并启动</span></span><br><span class="line">[root@VM_0_7_centos ~]<span class="comment"># ansible -i myhosts vm01 -m script -a "/root/test.sh"</span></span><br><span class="line">vm01 | CHANGED =&gt; &#123;</span><br><span class="line">    <span class="string">"changed"</span>: <span class="literal">true</span>, </span><br><span class="line">    <span class="string">"rc"</span>: 0, </span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="使用ansible-playbook"><a href="#使用ansible-playbook" class="headerlink" title="使用ansible-playbook"></a>使用ansible-playbook</h4><h5 id="3-使用ansible-playbook部署一个tomcat集群"><a href="#3-使用ansible-playbook部署一个tomcat集群" class="headerlink" title="3. 使用ansible-playbook部署一个tomcat集群"></a>3. 使用ansible-playbook部署一个tomcat集群</h5><p>​    此例演示如何将一个Web应用部署到由 <code>一个NginX节点 + 两个tomcat节点</code>集群，然后模拟升级、回退过程：</p>
+<p>1+2集群设定：</p>
+<table>
+<thead>
+<tr>
+<th>主机</th>
+<th>应用</th>
+<th>监听端口</th>
+<th>版本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>vm_nginx</td>
+<td>NginX</td>
+<td>80</td>
+<td>1.12</td>
+</tr>
+<tr>
+<td>vm_tomcat_1</td>
+<td>tomcat</td>
+<td>8080</td>
+<td>8.5.38</td>
+</tr>
+<tr>
+<td>vm_tomcat_2</td>
+<td>tomcat</td>
+<td>8080</td>
+<td>8.5.38</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>为了模拟升级、回退操作，准备两个Web应用：</p>
+<table>
+<thead>
+<tr>
+<th>Web应用</th>
+<th>版本</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>examples.war</td>
+<td>1.0</td>
+<td>旧版本，回退用</td>
+</tr>
+<tr>
+<td>examples.war</td>
+<td>2.0</td>
+<td>新版本，升级用</td>
+</tr>
+</tbody>
+</table>
+<p>接下来，编写playbook。</p>
+<p>在不是特别清楚每个步骤该如何编写的情况下，先一条一条以文字形式罗列出来：</p>
+<ol>
+<li>更新所有节点的yum源</li>
+<li>在NginX节点通过yum安装NginX 1.12</li>
+<li>在tomcat节点通过yum安装Java 8</li>
+<li>解压tomcat安装包到tomcat节点的安装目录</li>
+<li>配置tomcat（添加环境变量、开机自启、开放8080端口等）</li>
+<li>将examples.war v1.0发布到tomcat并启动tomcat（因初始已有examples，改为替换首页）</li>
+<li>配置NginX并启动</li>
+<li>停止vm_tomcat_1上的tomcat，将examples.war v2.0发布到tomcat并启动</li>
+<li>等待vm_tomcat_1的tomcat启动正常</li>
+<li>停止vm_tomcat_2上的tomcat，将examples.war v2.0发布到tomcat并启动</li>
+<li>等待vm_tomcat_2的tomcat启动正常</li>
+<li>重复步骤8~11，但改用examples.war v1.0，模拟回退过程</li>
+</ol>
+<hr>
+<p>据此，可作以下规划。</p>
+<p>角色设定：</p>
+<table>
+<thead>
+<tr>
+<th>role</th>
+<th>说明</th>
+<th>包含步骤</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>tomcat</td>
+<td>安装Java 8，tomcat 8，并替换examples首页</td>
+<td>1，3 ~ 6</td>
+</tr>
+<tr>
+<td>nginx</td>
+<td>安装NginX 1.12</td>
+<td>1，2，7</td>
+</tr>
+<tr>
+<td>upgrade</td>
+<td>升级到examples.war v2.0</td>
+<td>8 ~ 11</td>
+</tr>
+<tr>
+<td>rollback</td>
+<td>回退到examples.war v1.0</td>
+<td>12</td>
+</tr>
+</tbody>
+</table>
+<p>主机组划分：</p>
+<table>
+<thead>
+<tr>
+<th>group</th>
+<th>hosts</th>
+<th>roles</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lb</td>
+<td>vm_nginx</td>
+<td>nginx</td>
+</tr>
+<tr>
+<td>web</td>
+<td>vm_tomcat_1<br>vm_tomcat_2</td>
+<td>tomcat<br>upgrade<br>rollback</td>
+</tr>
+</tbody>
+</table>
+<p>入口playbook划分：</p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>roles</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>start.yml</td>
+<td>tomcat<br>nginx</td>
+</tr>
+<tr>
+<td>upgrade.yml</td>
+<td>upgrade</td>
+</tr>
+<tr>
+<td>rollback.yml</td>
+<td>rollback</td>
+</tr>
+</tbody>
+</table>
+<p><strong>完整的playbook目录结构如下:</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_7_centos <span class="built_in">test</span>]<span class="comment"># tree ansible_tomcat_cluster/</span></span><br><span class="line">ansible_tomcat_cluster/</span><br><span class="line">|-- ansible.cfg</span><br><span class="line">|-- group_vars</span><br><span class="line">|   `-- web</span><br><span class="line">|       `-- main.yaml <span class="comment"># 对web组可见的变量（参数）</span></span><br><span class="line">|-- hosts</span><br><span class="line">`-- roles</span><br><span class="line">    |-- nginx</span><br><span class="line">    |   |-- files</span><br><span class="line">    |   |   `-- nginx.conf <span class="comment"># 用于替换/etc/nginx/nginx.conf，已作好负载均衡配置</span></span><br><span class="line">    |   `-- tasks</span><br><span class="line">    |       `-- main.yml <span class="comment"># 每个tasks下的main.yml（或main.yaml)是对应role的主流程</span></span><br><span class="line">    |-- rollback</span><br><span class="line">    |   |-- files</span><br><span class="line">    |   |   `-- examples.war <span class="comment"># 此为1.0版本，真实环境中，一般会从远程版本库获取，此处是预先准备好</span></span><br><span class="line">    |   |-- handlers</span><br><span class="line">    |   |   `-- main.yml</span><br><span class="line">    |   `-- tasks</span><br><span class="line">    |       `-- main.yml</span><br><span class="line">    |-- rollback.yml</span><br><span class="line">    |-- start.yml <span class="comment"># 执行此playbook，会对lb和web组分别执行nginx和tomcat role的主流程</span></span><br><span class="line">    |-- tomcat</span><br><span class="line">    |   |-- files</span><br><span class="line">    |   |   `-- apache-tomcat-8.5.38.tar.gz <span class="comment"># 预置的tomcat8解压安装包</span></span><br><span class="line">    |   |-- tasks</span><br><span class="line">    |   |   `-- main.yaml</span><br><span class="line">    |   |-- templates</span><br><span class="line">    |   |   `-- index.html <span class="comment"># 首页模板，用于替换examples的首页。此处演示模板的变量注入</span></span><br><span class="line">    |   `-- vars</span><br><span class="line">    |       `-- main.yaml <span class="comment"># 仅对role tomcat可见的变量（参数）</span></span><br><span class="line">    |-- upgrade</span><br><span class="line">    |   |-- files</span><br><span class="line">    |   |   `-- examples.war <span class="comment"># 此为2.0版本</span></span><br><span class="line">    |   |-- handlers</span><br><span class="line">    |   |   `-- main.yml <span class="comment"># 此处演示处理器的用法，由notify触发（见upgrade/tasks/main.yml）</span></span><br><span class="line">    |   `-- tasks</span><br><span class="line">    |       `-- main.yml</span><br><span class="line">    `-- upgrade.yml</span><br></pre></td></tr></table></figure>
+<ul>
+<li>inventory（即hosts文件）：</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_7_centos <span class="built_in">test</span>]<span class="comment"># cat ansible_tomcat/hosts</span></span><br><span class="line">[web]</span><br><span class="line">vm_tomcat_1 ansible_host=118.24.217.91 mytitle=<span class="string">"this is vm01"</span></span><br><span class="line">vm_tomcat_2 ansible_host=188.131.133.107 mytitle=<span class="string">"this is vm02"</span></span><br><span class="line"></span><br><span class="line">[lb]</span><br><span class="line">vm_nginx ansible_host=188.131.133.107</span><br></pre></td></tr></table></figure>
+<ul>
+<li>role nginx的任务编排：</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">安装NginX</span> <span class="string">"<span class="template-variable">&#123;&#123; nginx_version &#125;&#125;</span>"</span></span><br><span class="line">  <span class="attr">yum:</span> <span class="string">name=&#123;&#123;</span> <span class="string">item</span> <span class="string">&#125;&#125;</span> <span class="string">state=present</span></span><br><span class="line">  <span class="attr">with_items:</span></span><br><span class="line">     <span class="bullet">-</span> <span class="string">yum-utils</span></span><br><span class="line">     <span class="bullet">-</span> <span class="string">"nginx-<span class="template-variable">&#123;&#123; nginx_version &#125;&#125;</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">配置NginX</span></span><br><span class="line">  <span class="attr">copy:</span> <span class="string">src=nginx.conf</span> <span class="string">dest=/etc/nginx/</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">启动NginX</span></span><br><span class="line">  <span class="attr">service:</span> <span class="string">name=nginx</span> <span class="string">state=started</span> <span class="string">enabled=yes</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">启用防火墙</span></span><br><span class="line">  <span class="attr">service:</span> <span class="string">name=firewalld</span> <span class="string">state=started</span> <span class="string">enabled=yes</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">开启80端口（临时）</span></span><br><span class="line">  <span class="attr">shell:</span> <span class="string">firewall-cmd</span> <span class="string">--zone=public</span> <span class="string">--add-port=80/tcp</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">等待80端口启动</span></span><br><span class="line">  <span class="attr">wait_for:</span></span><br><span class="line">    <span class="attr">port:</span> <span class="number">80</span></span><br><span class="line">    <span class="attr">state:</span> <span class="string">started</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>role tomcat的任务编排：</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">[root@VM_0_7_centos</span> <span class="string">test]#</span> <span class="string">cat</span> <span class="string">ansible_tomcat/roles/install/tasks/main.yaml</span> </span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">安装Java8</span></span><br><span class="line">  <span class="attr">yum:</span> <span class="string">name=&#123;&#123;</span> <span class="string">item</span> <span class="string">&#125;&#125;</span> <span class="string">state=present</span></span><br><span class="line">  <span class="attr">with_items:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">yum-utils</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">java-1.8.0</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">将tomcat8解压缩到安装目录下</span></span><br><span class="line">  <span class="attr">unarchive:</span></span><br><span class="line">    <span class="attr">src:</span> <span class="string">"<span class="template-variable">&#123;&#123; app_name &#125;&#125;</span>.tar.gz"</span></span><br><span class="line">    <span class="attr">dest:</span> <span class="string">"<span class="template-variable">&#123;&#123; install_path &#125;&#125;</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">注册tomcat环境变量</span></span><br><span class="line">  <span class="attr">lineinfile:</span></span><br><span class="line">    <span class="attr">dest:</span> <span class="string">/etc/profile</span></span><br><span class="line">    <span class="attr">state:</span> <span class="string">present</span></span><br><span class="line">    <span class="attr">line:</span> <span class="string">"<span class="template-variable">&#123;&#123; item &#125;&#125;</span>"</span></span><br><span class="line">  <span class="attr">with_items:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">"export CATALINA_HOME=/usr/local/apache-tomcat-8.5.38/"</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">"export PATH=$CATALINA_HOME/bin:$PATH"</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">检测tomcat安装目录是否存在</span></span><br><span class="line">  <span class="attr">stat:</span> <span class="string">path=&#123;&#123;</span> <span class="string">tomcat_home</span> <span class="string">&#125;&#125;</span></span><br><span class="line">  <span class="comment"># 此处演示register用法，可在后面的步骤中打印&#123;&#123; check_tomcat_result &#125;&#125;以观察其值</span></span><br><span class="line">  <span class="attr">register:</span> <span class="string">check_tomcat_result</span></span><br><span class="line">  <span class="attr">failed_when:</span> <span class="string">not</span> <span class="string">check_tomcat_result.stat.exists</span></span><br><span class="line"></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">替换examples首页</span></span><br><span class="line">  <span class="attr">template:</span> <span class="string">src=index.html</span>  <span class="string">dest="&#123;&#123;</span> <span class="string">tomcat_home</span> <span class="string">&#125;&#125;/webapps/examples/index.html"</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">启动tomcat</span></span><br><span class="line">  <span class="attr">shell:</span> <span class="string">nohup</span> <span class="string">"<span class="template-variable">&#123;&#123; tomcat_home &#125;&#125;</span>/bin/startup.sh"</span> <span class="string">&amp;</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">启用防火墙</span></span><br><span class="line">  <span class="attr">service:</span> <span class="string">name=firewalld</span> <span class="string">state=started</span> <span class="string">enabled=yes</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">开启8080端口（临时）</span></span><br><span class="line">  <span class="attr">shell:</span> <span class="string">firewall-cmd</span> <span class="string">--zone=public</span> <span class="string">--add-port=8080/tcp</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">等待8080端口启动</span></span><br><span class="line">  <span class="attr">wait_for:</span></span><br><span class="line">    <span class="attr">port:</span> <span class="number">8080</span></span><br><span class="line">    <span class="attr">state:</span> <span class="string">started</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">配置tomcat开机自启动</span></span><br><span class="line">  <span class="attr">lineinfile:</span></span><br><span class="line">    <span class="attr">dest:</span> <span class="string">/etc/profile</span></span><br><span class="line">    <span class="attr">state:</span> <span class="string">present</span></span><br><span class="line">    <span class="attr">line:</span> <span class="string">"<span class="template-variable">&#123;&#123; item &#125;&#125;</span>"</span></span><br><span class="line">  <span class="attr">with_items:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">"<span class="template-variable">&#123;&#123; tomcat_home &#125;&#125;</span>/bin/startup.sh &amp;"</span></span><br></pre></td></tr></table></figure>
+<p><strong>执行nginx和tomcat的安装部署：</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_7_centos <span class="built_in">test</span>]<span class="comment"># ansible-playbook roles/start.yml</span></span><br></pre></td></tr></table></figure>
+<p>结果如下图：</p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/ansible-intro.assets/1551012654701.png" alt="1551012654701"></p>
+<p>检验环境变量是否已写入<code>/etc/profile</code>：</p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/ansible-intro.assets/1551012868529.png" alt="1551012868529"></p>
+<p>检验tomcat开机自启动是否已写入<code>/etc/rc.local</code>：</p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/ansible-intro.assets/1551014113584.png" alt="1551014113584"></p>
+<p>检验index.html模板是否注入成功：</p>
+<p>​    预置的index.html模板：</p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/ansible-intro.assets/1550722583627.png" alt="1550722583627"></p>
+<p>​    注入变量后，h3标签值变成了”this is vm01”（另一个节点是”this is vm02”）：</p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/ansible-intro.assets/1551014256905.png" alt="1551014256905"></p>
+<p>检验NginX负载均衡是否生效：</p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/ansible-intro.assets/1551015508452.png" alt="1551015508452"></p>
+<p><strong>执行逐个节点升级：</strong></p>
+<p>upgrade.yml：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">hosts:</span> <span class="string">web</span></span><br><span class="line">  <span class="attr">serial:</span> <span class="number">1</span> <span class="comment"># serial值为1，表示一个一个节点地执行</span></span><br><span class="line">  <span class="attr">roles:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">&#123;</span> <span class="attr">role:</span> <span class="string">upgrade</span> <span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>upgrade/tasks/main.yml：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">升级</span> <span class="string">|关闭tomcat</span></span><br><span class="line">  <span class="attr">command:</span> <span class="string">sh</span> <span class="string">"<span class="template-variable">&#123;&#123; tomcat_home &#125;&#125;</span>/bin/shutdown.sh"</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">等待8080端口关闭</span></span><br><span class="line">  <span class="attr">wait_for:</span></span><br><span class="line">    <span class="attr">port:</span> <span class="number">8080</span></span><br><span class="line">    <span class="attr">state:</span> <span class="string">stopped</span></span><br><span class="line">  <span class="attr">notify:</span> <span class="string">clean</span> <span class="string">tomcat</span> <span class="string">cache</span> <span class="comment"># 通知handler "clean tomcat cache" 处理</span></span><br><span class="line"><span class="string">（剩余略）</span></span><br></pre></td></tr></table></figure>
+<p>handlers/main.yml：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">clean</span> <span class="string">tomcat</span> <span class="string">cache</span></span><br><span class="line">  <span class="attr">file:</span> <span class="string">path="&#123;&#123;</span> <span class="string">tomcat_home</span> <span class="string">&#125;&#125;/work/Catalina"</span> <span class="string">state=absent</span></span><br><span class="line">  <span class="attr">ignore_errors:</span> <span class="literal">yes</span></span><br></pre></td></tr></table></figure>
+<p>模拟应用升级的过程过程如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_7_centos ansible_tomcat_cluster]<span class="comment"># ansible-playbook roles/upgrade.yml</span></span><br></pre></td></tr></table></figure>
+<p>​    先对vm_tomat_1：</p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/ansible-intro.assets/1551016061521.png" alt="1551016061521"></p>
+<p>​    再对vm_tomcat_2：</p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/ansible-intro.assets/1551016281860.png" alt="1551016281860"></p>
+<p>升级后，从浏览器访问变成了2.0版本（两个节点的页面一致，未作区分）：</p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/ansible-intro.assets/1551016392519.png" alt="1551016392519"></p>
+<p><strong>执行逐个节点回退：</strong></p>
+<p>rollback剧本内容与upgrade相似，从略。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_7_centos ansible_tomcat_cluster]<span class="comment"># ansible-playbook roles/rollback.yml</span></span><br></pre></td></tr></table></figure>
+<p>回退过程类似升级过程，结果如下：</p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/ansible-intro.assets/1551016579264.png" alt="1551016579264"></p>
+<p>回退后，从浏览器访问变成了1.0版本：</p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/ansible-intro.assets/1551016791550.png" alt="1551016791550"></p>
+<p>一切符合预期。</p>
+<p>至此，NginX <em> 1 + Tomcat </em> 2方式部署war包，然后模拟升级、回退的过程演示完毕。完整的playbook见<a href="https://github.com/zlzgithub/ansible_zlz/tree/master/tomcat_cluster" rel="external nofollow noopener noreferrer" target="_blank">gitlab仓库</a></p>
+<hr>
+<p><em>P.s. 以上操作不是使用密码，需事先作SSH免密认证。</em></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 控制主机生成ssh密钥对，简单点，直接ssh-keygen不带任何参数</span></span><br><span class="line">ssh-keygen</span><br><span class="line"><span class="comment"># 发送给被控主机</span></span><br><span class="line">ssh-copy-id root@localhost	<span class="comment"># 如果要在控制主机执行部署，需发送公钥给自己</span></span><br><span class="line">ssh-copy-id root@&lt;目标主机IP&gt;</span><br></pre></td></tr></table></figure>
+<p><em>其它模块的用法，及高级特性，请结合实际需求，阅读官方文档《Ansible User Guide》。</em></p>
+<h3 id="Ansible参考"><a href="#Ansible参考" class="headerlink" title="Ansible参考"></a>Ansible参考</h3><ol>
+<li><p><a href="https://docs.ansible.com/ansible/latest/user_guide/" rel="external nofollow noopener noreferrer" target="_blank">Ansible User Guide</a></p>
+</li>
+<li><p><a href="http://www.ansible.com.cn/" rel="external nofollow noopener noreferrer" target="_blank">Ansible中文权威指南</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/a105421548/article/details/53558598" rel="external nofollow noopener noreferrer" target="_blank">Ansible和SaltStack的比较和选型</a></p>
+</li>
+</ol>
+<hr>
+<p>（End）</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        
+
+      </div>
+    	
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Ansible/" rel="tag"><i class="fa fa-tag"></i> Ansible</a>
+          
+            <a href="/tags/CMDB/" rel="tag"><i class="fa fa-tag"></i> CMDB</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/monitoring/zabbix/zabbix-intro/" rel="next" title="Zabbix的安装与使用">
+                <i class="fa fa-chevron-left"></i> Zabbix的安装与使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/monitoring/prometheus/prometheus_federate/" rel="prev" title="Prometheus联邦">
+                Prometheus联邦 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MjA1NC8xODYwMQ=="></div>
+    </div>
+
+  
+  
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="https://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/avatar.jpg" alt="Lz. Zeng">
+            
+              <p class="site-author-name" itemprop="name">Lz. Zeng</p>
+              <p class="site-description motion-element" itemprop="description">Continuous Self-Improvement</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-name">发布</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Ansible的主要特点"><span class="nav-number">1.1.</span> <span class="nav-text">Ansible的主要特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Ansible架构图"><span class="nav-number">1.2.</span> <span class="nav-text">Ansible架构图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#适用场景"><span class="nav-number">1.3.</span> <span class="nav-text">适用场景</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本知识"><span class="nav-number">2.</span> <span class="nav-text">基本知识</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#常用模块"><span class="nav-number">2.1.</span> <span class="nav-text">常用模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置文件"><span class="nav-number">2.2.</span> <span class="nav-text">配置文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#执行过程"><span class="nav-number">2.3.</span> <span class="nav-text">执行过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#剧本（Playbook）"><span class="nav-number">2.4.</span> <span class="nav-text">剧本（Playbook）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装方法"><span class="nav-number">3.</span> <span class="nav-text">安装方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-从Github获取源码安装"><span class="nav-number">3.1.</span> <span class="nav-text">1. 从Github获取源码安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Yum安装"><span class="nav-number">3.2.</span> <span class="nav-text">2. Yum安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-其它系统安装Ansible"><span class="nav-number">3.3.</span> <span class="nav-text">3. 其它系统安装Ansible</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作示例"><span class="nav-number">4.</span> <span class="nav-text">操作示例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用ansible"><span class="nav-number">4.1.</span> <span class="nav-text">使用ansible</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-执行简单命令"><span class="nav-number">4.1.1.</span> <span class="nav-text">1. 执行简单命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-执行控制主机上的脚本"><span class="nav-number">4.1.2.</span> <span class="nav-text">2. 执行控制主机上的脚本</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用ansible-playbook"><span class="nav-number">4.2.</span> <span class="nav-text">使用ansible-playbook</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-使用ansible-playbook部署一个tomcat集群"><span class="nav-number">4.2.1.</span> <span class="nav-text">3. 使用ansible-playbook部署一个tomcat集群</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ansible参考"><span class="nav-number">5.</span> <span class="nav-text">Ansible参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lz. Zeng</span>
+  
+  
+</div>
+
+
+
+
+
+
+  <div class="theme-info"><i class="fa fa-life-ring" aria-hidden="true"></i><span></span>  NexT.Pisces</div>
+
+
+
+
+<div class="theme-info">
+  <span>&nbsp;|&nbsp;</span>
+  <i class="fa fa-eye" aria-hidden="true"></i><span id="busuanzi_container_site_pv">&nbsp;<span id="busuanzi_value_site_pv">
+  </span>&nbsp;</span>
+  <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">&nbsp;<span id="busuanzi_value_site_uv"></span>&nbsp;</span>
+  <i class="fa fa-area-chart" aria-hidden="true"></i>
+  <span class="post-count">Words: 97.2k</span>
+</div>
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/photoswipe.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/photoswipe-ui-default.js?v=5.1.4"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

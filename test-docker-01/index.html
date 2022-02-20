@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+<meta name="viewport" content="width=device-width">
+<meta name="google-site-verification" content="V4j2XKWJOKRE9YZT6Bh0vioT5VWrnimuwjmS6cyIuJ8">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Docker,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="系统：CentOS 7.2  准备一个Django Demo，运行后效果如下：">
+<meta name="keywords" content="Docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Docker部署一个Django Demo">
+<meta property="og:url" content="https://lzzeng.github.io/test-docker-01/index.html">
+<meta property="og:site_name" content="Zeng&#39;s Page">
+<meta property="og:description" content="系统：CentOS 7.2  准备一个Django Demo，运行后效果如下：">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/1547641817316.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/1547633107189.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/1547635956715.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/1547636296801.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/1547637360611.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/1547637610068.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/1547637646260.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/1547637779496.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/1547637911779.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/1547639904076.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/1547640333927.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/1547640687934.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/1547640743179.png">
+<meta property="og:updated_time" content="2022-02-20T15:52:53.684Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用Docker部署一个Django Demo">
+<meta name="twitter:description" content="系统：CentOS 7.2  准备一个Django Demo，运行后效果如下：">
+<meta name="twitter:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/1547641817316.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://lzzeng.github.io/test-docker-01/">
+
+
+
+
+
+  <title>使用Docker部署一个Django Demo | Zeng's Page</title>
+  
+
+
+
+
+
+
+
+
+  <script src="/js/src/photoswipe.js?v=5.1.4"></script>
+  <script src="/js/src/photoswipe-ui-default.js?v=5.1.4"></script>
+</head>
+
+<body itemscope itemtype="https://schema.org/WebPage" lang="default">
+
+  
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="https://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Zeng's Page</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-photos">
+          <a href="/photos/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-photo"></i> <br>
+            
+            相册
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="https://schema.org/Article">
+  
+  
+  
+  <div class="post-block" id="container">
+    <link itemprop="mainEntityOfPage" href="https://lzzeng.github.io/test-docker-01/">
+
+    <span hidden itemprop="author" itemscope itemtype="https://schema.org/Person">
+      <meta itemprop="name" content="Lz. Zeng">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+      <meta itemprop="name" content="Zeng's Page">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">使用Docker部署一个Django Demo</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-16T17:32:23+00:00">
+                2019-01-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Docker/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          		 
+
+        </div>
+      </header>
+    	
+	
+	
+		<script type="text/javascript">
+			function showToc(){
+				var toc_article = document.getElementById("toc-article");
+				var show_toc_btn = document.getElementById("show-toc-btn");			
+				toc_article.setAttribute("style","display:block");
+				show_toc_btn.setAttribute("style","display:none");
+			};
+			function showBtn(){
+				var toc_article = document.getElementById("toc-article");
+				var show_toc_btn = document.getElementById("show-toc-btn");
+				toc_article.setAttribute("style","display:none");
+				show_toc_btn.setAttribute("style","display:block");
+			};
+		</script>
+		
+		<div id="my-toc">
+			<p class="show-toc-btn" id="show-toc-btn" onclick="showToc();">
+				<span class="btn-bg"></span>
+				<span class="btn-text">目录</span>
+			</p>
+			<div id="toc-article" class="toc-article" style="display:none">
+				<span id="toc-close" class="toc-close" title="隐藏" onclick="showBtn();">×</span>
+				<strong class="toc-title">文章目录</strong>
+				<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装docker"><span class="toc-number">1.</span> <span class="toc-text">安装docker</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#编写Dockerfile"><span class="toc-number">2.</span> <span class="toc-text">编写Dockerfile</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用docker-compose"><span class="toc-number">3.</span> <span class="toc-text">使用docker-compose</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考文档"><span class="toc-number">4.</span> <span class="toc-text">参考文档</span></a></li></ol>
+			</div>
+		</div>
+	
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<blockquote>
+<p>系统：CentOS 7.2</p>
+</blockquote>
+<p>准备一个Django Demo，运行后效果如下：</p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/1547641817316.png" alt="1547641817316"></p>
+<a id="more"></a>
+<p>这是Django官网上的一个简单的投票demo，是使用NginX + supervisord + gunicorn + venv来部署的。现在要做的是把它制作成docker镜像，然后以容器的方式运行它。</p>
+<hr>
+<p><strong>步骤如下：</strong></p>
+<h3 id="安装docker"><a href="#安装docker" class="headerlink" title="安装docker"></a>安装docker</h3><p>我使用的是云主机，已配置yum源，可以直接</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install docker</span><br></pre></td></tr></table></figure>
+<p>因已安装docker，提示更新如下（更新后原有镜像被删除了）：</p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/1547633107189.png" alt="1547633107189"></p>
+<p>yum源配置如下：</p>
+<p>/etc/yum.repos.d/CentOS-Base.repo文件：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[extras]</span></span><br><span class="line"><span class="attr">gpgcheck</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">gpgkey</span>=http://mirrors.tencentyun.com/centos/RPM-GPG-KEY-CentOS-<span class="number">7</span></span><br><span class="line"><span class="attr">enabled</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">baseurl</span>=http://mirrors.tencentyun.com/centos/<span class="variable">$releasever</span>/extras/<span class="variable">$basearch</span>/</span><br><span class="line"><span class="attr">name</span>=Qcloud centos extras - <span class="variable">$basearch</span></span><br><span class="line"><span class="section">[os]</span></span><br><span class="line"><span class="attr">gpgcheck</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">gpgkey</span>=http://mirrors.tencentyun.com/centos/RPM-GPG-KEY-CentOS-<span class="number">7</span></span><br><span class="line"><span class="attr">enabled</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">baseurl</span>=http://mirrors.tencentyun.com/centos/<span class="variable">$releasever</span>/os/<span class="variable">$basearch</span>/</span><br><span class="line"><span class="attr">name</span>=Qcloud centos os - <span class="variable">$basearch</span></span><br><span class="line"><span class="section">[updates]</span></span><br><span class="line"><span class="attr">gpgcheck</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">gpgkey</span>=http://mirrors.tencentyun.com/centos/RPM-GPG-KEY-CentOS-<span class="number">7</span></span><br><span class="line"><span class="attr">enabled</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">baseurl</span>=http://mirrors.tencentyun.com/centos/<span class="variable">$releasever</span>/updates/<span class="variable">$basearch</span>/</span><br><span class="line"><span class="attr">name</span>=Qcloud centos updates - <span class="variable">$basearch</span></span><br></pre></td></tr></table></figure>
+<p>/etc/yum.repos.d/CentOS-Epel.repo文件：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[epel]</span></span><br><span class="line"><span class="attr">name</span>=EPEL for redhat/centos <span class="variable">$releasever</span> - <span class="variable">$basearch</span></span><br><span class="line"><span class="attr">failovermethod</span>=priority</span><br><span class="line"><span class="attr">gpgcheck</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">gpgkey</span>=http://mirrors.tencentyun.com/epel/RPM-GPG-KEY-EPEL-<span class="number">7</span></span><br><span class="line"><span class="attr">enabled</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">baseurl</span>=http://mirrors.tencentyun.com/epel/<span class="variable">$releasever</span>/<span class="variable">$basearch</span>/</span><br></pre></td></tr></table></figure>
+<hr>
+<p>示例应用根目录是<code>mysite2</code>，如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">|   |-- mysite2</span><br><span class="line">|   |   |-- fixtures</span><br><span class="line">|   |   |-- manage.py</span><br><span class="line">|   |   |-- mysite2</span><br><span class="line">|   |   |-- polls</span><br><span class="line">|   |   `-- templates</span><br></pre></td></tr></table></figure>
+<p>为了方便制作docker镜像，重新组织成了下面的样子：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[root@lzzeng docker_demo]<span class="comment"># tree -L 3 .</span></span><br><span class="line">.</span><br><span class="line">|-- application</span><br><span class="line">|   |-- docker-compose.yml</span><br><span class="line">|   |-- Dockerfile</span><br><span class="line">|   |-- mysite2</span><br><span class="line">|   |   |-- fixtures</span><br><span class="line">|   |   |-- manage.py</span><br><span class="line">|   |   |-- mysite2</span><br><span class="line">|   |   |-- polls</span><br><span class="line">|   |   `-- templates</span><br><span class="line">|   |-- mysite2_nginx.conf</span><br><span class="line">|   |-- mysite2_supervisord.ini</span><br><span class="line">|   |-- requirements.txt</span><br><span class="line">|   |-- start_script</span><br><span class="line">|   `-- <span class="built_in">wait</span>-for-it.sh</span><br><span class="line">`-- readMe.md</span><br></pre></td></tr></table></figure>
+<p><code>application</code>目录下的文件<code>docker-compose.yml</code>、<code>Dockerfile</code>等7个文件是新增的。作用如下：</p>
+<p><strong>docker-compose.yml</strong>：通过docker-compose启动容器的配置，定义了多个容器的启动参数，及容器关联等<br><strong>Dockerfile</strong>：制作Docker镜像的脚本编排，类似于Makefile、SPEC文件等<br><strong>mysite2_nginx.conf</strong>：事先写好的NginX配置文件<br><strong>mysite2_supervisord.ini</strong>：事先写好的Supervisord配置文件<br><strong>requirements.txt</strong>：记录制作docker镜像需要安装的依赖，Dockerfile中用到<br><strong>start_script</strong>： 容器启动入口，Dockerfile中定义了此脚本为启动入口<br><strong>wait-for-it.sh</strong>：等待其它容器（服务）启动完毕的脚本</p>
+<hr>
+<h3 id="编写Dockerfile"><a href="#编写Dockerfile" class="headerlink" title="编写Dockerfile"></a>编写Dockerfile</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 基于centos:7</span></span><br><span class="line">FROM centos:7</span><br><span class="line">MAINTAINER zeng &lt;zeng@abc.com&gt;</span><br><span class="line">ENV TZ <span class="string">"Asia/Shanghai"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置若干环境变量</span></span><br><span class="line"><span class="comment"># Local directory with project source</span></span><br><span class="line">ENV DOCKER_SRC=mysite2</span><br><span class="line"><span class="comment"># Directory in container for all project files</span></span><br><span class="line">ENV DOCKER_HOME=/srv</span><br><span class="line"><span class="comment"># Directory in container for project source files</span></span><br><span class="line">ENV DOCKER_PROJECT=/srv/webapp  <span class="comment"># mysite2下面的文件</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装基础镜像中缺失的软件</span></span><br><span class="line"><span class="comment"># Install required packages and remove the apt packages cache when done.</span></span><br><span class="line">RUN yum -y install epel-release &amp;&amp; \</span><br><span class="line">    yum -y install <span class="built_in">which</span> &amp;&amp; \</span><br><span class="line">    yum -y install python-pip &amp;&amp; \</span><br><span class="line">    yum -y install supervisor-3.1.4 &amp;&amp; \</span><br><span class="line">    yum -y install git nginx gcc gcc-c++ python-devel &amp;&amp; \</span><br><span class="line">    yum -y install mysql &amp;&amp; \</span><br><span class="line">    yum -y install mysql-devel &amp;&amp; \</span><br><span class="line">    yum -y install nc &amp;&amp; \</span><br><span class="line">    yum clean all &amp;&amp; \</span><br><span class="line">    pip install -U pip</span><br><span class="line"></span><br><span class="line"><span class="comment"># cd $DOCKER_PROJECT</span></span><br><span class="line">WORKDIR <span class="variable">$DOCKER_PROJECT</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># COPY指令将从构建上下文目录中 &lt;源路径&gt; 的文件/目录复制到新的一层的镜像内的 &lt;目标路径&gt; 位置</span></span><br><span class="line"><span class="comment"># 即Dockerfile所在目录下的文件复制到$DOCKER_PROJECT</span></span><br><span class="line">COPY ./ ./</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create application subdirectories</span></span><br><span class="line">WORKDIR <span class="variable">$DOCKER_PROJECT</span></span><br><span class="line">RUN mkdir static <span class="built_in">log</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 在 Dockerfile 中，可以事先指定某些目录挂载为匿名卷，这样在运行时如果用户不指定挂载，其应用也可以正常运行，不会向容器存储层写入大量数据</span></span><br><span class="line">VOLUME [<span class="string">"<span class="variable">$DOCKER_HOME</span>/media/"</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># RUN pip install -r requirements.txt</span></span><br><span class="line">RUN pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 暴露某些端口</span></span><br><span class="line">EXPOSE 8000</span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定容器启动入口</span></span><br><span class="line">RUN chmod u+x start_script</span><br><span class="line">ENTRYPOINT [<span class="string">"./start_script"</span>]</span><br></pre></td></tr></table></figure>
+<p>构建镜像：</p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/1547635956715.png" alt="1547635956715"></p>
+<p>构建成功：</p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/1547636296801.png" alt="1547636296801"></p>
+<p>测试容器：</p>
+<p><code>mysite2</code>应用中用到了数据库，需要先启动mysql容器：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name db -d -e MYSQL_ROOT_PASSWORD=qwerasdf -e MYSQL_DATABASE=mysite2_db -v /root/mysite2_db:/var/lib/mysql mysql:5.7</span><br></pre></td></tr></table></figure>
+<p>通过<code>mysql:5.7</code>镜像创建mysql容器时，会自动创建名为<code>mysite2_db</code>的数据库，并设置数据库密码为<code>qwerasdf</code>,以备连接。容器中的<code>/var/lib/mysql</code>目录会同步到数据卷<code>/root/mysite2_db</code>。</p>
+<p>执行后如下：</p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/1547637360611.png" alt="1547637360611"></p>
+<p>然后，通过已制作好的镜像<code>zeng/docker_demo_gunicorn:0.3</code>来启动<code>mysite2</code>：</p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/1547637610068.png" alt="1547637610068"></p>
+<p>启动成功：</p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/1547637646260.png" alt="1547637646260"></p>
+<p>浏览器访问：</p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/1547637779496.png" alt="1547637779496"></p>
+<p>因为<code>mysite2</code>没有处理这个请求路径，改为：</p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/1547637911779.png" alt="1547637911779"></p>
+<p>对接mysql时，用户名、密码是在django settings里有如下配置：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">DATABASES = &#123;</span><br><span class="line">    <span class="string">'default'</span>:&#123;</span><br><span class="line">        <span class="string">'ENGINE'</span>: <span class="string">'django.db.backends.mysql'</span>,</span><br><span class="line">        <span class="string">'NAME'</span>:<span class="string">'mysite2_db'</span>,</span><br><span class="line">        <span class="string">'USER'</span>:<span class="string">'root'</span>,</span><br><span class="line">        <span class="string">'PASSWORD'</span>: os.environ.get(<span class="string">'DB_ENV_MYSQL_ROOT_PASSWORD'</span>),</span><br><span class="line">        <span class="string">'HOST'</span>:os.environ.get(<span class="string">'DB_PORT_3306_TCP_ADDR'</span>),</span><br><span class="line">        <span class="string">'PORT'</span>:<span class="number">3306</span>,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>start_script</code>：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># nginx settings</span></span><br><span class="line">sed -i <span class="string">'/user/&#123;s/nginx/root/&#125;'</span> /etc/nginx/nginx.conf</span><br><span class="line">ln -s /srv/webapp/mysite2_nginx.conf /etc/nginx/conf.d/</span><br><span class="line">nginx</span><br><span class="line"></span><br><span class="line">chmod u+x <span class="built_in">wait</span>-for-it.sh</span><br><span class="line">./<span class="built_in">wait</span>-for-it.sh <span class="variable">$DB_PORT_3306_TCP_ADDR</span>:<span class="variable">$DB_PORT_3306_TCP_PORT</span> &amp;</span><br><span class="line"><span class="built_in">wait</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># application settings</span></span><br><span class="line"><span class="built_in">export</span> DJANGO_SETTINGS_MODULE=mysite2.settings.server</span><br><span class="line"><span class="built_in">cd</span> mysite2</span><br><span class="line">./manage.py migrate --noinput</span><br><span class="line">./manage.py loaddata ./fixtures/superuser.json  <span class="comment"># 加载root用户信息，见下</span></span><br><span class="line">./manage.py collectstatic --noinput</span><br><span class="line"></span><br><span class="line"><span class="comment"># 容器中启动mysite2</span></span><br><span class="line">ln -s /srv/webapp/mysite2_supervisord.ini /etc/supervisord.d/</span><br><span class="line">supervisord -c /etc/supervisord.conf</span><br></pre></td></tr></table></figure>
+<p>mysite2/fixtures/superuser.json：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">    &#123; <span class="attr">"model"</span>: <span class="string">"auth.user"</span>,</span><br><span class="line">        <span class="attr">"pk"</span>: <span class="number">1</span>,</span><br><span class="line">        <span class="attr">"fields"</span>: &#123;</span><br><span class="line">            <span class="attr">"username"</span>: <span class="string">"root"</span>,</span><br><span class="line">            <span class="attr">"password"</span>: <span class="string">"pbkdf2_sha256$36000$jEzTV4h887Ze$zQQMAMraWN9suHPapbb7LOP6pZ3ADc7KxCUv2oR8Px4="</span>,</span><br><span class="line">            <span class="attr">"is_superuser"</span>: <span class="literal">true</span>,</span><br><span class="line">            <span class="attr">"is_staff"</span>: <span class="literal">true</span>,</span><br><span class="line">            <span class="attr">"is_active"</span>: <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>其中的password生成方式如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@lzzeng mysite2]<span class="comment"># export DJANGO_SETTINGS_MODULE=mysite2.settings.server</span></span><br><span class="line">[root@lzzeng mysite2]<span class="comment"># python</span></span><br><span class="line">Python 2.7.5 (default, Oct 30 2018, 23:45:53) </span><br><span class="line">[GCC 4.8.5 20150623 (Red Hat 4.8.5-36)] on linux2</span><br><span class="line">Type <span class="string">"help"</span>, <span class="string">"copyright"</span>, <span class="string">"credits"</span> or <span class="string">"license"</span> <span class="keyword">for</span> more information.</span><br><span class="line">&gt;&gt;&gt; from django.contrib.auth.hashers import make_password</span><br><span class="line">&gt;&gt;&gt; make_password(<span class="string">'qwerasdf'</span>)</span><br><span class="line">u<span class="string">'pbkdf2_sha256$36000$jEzTV4h887Ze$zQQMAMraWN9suHPapbb7LOP6pZ3ADc7KxCUv2oR8Px4='</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>以<code>root:qwerasdf</code>登录admin页面添加polls记录后，效果如下：</p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/1547639904076.png" alt="1547639904076"></p>
+<p>以上完成了docker镜像制作（未上传到远程镜像库），然后使用镜像运行mysite2的过程。</p>
+<hr>
+<h3 id="使用docker-compose"><a href="#使用docker-compose" class="headerlink" title="使用docker-compose"></a>使用docker-compose</h3><p>上面启动了两个容器，比较麻烦。可以使用docker-compose来编排容器，实现微服务架构部署方式。</p>
+<p>编写<code>docker-compose.yml</code>：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">web:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">zeng/docker_demo_gunicorn:0.3</span></span><br><span class="line">    <span class="attr">links:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">"db"</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">"8100:8000"</span></span><br><span class="line"><span class="comment">#    volumes:</span></span><br><span class="line"><span class="comment">#      - "$&#123;DOCKER_VOLUME_PATH&#125;/docker_demo/media:/root/media"</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line"></span><br><span class="line"><span class="attr">db:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">mysql:5.7</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="attr">TZ:</span> <span class="string">'Asia/Shanghai'</span></span><br><span class="line">      <span class="attr">MYSQL_ROOT_PASSWORD:</span> <span class="string">qwerasdf</span></span><br><span class="line">      <span class="attr">MYSQL_DATABASE:</span> <span class="string">mysite2_db</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">command:</span> <span class="string">['mysqld',</span> <span class="string">'--character-set-server=utf8'</span><span class="string">]</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">"$&#123;DOCKER_VOLUME_PATH&#125;/docker_demo/db:/var/lib/mysql"</span></span><br></pre></td></tr></table></figure>
+<p>先停止、删除正在运行的容器：</p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/1547640333927.png" alt="1547640333927"></p>
+<p><code>docker-compose up</code>：</p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/1547640687934.png" alt="1547640687934"></p>
+<p>启动成功：</p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/1547640743179.png" alt="1547640743179"></p>
+<p>停止：<code>docker-compose stop</code></p>
+<hr>
+<h3 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h3><ul>
+<li><a href="https://yeasy.gitbooks.io/docker_practice/" rel="external nofollow noopener noreferrer" target="_blank">Docker — 从入门到实践</a></li>
+</ul>
+<p>(End)</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        
+
+      </div>
+    	
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Docker/" rel="tag"><i class="fa fa-tag"></i> Docker</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/singleton-test/" rel="next" title="单例模式-实验">
+                <i class="fa fa-chevron-left"></i> 单例模式-实验
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/how-to-use-remote-interpreter-in-pycharm-md/" rel="prev" title="使用PyCharm远程调试">
+                使用PyCharm远程调试 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MjA1NC8xODYwMQ=="></div>
+    </div>
+
+  
+  
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="https://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/avatar.jpg" alt="Lz. Zeng">
+            
+              <p class="site-author-name" itemprop="name">Lz. Zeng</p>
+              <p class="site-description motion-element" itemprop="description">Continuous Self-Improvement</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-name">发布</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装docker"><span class="nav-number">1.</span> <span class="nav-text">安装docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编写Dockerfile"><span class="nav-number">2.</span> <span class="nav-text">编写Dockerfile</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用docker-compose"><span class="nav-number">3.</span> <span class="nav-text">使用docker-compose</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文档"><span class="nav-number">4.</span> <span class="nav-text">参考文档</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lz. Zeng</span>
+  
+  
+</div>
+
+
+
+
+
+
+  <div class="theme-info"><i class="fa fa-life-ring" aria-hidden="true"></i><span></span>  NexT.Pisces</div>
+
+
+
+
+<div class="theme-info">
+  <span>&nbsp;|&nbsp;</span>
+  <i class="fa fa-eye" aria-hidden="true"></i><span id="busuanzi_container_site_pv">&nbsp;<span id="busuanzi_value_site_pv">
+  </span>&nbsp;</span>
+  <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">&nbsp;<span id="busuanzi_value_site_uv"></span>&nbsp;</span>
+  <i class="fa fa-area-chart" aria-hidden="true"></i>
+  <span class="post-count">Words: 97.2k</span>
+</div>
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/photoswipe.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/photoswipe-ui-default.js?v=5.1.4"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

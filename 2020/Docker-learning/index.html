@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+<meta name="viewport" content="width=device-width">
+<meta name="google-site-verification" content="V4j2XKWJOKRE9YZT6Bh0vioT5VWrnimuwjmS6cyIuJ8">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Docker,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Docker Docker 是一种操作系统层面的虚拟化技术，基于 Linux 内核的 cgroup，namespace，以及 OverlayFS 类的 Union FS 等技术对进程进行封装隔离 。">
+<meta name="keywords" content="Docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker笔记">
+<meta property="og:url" content="https://lzzeng.github.io/2020/Docker-learning/index.html">
+<meta property="og:site_name" content="Zeng&#39;s Page">
+<meta property="og:description" content="Docker Docker 是一种操作系统层面的虚拟化技术，基于 Linux 内核的 cgroup，namespace，以及 OverlayFS 类的 Union FS 等技术对进程进行封装隔离 。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2020/docker-k8s.assets/architecture.svg">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2020/docker-k8s.assets/1561264737939.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2020/docker-k8s.assets/1149398-20190917180200231-1649134988.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2020/docker-k8s.assets/image-20201114182505135.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2020/docker-k8s.assets/image-20201114182805493.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2020/docker-k8s.assets/image-20201114182958747.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2020/docker-k8s.assets/image-20201114164336012.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2020/docker-k8s.assets/image-20201114164149433.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2020/docker-k8s.assets/image-20201114174831869.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2020/docker-k8s.assets/image-20201114191120752.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2020/docker-k8s.assets/image-20201114191512336.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2020/docker-k8s.assets/image-20201114130107466.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2020/docker-k8s.assets/image-20201114130305997.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2020/docker-k8s.assets/image-20201114145718759.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2020/docker-k8s.assets/image-20201114193616082.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2020/docker-k8s.assets/image-20201114195043551.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2020/docker-k8s.assets/image-20201107174243776.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2020/docker-k8s.assets/image-20201114191512336.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2020/docker-k8s.assets/image-20201107174911101.png">
+<meta property="og:updated_time" content="2022-02-20T15:52:53.676Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Docker笔记">
+<meta name="twitter:description" content="Docker Docker 是一种操作系统层面的虚拟化技术，基于 Linux 内核的 cgroup，namespace，以及 OverlayFS 类的 Union FS 等技术对进程进行封装隔离 。">
+<meta name="twitter:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2020/docker-k8s.assets/architecture.svg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://lzzeng.github.io/2020/Docker-learning/">
+
+
+
+
+
+  <title>Docker笔记 | Zeng's Page</title>
+  
+
+
+
+
+
+
+
+
+  <script src="/js/src/photoswipe.js?v=5.1.4"></script>
+  <script src="/js/src/photoswipe-ui-default.js?v=5.1.4"></script>
+</head>
+
+<body itemscope itemtype="https://schema.org/WebPage" lang="default">
+
+  
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="https://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Zeng's Page</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-photos">
+          <a href="/photos/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-photo"></i> <br>
+            
+            相册
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="https://schema.org/Article">
+  
+  
+  
+  <div class="post-block" id="container">
+    <link itemprop="mainEntityOfPage" href="https://lzzeng.github.io/2020/Docker-learning/">
+
+    <span hidden itemprop="author" itemscope itemtype="https://schema.org/Person">
+      <meta itemprop="name" content="Lz. Zeng">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+      <meta itemprop="name" content="Zeng's Page">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Docker笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-10-29T22:55:40+00:00">
+                2020-10-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/DevOps/" itemprop="url" rel="index">
+                    <span itemprop="name">DevOps</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          		 
+
+        </div>
+      </header>
+    	
+	
+	
+		<script type="text/javascript">
+			function showToc(){
+				var toc_article = document.getElementById("toc-article");
+				var show_toc_btn = document.getElementById("show-toc-btn");			
+				toc_article.setAttribute("style","display:block");
+				show_toc_btn.setAttribute("style","display:none");
+			};
+			function showBtn(){
+				var toc_article = document.getElementById("toc-article");
+				var show_toc_btn = document.getElementById("show-toc-btn");
+				toc_article.setAttribute("style","display:none");
+				show_toc_btn.setAttribute("style","display:block");
+			};
+		</script>
+		
+		<div id="my-toc">
+			<p class="show-toc-btn" id="show-toc-btn" onclick="showToc();">
+				<span class="btn-bg"></span>
+				<span class="btn-text">目录</span>
+			</p>
+			<div id="toc-article" class="toc-article" style="display:none">
+				<span id="toc-close" class="toc-close" title="隐藏" onclick="showBtn();">×</span>
+				<strong class="toc-title">文章目录</strong>
+				<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Docker"><span class="toc-number">1.</span> <span class="toc-text">Docker</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么使用Docker"><span class="toc-number">1.1.</span> <span class="toc-text">为什么使用Docker</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Docker-与-VM-比较"><span class="toc-number">1.2.</span> <span class="toc-text">Docker 与 VM 比较</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#基本概念"><span class="toc-number">2.</span> <span class="toc-text">基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#镜像"><span class="toc-number">2.1.</span> <span class="toc-text">镜像</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#容器"><span class="toc-number">2.2.</span> <span class="toc-text">容器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#仓库"><span class="toc-number">2.3.</span> <span class="toc-text">仓库</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#常用命令"><span class="toc-number">3.</span> <span class="toc-text">常用命令</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#镜像操作"><span class="toc-number">3.1.</span> <span class="toc-text">镜像操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#容器操作"><span class="toc-number">3.2.</span> <span class="toc-text">容器操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#磁盘空间管理"><span class="toc-number">3.3.</span> <span class="toc-text">磁盘空间管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#查看docker磁盘占用"><span class="toc-number">3.3.1.</span> <span class="toc-text">查看docker磁盘占用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#清理docker磁盘空间"><span class="toc-number">3.3.2.</span> <span class="toc-text">清理docker磁盘空间</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Dockerfile"><span class="toc-number">4.</span> <span class="toc-text">Dockerfile</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Dockerfile示例"><span class="toc-number">4.1.</span> <span class="toc-text">Dockerfile示例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#示例-–-nginx"><span class="toc-number">4.1.1.</span> <span class="toc-text">示例 – nginx</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#示例-–-myweb"><span class="toc-number">4.1.2.</span> <span class="toc-text">示例 – myweb</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#构建、运行"><span class="toc-number">4.2.</span> <span class="toc-text">构建、运行</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#示例-–-nginx-1"><span class="toc-number">4.2.1.</span> <span class="toc-text">示例 – nginx</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#示例-–-myweb-1"><span class="toc-number">4.2.2.</span> <span class="toc-text">示例 – myweb</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dockerfile最佳实践"><span class="toc-number">4.3.</span> <span class="toc-text">Dockerfile最佳实践</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#选择合适的基础镜像"><span class="toc-number">4.3.1.</span> <span class="toc-text">选择合适的基础镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多阶段构建"><span class="toc-number">4.3.2.</span> <span class="toc-text">多阶段构建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其它建议"><span class="toc-number">4.3.3.</span> <span class="toc-text">其它建议</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#docker-compose"><span class="toc-number">5.</span> <span class="toc-text">docker-compose</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装"><span class="toc-number">5.1.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#docker-compose示例-——-WordPress"><span class="toc-number">5.2.</span> <span class="toc-text">docker-compose示例 —— WordPress</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考"><span class="toc-number">6.</span> <span class="toc-text">参考</span></a></li></ol>
+			</div>
+		</div>
+	
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h1><ol>
+<li><a href="https://docs.docker.com/engine/docker-overview/" rel="external nofollow noopener noreferrer" target="_blank"><strong>Docker</strong></a> 是一种<a href="https://en.wikipedia.org/wiki/Operating-system-level_virtualization" rel="external nofollow noopener noreferrer" target="_blank">操作系统层面的虚拟化技术</a>，基于 <code>Linux</code> 内核的 <a href="https://zh.wikipedia.org/wiki/Cgroups" rel="external nofollow noopener noreferrer" target="_blank">cgroup</a>，<a href="https://en.wikipedia.org/wiki/Linux_namespaces" rel="external nofollow noopener noreferrer" target="_blank">namespace</a>，以及 <a href="https://docs.docker.com/storage/storagedriver/overlayfs-driver/" rel="external nofollow noopener noreferrer" target="_blank">OverlayFS</a> 类的 <a href="https://en.wikipedia.org/wiki/Union_mount" rel="external nofollow noopener noreferrer" target="_blank">Union FS</a> 等技术对进程进行封装隔离 。<a id="more"></a></li>
+<li>Docker是 C/S（客户端/服务器）架构。</li>
+<li>Docker客户端与Docker守护进程通信，后者负责构建，运行和分发Docker容器。</li>
+<li>Docker客户端和守护程序使用REST API，通过UNIX套接字或网络接口进行通信。</li>
+</ol>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2020/docker-k8s.assets/architecture.svg" alt="Docker Architecture Diagram" style="zoom:60%;"></p>
+<h2 id="为什么使用Docker"><a href="#为什么使用Docker" class="headerlink" title="为什么使用Docker"></a>为什么使用Docker</h2><blockquote>
+<ul>
+<li><strong>更高效的利用系统资源</strong></li>
+<li><strong>更快速的启动时间</strong></li>
+<li><strong>一致的运行环境</strong></li>
+<li><strong>持续交付和部署</strong></li>
+<li><strong>更轻松的迁移</strong></li>
+<li><strong>更轻松的维护和扩展</strong></li>
+</ul>
+</blockquote>
+<p>由于容器不需要进行硬件虚拟以及运行完整操作系统等额外开销，Docker对系统资源的利用率更高。无论是应用执行速度、内存损耗或者文件存储速度，都要比传统虚拟机技术更高效。因此，相比虚拟机技术，一个相同配置的主机，往往可以运行更多数量的应用。</p>
+<p>传统的虚拟机技术启动应用服务往往需要数分钟，而 Docker容器应用，由于直接运行于宿主内核，无需启动完整的操作系统，因此可以做到秒级、甚至毫秒级的启动时间。大大的节约了开发、测试、部署的时间。</p>
+<p>Docker的镜像提供了除内核外完整的运行时环境，确保了应用运行环境一致性。一次创建、配置，任意地方正常运行。</p>
+<p><code>Docker</code> 使用的分层存储以及镜像的技术，使得应用重复部分的复用更为容易，也使得应用的维护更新更加简单，基于基础镜像进一步扩展镜像也变得非常简单。</p>
+<h2 id="Docker-与-VM-比较"><a href="#Docker-与-VM-比较" class="headerlink" title="Docker 与 VM 比较"></a>Docker 与 VM 比较</h2><p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2020/docker-k8s.assets/1561264737939.png" alt="1561264737939" style="zoom:45%;"></p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>容器</th>
+<th>虚拟机</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>启动</td>
+<td>秒级</td>
+<td>分钟级</td>
+</tr>
+<tr>
+<td>硬盘使用</td>
+<td>一般为 <code>MB</code>（有的小到仅几百KB，如K8s的pause镜像）</td>
+<td>一般为 <code>GB</code></td>
+</tr>
+<tr>
+<td>性能</td>
+<td>接近原生</td>
+<td>弱于</td>
+</tr>
+<tr>
+<td>系统支持量</td>
+<td>单机支持上千个容器</td>
+<td>一般几十个</td>
+</tr>
+</tbody>
+</table>
+<h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><h2 id="镜像"><a href="#镜像" class="headerlink" title="镜像"></a>镜像</h2><ol>
+<li><strong>Docker 镜像是一个特殊的文件系统</strong>，除了提供容器运行时所需的程序、库、资源、配置等文件外，还包含了一些为运行时准备的一些配置参数（如匿名卷、环境变量、用户等）。镜像不包含任何动态数据，其内容在构建之后也不会被改变。</li>
+<li>镜像采用分层存储，实际体现并非由一个文件组成，而是由一组文件系统组成，或者说，由多层文件系统联合组成。这个特点也使得镜像的复用、定制变的更为容易</li>
+<li>镜像在构建时，会一层层构建，前一层是后一层的基础。每一层构建完就不会再发生改变，后一层上的任何改变只发生在自己这一层。</li>
+</ol>
+<h2 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h2><ol>
+<li>镜像（<code>Image</code>）和容器（<code>Container</code>）的关系，好比面向对象程序设计中的 <code>类</code> 和 <code>实例</code> 。</li>
+<li>容器的实质是进程，但与直接在宿主执行的进程不同，容器进程运行于属于自己的独立的 <a href="https://en.wikipedia.org/wiki/Linux_namespaces" rel="external nofollow noopener noreferrer" target="_blank">命名空间</a>。</li>
+<li>每一个容器运行时，是以镜像为基础层，在其上创建一个当前容器的存储层，这个为容器运行时读写而准备的存储层叫 <strong>容器存储层</strong>。</li>
+<li>容器存储层的生存周期和容器一样。</li>
+<li>不随容器销毁的数据的读写，应该使用 <strong>数据卷</strong>（Volume）、或者绑定宿主目录。</li>
+</ol>
+<h2 id="仓库"><a href="#仓库" class="headerlink" title="仓库"></a>仓库</h2><p>仓库是镜像的版本库，不同的镜像标签代表该镜像的不同版本。Docker提供了<strong>Docker Registry</strong>作为镜像仓库管理服务，由于没有图形界面等原因，一般会使用Docker Hub （外部个人环境）或 Harbor（私服）托管Docker镜像。</p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2020/docker-k8s.assets/1149398-20190917180200231-1649134988.png" alt="img" style="zoom:50%;"></p>
+<h1 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h1><p>当前使用的docker版本：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_13_centos ~]<span class="comment"># docker version</span></span><br><span class="line">Client:</span><br><span class="line"> Version:           18.09.6</span><br><span class="line"> API version:       1.39</span><br><span class="line"> Go version:        go1.10.8</span><br><span class="line"> Git commit:        481bc77156</span><br><span class="line"> Built:             Sat May  4 02:34:58 2019</span><br><span class="line"> OS/Arch:           linux/amd64</span><br><span class="line"> Experimental:      <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">Server: Docker Engine - Community</span><br><span class="line"> Engine:</span><br><span class="line">  Version:          18.09.6</span><br><span class="line">  API version:      1.39 (minimum version 1.12)</span><br><span class="line">  Go version:       go1.10.8</span><br><span class="line">  Git commit:       481bc77</span><br><span class="line">  Built:            Sat May  4 02:02:43 2019</span><br><span class="line">  OS/Arch:          linux/amd64</span><br><span class="line">  Experimental:     <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<h2 id="镜像操作"><a href="#镜像操作" class="headerlink" title="镜像操作"></a>镜像操作</h2><table>
+<thead>
+<tr>
+<th>功能</th>
+<th>命令</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>拉取镜像</td>
+<td><code>docker pull [选项] [仓库地址[:端口号]/]仓库名[:标签]</code></td>
+</tr>
+<tr>
+<td>列出镜像</td>
+<td><code>docker images</code> 或者 <code>docker image ls</code></td>
+</tr>
+<tr>
+<td>构建</td>
+<td>docker build  -t  &lt;镜像名称]&gt;  .   [-f Dockerfile路径]</td>
+</tr>
+<tr>
+<td>重命名</td>
+<td>docker tag   &lt;原镜像&gt;   &lt;新镜像&gt;</td>
+</tr>
+<tr>
+<td>推送</td>
+<td>docker push   &lt;镜像&gt;</td>
+</tr>
+<tr>
+<td>删除镜像</td>
+<td><code>docker image rm [选项] &lt;镜像1&gt; [&lt;镜像2&gt; ...]</code> 或 <code>docker rmi ...</code></td>
+</tr>
+<tr>
+<td>查看镜像信息</td>
+<td><code>docker inspect  &lt;镜像&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<p>部分示例如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># docker pull alpine:latest</span></span><br><span class="line"><span class="comment"># docker image ls</span></span><br><span class="line"><span class="comment"># docker inspect alpine:latest |jq ".[0].RootFS"</span></span><br><span class="line"><span class="comment"># docker rmi alpine:latest</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2020/docker-k8s.assets/image-20201114182505135.png" alt="image-20201114182505135"></p>
+<h2 id="容器操作"><a href="#容器操作" class="headerlink" title="容器操作"></a>容器操作</h2><table>
+<thead>
+<tr>
+<th>功能</th>
+<th>命令</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>运行容器</td>
+<td><code>docker run [选项] &lt;镜像&gt; [命令]</code></td>
+</tr>
+<tr>
+<td>停止容器</td>
+<td><code>docker stop &lt;容器&gt;</code></td>
+</tr>
+<tr>
+<td>列出运行中的容器</td>
+<td><code>docker ps</code></td>
+</tr>
+<tr>
+<td>删除容器</td>
+<td><code>docker  rm  &lt;容器&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<p>部分示例如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># docker run -it --rm --name test_a  alpine:3 sh   # -i交互，-t终端，--rm退出即删除</span></span><br><span class="line">/ <span class="comment"># ls</span></span><br><span class="line">/ <span class="comment"># exit</span></span><br><span class="line"><span class="comment"># 在exit之前，另开一个ssh窗口查看</span></span><br><span class="line"><span class="comment"># docker ps |grep test_a</span></span><br><span class="line"><span class="comment"># 退出后再查看，上面这个容器已消失</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2020/docker-k8s.assets/image-20201114182805493.png" alt="image-20201114182805493"></p>
+<h2 id="磁盘空间管理"><a href="#磁盘空间管理" class="headerlink" title="磁盘空间管理"></a>磁盘空间管理</h2><p><code>docker system</code> 命令用于管理磁盘空间。</p>
+<h3 id="查看docker磁盘占用"><a href="#查看docker磁盘占用" class="headerlink" title="查看docker磁盘占用"></a>查看docker磁盘占用</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># docker system df</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2020/docker-k8s.assets/image-20201114182958747.png" alt="image-20201114182958747" style="zoom:50%;"></p>
+<h3 id="清理docker磁盘空间"><a href="#清理docker磁盘空间" class="headerlink" title="清理docker磁盘空间"></a>清理docker磁盘空间</h3><p><code>docker system prune</code> 命令可以用于清理磁盘，删除关闭的容器、无用的数据卷和网络，以及dangling镜像(即无tag的镜像)。<br><code>docker system prune -a</code> 命令清理得更加彻底，可以将没有容器使用Docker镜像都删掉。<br>注意，这两个命令会把你暂时关闭的容器，以及暂时没有用到的Docker镜像都删掉。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># docker system prune </span></span><br><span class="line">WARNING! This will remove:</span><br><span class="line">        - all stopped containers</span><br><span class="line">        - all networks not used by at least one container</span><br><span class="line">        - all dangling images</span><br><span class="line">        - all dangling build cache</span><br><span class="line">Are you sure you want to <span class="built_in">continue</span>? [y/N] y</span><br><span class="line">Deleted Containers:</span><br><span class="line">（略）</span><br><span class="line">Deleted Networks:</span><br><span class="line">（略）</span><br><span class="line">Total reclaimed space: 2.627GB</span><br></pre></td></tr></table></figure>
+<h1 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h1><p>Dockerfile 是一个描述如何构建镜像的文本文件，其中包含多条<strong>指令(Instruction)</strong>，每条指令构建一层镜像。<br>部分常用指令：</p>
+<ul>
+<li>FROM：指定基础镜像，如 <code>FROM apline:latest</code>，alpine是一个精简的Linux系统镜像。</li>
+<li>MAINTAINER：设置镜像的维护者信息</li>
+<li>ARG：参数设置</li>
+<li>ENV：环境变量设置</li>
+<li>ADD：添加构建上下文，ADD添加tar.gz包会自动解压。</li>
+<li>COPY：复制文件</li>
+<li>RUN：编写一些shell命令</li>
+<li>EXPOSE：暴露容器需监听的端口</li>
+<li>CMD：容器启动后执行的命令</li>
+<li>ENTRYPOINT：入口指令</li>
+</ul>
+<font color="red">问题：有了 <code>CMD</code> 后，为什么还要有 <code>ENTRYPOINT</code> ？</font>
+
+<p>当存在 <code>ENTRYPOINT</code> 后，<code>CMD</code> 的内容将会作为参数传给 <code>ENTRYPOINT</code></p>
+<p>示例：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_13_centos demo]<span class="comment"># cat Dockerfile-curl</span></span><br><span class="line">FROM alpine:latest</span><br><span class="line"></span><br><span class="line">RUN apk add curl --no-cache</span><br><span class="line">CMD [<span class="string">"curl"</span>, <span class="string">"-s"</span>, <span class="string">"https://baidu.com/"</span>]</span><br><span class="line"></span><br><span class="line">[root@VM_0_13_centos demo]<span class="comment"># cat Dockerfile-curl2 </span></span><br><span class="line">FROM alpine:latest</span><br><span class="line"></span><br><span class="line">RUN apk add curl --no-cache</span><br><span class="line">ENTRYPOINT [<span class="string">"curl"</span>, <span class="string">"-s"</span>, <span class="string">"https://baidu.com/"</span>]</span><br></pre></td></tr></table></figure>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2020/docker-k8s.assets/image-20201114164336012.png" alt="image-20201114164336012" style="zoom:50%;"></p>
+<p>加CMD参数 <code>-I</code> 时，只有 mycurl2 支持：</p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2020/docker-k8s.assets/image-20201114164149433.png" alt="image-20201114164149433" style="zoom:50%;"></p>
+<p>有些时候，启动主进程前，需要一些准备工作，这些准备工作是和容器 <code>CMD</code> 无关的，无论 <code>CMD</code> 为什么，都需要事先进行一个预处理的工作。这种情况下，可以写一个脚本，然后放入 <code>ENTRYPOINT</code> 中去执行，而这个脚本会将接到的参数（也就是CMD）作为命令，在脚本最后执行。</p>
+<p>示例：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_13_centos demo]<span class="comment"># cat start.sh</span></span><br><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># begin: do sth</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"do sth ..."</span></span><br><span class="line"><span class="comment"># end: do sth</span></span><br><span class="line"></span><br><span class="line">cmd=<span class="string">"curl -s https://baidu.com/"</span></span><br><span class="line"><span class="keyword">if</span> <span class="built_in">which</span> <span class="string">"<span class="variable">$1</span>"</span> 1&gt;/dev/null 2&gt;&amp;1; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"exec 1:"</span></span><br><span class="line">    <span class="built_in">exec</span> <span class="variable">$@</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"exec 2:"</span></span><br><span class="line">    <span class="built_in">exec</span> <span class="variable">$cmd</span> <span class="variable">$@</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"end."</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#########################################################</span></span><br><span class="line">[root@VM_0_13_centos demo]<span class="comment"># cat Dockerfile-curl3</span></span><br><span class="line">FROM alpine:latest</span><br><span class="line"></span><br><span class="line">WORKDIR /opt</span><br><span class="line">ADD start.sh start.sh</span><br><span class="line">RUN chmod +x start.sh &amp;&amp; apk add curl --no-cache</span><br><span class="line"></span><br><span class="line">ENTRYPOINT [<span class="string">"/opt/start.sh"</span>]</span><br><span class="line">CMD [<span class="string">"curl"</span>, <span class="string">"-s"</span>, <span class="string">"https://baidu.com/"</span>]</span><br></pre></td></tr></table></figure>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2020/docker-k8s.assets/image-20201114174831869.png"></p>
+<ul>
+<li><p>VOLUME指令</p>
+<p>可以通过 <code>docker run</code> 命令的 <code>-v</code> 参数创建 volume 挂载点。如果通过 dockerfile 的 VOLUME 指令可以在镜像中创建挂载点，那么通过该镜像创建容器时不指定 -v 参数时，会在宿主机上随机生成一个数据目录绑定到 VOLUME 所指定的容器内目录。</p>
+<p>以Wordpress的volume为例：</p>
+</li>
+</ul>
+<p><strong>wordpress</strong></p>
+<p>缺省情况下，wordpress容器内的/var/www/html目录会被随机挂载到宿主机docker数据目录下。</p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2020/docker-k8s.assets/image-20201114191120752.png" alt="image-20201114191120752"></p>
+<p><strong>wordpress mysql</strong></p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2020/docker-k8s.assets/image-20201114191512336.png" alt="image-20201114191512336"></p>
+<h2 id="Dockerfile示例"><a href="#Dockerfile示例" class="headerlink" title="Dockerfile示例"></a>Dockerfile示例</h2><h3 id="示例-–-nginx"><a href="#示例-–-nginx" class="headerlink" title="示例 – nginx"></a>示例 – nginx</h3><p>假设nginx没有提供docker镜像，使用精简的Linux系统镜像alpine来制作nginx容器：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">FROM alpine:latest</span><br><span class="line">MAINTAINER  tom  tom@abc.com</span><br><span class="line"> </span><br><span class="line"><span class="comment"># install nginx</span></span><br><span class="line">RUN apk --update add nginx</span><br><span class="line"></span><br><span class="line">EXPOSE 80</span><br><span class="line"> </span><br><span class="line">CMD [ <span class="string">"nginx"</span> ,  <span class="string">"-g"</span> ,  <span class="string">"daemon off;"</span> ]</span><br></pre></td></tr></table></figure>
+<h3 id="示例-–-myweb"><a href="#示例-–-myweb" class="headerlink" title="示例 – myweb"></a>示例 – myweb</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">FROM python:2.7-alpine</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ARG APP_HOME</span><br><span class="line">ENV APP_HOME=<span class="variable">$&#123;APP_HOME:-/opt/apps&#125;</span></span><br><span class="line"></span><br><span class="line">WORKDIR <span class="variable">$APP_HOME</span></span><br><span class="line">COPY ./myweb  myweb</span><br><span class="line"></span><br><span class="line">RUN <span class="built_in">echo</span> <span class="string">"https://mirror.tuna.tsinghua.edu.cn/alpine/v3.11/main/"</span> &gt; /etc/apk/repositories &amp;&amp; \</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"https://mirror.tuna.tsinghua.edu.cn/alpine/v3.11/community/"</span> &gt;&gt; /etc/apk/repositories &amp;&amp; \</span><br><span class="line">    apk add gcc g++ make mysql-dev --no-cache &amp;&amp; \</span><br><span class="line">    pip config <span class="built_in">set</span> global.index-url https://pypi.tuna.tsinghua.edu.cn/simple &amp;&amp; \</span><br><span class="line">    pip install -U pip &amp;&amp; \</span><br><span class="line">    pip install supervisor==4.2.0 &amp;&amp; \</span><br><span class="line">    /usr/<span class="built_in">local</span>/bin/echo_supervisord_conf &gt; /etc/supervisord.conf &amp;&amp; \</span><br><span class="line">    mkdir /etc/supervisord.d &amp;&amp; \</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"[include]"</span> &gt;&gt; /etc/supervisord.conf &amp;&amp; \</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"files = supervisord.d/*.conf"</span> &gt;&gt; /etc/supervisord.conf &amp;&amp; \</span><br><span class="line">    pip install -r <span class="variable">$APP_HOME</span>/myweb/requirements.txt &amp;&amp; \</span><br><span class="line">    cp <span class="variable">$APP_HOME</span>/myweb/myweb_supervisord.conf  /etc/supervisord.d/</span><br><span class="line"></span><br><span class="line">EXPOSE <span class="variable">$PORT</span></span><br><span class="line">CMD [<span class="string">"supervisord"</span>, <span class="string">"-n"</span>, <span class="string">"-c"</span>, <span class="string">"/etc/supervisord.conf"</span>]</span><br></pre></td></tr></table></figure>
+<h2 id="构建、运行"><a href="#构建、运行" class="headerlink" title="构建、运行"></a>构建、运行</h2><blockquote>
+<p>发出 <code>docker build</code> 命令时，当前工作目录称为build context。默认情况下，Dockerfile假定位于此处，但可以使用文件标志（-f）指定其他位置。不管Dockerfile实际位于何处，当前目录中文件和目录的所有递归内容都将作为构建上下文发送到Docker守护进程。</p>
+</blockquote>
+<h3 id="示例-–-nginx-1"><a href="#示例-–-nginx-1" class="headerlink" title="示例 – nginx"></a>示例 – nginx</h3><p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2020/docker-k8s.assets/image-20201114130107466.png" alt="image-20201114130107466"></p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2020/docker-k8s.assets/image-20201114130305997.png" alt="image-20201114130305997"></p>
+<p>可以看出 nginx:tom 比官方提供的 nginx:alpine 还更小。</p>
+<h3 id="示例-–-myweb-1"><a href="#示例-–-myweb-1" class="headerlink" title="示例 – myweb"></a>示例 – myweb</h3><p>Dockerfile文件名称不是 <code>Dockerfile</code> 时，需通过 <code>-f</code> 参数指定，点号 <code>.</code> 表示当前目录作为构建上下文。如果在demo的上一级目录执行构建，则命令可以这样写：</p>
+<p><code>docker build -f demo/Dockerfile-myweb -t myweb:0.1 demo</code></p>
+<p>构建时打印的内容：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_13_centos demo]<span class="comment"># docker build -f Dockerfile-myweb -t myweb:0.1 .</span></span><br><span class="line">Sending build context to Docker daemon  1.117MB</span><br><span class="line">Step 1/9 : FROM python:2.7-alpine</span><br><span class="line"> ---&gt; 8579e446340f</span><br><span class="line">Step 2/9 : ARG APP_HOME</span><br><span class="line"> ---&gt; Using cache</span><br><span class="line"> ---&gt; 9c173fd3707d</span><br><span class="line">Step 3/9 : ENV APP_HOME=<span class="variable">$&#123;APP_HOME:-/opt/apps&#125;</span></span><br><span class="line"> ---&gt; Using cache</span><br><span class="line"> ---&gt; 721207dba6e7</span><br><span class="line">Step 4/9 : WORKDIR <span class="variable">$APP_HOME</span></span><br><span class="line"> ---&gt; Using cache</span><br><span class="line"> ---&gt; 99a3b8ce16a1</span><br><span class="line">Step 5/9 : COPY ./myweb  myweb</span><br><span class="line"> ---&gt; 2e9790a1fa90</span><br><span class="line">Step 6/9 : VOLUME [<span class="string">"<span class="variable">$APP_HOME</span>/myweb"</span>]</span><br><span class="line"> ---&gt; Running <span class="keyword">in</span> 1e647a4987d7</span><br><span class="line">Removing intermediate container 1e647a4987d7</span><br><span class="line"> ---&gt; dd03f21e2aa6</span><br><span class="line"><span class="comment">############### 第7步 构建RUN命令，更新软件源，更新软件，安装软件及其依赖等，步骤最多</span></span><br><span class="line">Step 7/9 : RUN <span class="built_in">echo</span> <span class="string">"https://mirror.tuna.tsinghua.edu.cn/alpine/v3.11/main/"</span> &gt; /etc/apk/repositories &amp;&amp;     <span class="built_in">echo</span> <span class="string">"https://mirror.tuna.tsinghua.edu.cn/alpine/v3.11/community/"</span> &gt;&gt; /etc/apk/repositories &amp;&amp;     apk add gcc g++ make mysql-dev --no-cache &amp;&amp;     pip config <span class="built_in">set</span> global.index-url https://pypi.tuna.tsinghua.edu.cn/simple &amp;&amp;     pip install -U pip &amp;&amp;     pip install supervisor==4.2.0 &amp;&amp;     /usr/<span class="built_in">local</span>/bin/echo_supervisord_conf &gt; /etc/supervisord.conf &amp;&amp;     mkdir /etc/supervisord.d &amp;&amp;     <span class="built_in">echo</span> <span class="string">"[include]"</span> &gt;&gt; /etc/supervisord.conf &amp;&amp;     <span class="built_in">echo</span> <span class="string">"files = supervisord.d/*.conf"</span> &gt;&gt; /etc/supervisord.conf &amp;&amp;     <span class="built_in">cd</span> <span class="variable">$APP_HOME</span>/myweb &amp;&amp;     pip install -r requirements.txt &amp;&amp;     cp <span class="variable">$APP_HOME</span>/myweb/myweb_supervisord.conf  /etc/supervisord.d/</span><br><span class="line"> ---&gt; Running <span class="keyword">in</span> 3b58653054de</span><br><span class="line">fetch https://mirror.tuna.tsinghua.edu.cn/alpine/v3.11/main/x86_64/APKINDEX.tar.gz</span><br><span class="line">fetch https://mirror.tuna.tsinghua.edu.cn/alpine/v3.11/community/x86_64/APKINDEX.tar.gz</span><br><span class="line">(1/27) Upgrading libcrypto1.1 (1.1.1d-r3 -&gt; 1.1.1g-r0)</span><br><span class="line">（此处省略若干行）</span><br><span class="line">(27/27) Installing mariadb-dev (10.4.15-r0)</span><br><span class="line">Executing busybox-1.31.1-r9.trigger</span><br><span class="line">Executing ca-certificates-20191127-r1.trigger</span><br><span class="line">OK: 206 MiB <span class="keyword">in</span> 57 packages</span><br><span class="line">Writing to /root/.config/pip/pip.conf</span><br><span class="line">（此处省略若干行）</span><br><span class="line">Successfully installed pip-20.2.4</span><br><span class="line">（此处省略若干行）</span><br><span class="line">Successfully installed supervisor-4.2.0</span><br><span class="line">（此处省略若干行）</span><br><span class="line">Successfully built mysqlclient</span><br><span class="line">Installing collected packages: pytz, django, mysqlclient</span><br><span class="line">Successfully installed django-1.11 mysqlclient-1.3.12 pytz-2020.4</span><br><span class="line">Removing intermediate container 3b58653054de</span><br><span class="line"> ---&gt; 74221bc92419</span><br><span class="line"><span class="comment">############### 第8步 暴露监听端口</span></span><br><span class="line">Step 8/9 : EXPOSE <span class="variable">$PORT</span></span><br><span class="line"> ---&gt; Running <span class="keyword">in</span> bc109d388ec3</span><br><span class="line">Removing intermediate container bc109d388ec3</span><br><span class="line"> ---&gt; 7f45f5e2be2c</span><br><span class="line">Step 9/9 : CMD [<span class="string">"supervisord"</span>, <span class="string">"-n"</span>, <span class="string">"-c"</span>, <span class="string">"/etc/supervisord.conf"</span>]</span><br><span class="line"> ---&gt; Running <span class="keyword">in</span> f0f4f867b879</span><br><span class="line">Removing intermediate container f0f4f867b879</span><br><span class="line"> ---&gt; 4eede34e1dad</span><br><span class="line">Successfully built 4eede34e1dad</span><br><span class="line">Successfully tagged myweb:0.1</span><br></pre></td></tr></table></figure>
+<p><strong>运行myweb</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_13_centos opt]<span class="comment"># docker run -d --name myweb -p 8009:8000 myweb:0.1</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2020/docker-k8s.assets/image-20201114145718759.png" alt="image-20201114145718759" style="zoom:67%;"></p>
+<p><strong>查看容器进程</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_13_centos demo]<span class="comment"># docker ps |grep myweb</span></span><br></pre></td></tr></table></figure>
+<p><strong>查看volume</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># docker inspect 9ad3a7949611 |jq ".[0].Mounts"</span></span><br><span class="line">或者</span><br><span class="line"><span class="comment"># docker inspect myweb |jq ".[0].Mounts"</span></span><br></pre></td></tr></table></figure>
+<p><strong>查看env</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_13_centos demo]<span class="comment"># docker inspect myweb |jq ".[0].Config.Env"</span></span><br></pre></td></tr></table></figure>
+<p><strong>进入容器查看</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_13_centos demo]<span class="comment"># docker exec -it myweb sh</span></span><br><span class="line">/opt/apps <span class="comment"># hostname</span></span><br><span class="line">/opt/apps <span class="comment"># env</span></span><br><span class="line">/opt/apps <span class="comment"># ps -ef</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2020/docker-k8s.assets/image-20201114193616082.png" alt="image-20201114193616082"></p>
+<h2 id="Dockerfile最佳实践"><a href="#Dockerfile最佳实践" class="headerlink" title="Dockerfile最佳实践"></a>Dockerfile最佳实践</h2><p>精简Docker镜像的好处：</p>
+<ol>
+<li>减少构建时间</li>
+<li>减少磁盘使用量</li>
+<li>减少下载时间</li>
+<li>因为包含文件少，攻击面减小，提高了安全性</li>
+<li>提高部署速度</li>
+</ol>
+<h3 id="选择合适的基础镜像"><a href="#选择合适的基础镜像" class="headerlink" title="选择合适的基础镜像"></a>选择合适的基础镜像</h3><p><code>alpine</code> 是一个精简的Linux发行版，只有5MB左右。各开发语言和框架一般都有基于alpine的镜像版本，如 <code>python:3-alpine</code>，可优先考虑使用alpine版本的镜像。</p>
+<p><code>scratch</code> 是一个空镜像。</p>
+<p>对于 Linux 下静态编译的程序来说，并不需要有操作系统提供运行时支持，所需的一切库都已经在可执行文件里了，因此直接 <code>FROM scratch</code> 会让镜像体积更加小巧。使用Go语言开发的应用很多会使用这种方式来制作镜像。</p>
+<p>Google K8s的 <code>pause</code> 镜像正是使用了scratch作为基础镜像：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">FROM scratch</span><br><span class="line">ARG ARCH</span><br><span class="line">ADD bin/pause-<span class="variable">$&#123;ARCH&#125;</span> /pause</span><br><span class="line">ENTRYPOINT [<span class="string">"/pause"</span>]</span><br></pre></td></tr></table></figure>
+<p>其大小不到1MB。</p>
+<p>如果希望镜像里可以包含一些常用的Linux工具，可以使用 <code>busybox</code>。</p>
+<h3 id="多阶段构建"><a href="#多阶段构建" class="headerlink" title="多阶段构建"></a>多阶段构建</h3><p>使用多阶段构建，可以在Dockerfile中使用多个FROM语句，每条FROM指令可以使用不同的基础镜像，然后选择性地将服务组件从一个阶段COPY到另一个阶段，在最终镜像中只保留需要的内容。结合以下</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">FROM &lt;base_image&gt; AS &lt;tmp_image&gt;</span><br><span class="line">COPY --from=&lt;tmp_image&gt; &lt;src&gt; &lt;dest&gt;</span><br></pre></td></tr></table></figure>
+<p>两条语句来使用多阶段构建。假设有一个springboot demo：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">FROM maven:3.5-jdk-8-alpine AS builder</span><br><span class="line">WORKDIR /opt</span><br><span class="line">COPY . /opt/</span><br><span class="line">RUN mvn clean package</span><br><span class="line"></span><br><span class="line">FROM java:8-alpine AS filnal</span><br><span class="line">WORKDIR /opt</span><br><span class="line">COPY --from=builder /opt/target/demo.jar .</span><br><span class="line">EXPOSE 8080</span><br><span class="line">CMD [<span class="string">"java"</span>, <span class="string">"-jar"</span>, <span class="string">"demo.jar"</span>]</span><br></pre></td></tr></table></figure>
+<h3 id="其它建议"><a href="#其它建议" class="headerlink" title="其它建议"></a>其它建议</h3><ul>
+<li>可以在执行 <code>apt-get install -y</code> 时增加选项 <code>--no-install-recommends</code> ，不安装建议性（非必须）的依赖。</li>
+<li>可以在执行 <code>apk add</code> 时添加选项 <code>--no-cache</code>。</li>
+<li>Ubuntu或Debian可以使用 <code>rm -rf /var/lib/apt/lists/*</code> 清理镜像中缓存文件。</li>
+<li>CentOS等系统使用 <code>yum clean all</code> 命令清理。</li>
+</ul>
+<h1 id="docker-compose"><a href="#docker-compose" class="headerlink" title="docker-compose"></a>docker-compose</h1><p>Compose 项目是 Docker 官方的开源项目，负责实现对 Docker 容器集群的快速编排。<br>Compose用于定义和运行多个 Docker 容器的应用（Defining and running multi-container Docker applications）。</p>
+<p>Compose 中有两个重要的概念：</p>
+<ul>
+<li>服务 (<code>service</code>)：一个应用的容器，实际上可以包括若干运行相同镜像的容器实例。</li>
+<li>项目 (<code>project</code>)：由一组关联的应用容器组成的一个完整业务单元，在 <code>docker-compose.yml</code> 文件中定义。</li>
+</ul>
+<p>Compose 的默认管理对象是<strong>项目</strong>，通过<strong>子命令</strong>对项目中的一组容器进行便捷地生命周期管理。</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo curl -L https://github.com/docker/compose/releases/download/1.25.5/docker-compose-`uname -s`-`uname -m` &gt; /usr/<span class="built_in">local</span>/bin/docker-compose</span><br><span class="line"></span><br><span class="line">$ sudo chmod +x /usr/<span class="built_in">local</span>/bin/docker-compose</span><br></pre></td></tr></table></figure>
+<p>或者通过pip安装</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo pip install -U docker-compose</span><br></pre></td></tr></table></figure>
+<h2 id="docker-compose示例-——-WordPress"><a href="#docker-compose示例-——-WordPress" class="headerlink" title="docker-compose示例 —— WordPress"></a>docker-compose示例 —— WordPress</h2><p>docker-compose.yml</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">"3"</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line"></span><br><span class="line">   <span class="attr">db:</span></span><br><span class="line">     <span class="attr">image:</span> <span class="string">mysql:8.0</span></span><br><span class="line">     <span class="attr">command:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">--default_authentication_plugin=mysql_native_password</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">--character-set-server=utf8mb4</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">--collation-server=utf8mb4_unicode_ci</span>     </span><br><span class="line">     <span class="attr">volumes:</span></span><br><span class="line">       <span class="bullet">-</span> <span class="string">db_data:/var/lib/mysql</span></span><br><span class="line">     <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">     <span class="attr">environment:</span></span><br><span class="line">       <span class="attr">MYSQL_ROOT_PASSWORD:</span> <span class="string">somewordpress</span></span><br><span class="line">       <span class="attr">MYSQL_DATABASE:</span> <span class="string">wordpress</span></span><br><span class="line">       <span class="attr">MYSQL_USER:</span> <span class="string">wordpress</span></span><br><span class="line">       <span class="attr">MYSQL_PASSWORD:</span> <span class="string">wordpress</span></span><br><span class="line"></span><br><span class="line">   <span class="attr">wordpress:</span></span><br><span class="line">     <span class="attr">depends_on:</span></span><br><span class="line">       <span class="bullet">-</span> <span class="string">db</span></span><br><span class="line">     <span class="attr">image:</span> <span class="string">wordpress:latest</span></span><br><span class="line">     <span class="attr">ports:</span></span><br><span class="line">       <span class="bullet">-</span> <span class="string">"8020:80"</span></span><br><span class="line">     <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">     <span class="attr">environment:</span></span><br><span class="line">       <span class="attr">WORDPRESS_DB_HOST:</span> <span class="string">db:3306</span></span><br><span class="line">       <span class="attr">WORDPRESS_DB_USER:</span> <span class="string">wordpress</span></span><br><span class="line">       <span class="attr">WORDPRESS_DB_PASSWORD:</span> <span class="string">wordpress</span></span><br><span class="line"><span class="attr">volumes:</span></span><br><span class="line">  <span class="attr">db_data:</span></span><br></pre></td></tr></table></figure>
+<p><strong>启动</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_13_centos wordpress-demo]<span class="comment"># docker-compose up -d		# 保持在后台运行</span></span><br><span class="line">[root@VM_0_13_centos wordpress-demo]<span class="comment"># docker-compose ps			# 查看容器组状态</span></span><br><span class="line">[root@VM_0_13_centos wordpress-demo]<span class="comment"># docker-compose down		# 删除容器组</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2020/docker-k8s.assets/image-20201114195043551.png" alt="image-20201114195043551" style="zoom: 67%;"></p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2020/docker-k8s.assets/image-20201107174243776.png" alt="image-20201107174243776" style="zoom: 67%;"></p>
+<p><strong>查看db数据卷</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_13_centos wordpress-demo]<span class="comment"># docker inspect wordpress-demo_db_1 |jq ".[0].Mounts"</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2020/docker-k8s.assets/image-20201114191512336.png" alt="image-20201114191512336"></p>
+<p><strong>进入容器查看</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_13_centos wordpress-demo]<span class="comment"># docker-compose exec db sh</span></span><br><span class="line"><span class="comment"># ls</span></span><br><span class="line"><span class="comment"># hostname</span></span><br><span class="line"><span class="comment"># env</span></span><br><span class="line"><span class="comment"># which mysqld</span></span><br><span class="line"><span class="comment"># ls /var/lib/mysql</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2020/docker-k8s.assets/image-20201107174911101.png" alt="image-20201107174911101"></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://docs.docker.com/engine/docker-overview/" rel="external nofollow noopener noreferrer" target="_blank">https://docs.docker.com/engine/docker-overview/</a></li>
+<li><a href="https://yeasy.gitbook.io/docker_practice" rel="external nofollow noopener noreferrer" target="_blank">https://yeasy.gitbook.io/docker_practice</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        
+
+      </div>
+    	
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Docker/" rel="tag"><i class="fa fa-tag"></i> Docker</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/K8s-learning/" rel="next" title="K8s笔记">
+                <i class="fa fa-chevron-left"></i> K8s笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/linux/shell-basic-02/" rel="prev" title="Shell basic 02">
+                Shell basic 02 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MjA1NC8xODYwMQ=="></div>
+    </div>
+
+  
+  
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="https://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/avatar.jpg" alt="Lz. Zeng">
+            
+              <p class="site-author-name" itemprop="name">Lz. Zeng</p>
+              <p class="site-description motion-element" itemprop="description">Continuous Self-Improvement</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-name">发布</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker"><span class="nav-number">1.</span> <span class="nav-text">Docker</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么使用Docker"><span class="nav-number">1.1.</span> <span class="nav-text">为什么使用Docker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker-与-VM-比较"><span class="nav-number">1.2.</span> <span class="nav-text">Docker 与 VM 比较</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基本概念"><span class="nav-number">2.</span> <span class="nav-text">基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#镜像"><span class="nav-number">2.1.</span> <span class="nav-text">镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#容器"><span class="nav-number">2.2.</span> <span class="nav-text">容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#仓库"><span class="nav-number">2.3.</span> <span class="nav-text">仓库</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常用命令"><span class="nav-number">3.</span> <span class="nav-text">常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#镜像操作"><span class="nav-number">3.1.</span> <span class="nav-text">镜像操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#容器操作"><span class="nav-number">3.2.</span> <span class="nav-text">容器操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#磁盘空间管理"><span class="nav-number">3.3.</span> <span class="nav-text">磁盘空间管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看docker磁盘占用"><span class="nav-number">3.3.1.</span> <span class="nav-text">查看docker磁盘占用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#清理docker磁盘空间"><span class="nav-number">3.3.2.</span> <span class="nav-text">清理docker磁盘空间</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Dockerfile"><span class="nav-number">4.</span> <span class="nav-text">Dockerfile</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Dockerfile示例"><span class="nav-number">4.1.</span> <span class="nav-text">Dockerfile示例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#示例-–-nginx"><span class="nav-number">4.1.1.</span> <span class="nav-text">示例 – nginx</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例-–-myweb"><span class="nav-number">4.1.2.</span> <span class="nav-text">示例 – myweb</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构建、运行"><span class="nav-number">4.2.</span> <span class="nav-text">构建、运行</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#示例-–-nginx-1"><span class="nav-number">4.2.1.</span> <span class="nav-text">示例 – nginx</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例-–-myweb-1"><span class="nav-number">4.2.2.</span> <span class="nav-text">示例 – myweb</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dockerfile最佳实践"><span class="nav-number">4.3.</span> <span class="nav-text">Dockerfile最佳实践</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#选择合适的基础镜像"><span class="nav-number">4.3.1.</span> <span class="nav-text">选择合适的基础镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多阶段构建"><span class="nav-number">4.3.2.</span> <span class="nav-text">多阶段构建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其它建议"><span class="nav-number">4.3.3.</span> <span class="nav-text">其它建议</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#docker-compose"><span class="nav-number">5.</span> <span class="nav-text">docker-compose</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">5.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#docker-compose示例-——-WordPress"><span class="nav-number">5.2.</span> <span class="nav-text">docker-compose示例 —— WordPress</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">6.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lz. Zeng</span>
+  
+  
+</div>
+
+
+
+
+
+
+  <div class="theme-info"><i class="fa fa-life-ring" aria-hidden="true"></i><span></span>  NexT.Pisces</div>
+
+
+
+
+<div class="theme-info">
+  <span>&nbsp;|&nbsp;</span>
+  <i class="fa fa-eye" aria-hidden="true"></i><span id="busuanzi_container_site_pv">&nbsp;<span id="busuanzi_value_site_pv">
+  </span>&nbsp;</span>
+  <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">&nbsp;<span id="busuanzi_value_site_uv"></span>&nbsp;</span>
+  <i class="fa fa-area-chart" aria-hidden="true"></i>
+  <span class="post-count">Words: 97.2k</span>
+</div>
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/photoswipe.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/photoswipe-ui-default.js?v=5.1.4"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

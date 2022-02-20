@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+<meta name="viewport" content="width=device-width">
+<meta name="google-site-verification" content="V4j2XKWJOKRE9YZT6Bh0vioT5VWrnimuwjmS6cyIuJ8">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="K8s,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="kubespray项目地址: https://github.com/kubernetes-sigs/kubespray 官方参考：http://192.168.100.150/k8s/kubespray-k8s/0812/kubespray/#/docs/getting-started 项目分支：release-2.11 K8s版本：1.15.1">
+<meta name="keywords" content="K8s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kubespray安装K8s">
+<meta property="og:url" content="https://lzzeng.github.io/deployment/k8s/kubespray-k8s/index.html">
+<meta property="og:site_name" content="Zeng&#39;s Page">
+<meta property="og:description" content="kubespray项目地址: https://github.com/kubernetes-sigs/kubespray 官方参考：http://192.168.100.150/k8s/kubespray-k8s/0812/kubespray/#/docs/getting-started 项目分支：release-2.11 K8s版本：1.15.1">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://d33wubrfki0l68.cloudfront.net/26a177ede4d7b032362289c6fccd448fc4a91174/eb693/images/docs/container_evolution.svg">
+<meta property="og:updated_time" content="2022-02-20T15:52:50.032Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="kubespray安装K8s">
+<meta name="twitter:description" content="kubespray项目地址: https://github.com/kubernetes-sigs/kubespray 官方参考：http://192.168.100.150/k8s/kubespray-k8s/0812/kubespray/#/docs/getting-started 项目分支：release-2.11 K8s版本：1.15.1">
+<meta name="twitter:image" content="https://d33wubrfki0l68.cloudfront.net/26a177ede4d7b032362289c6fccd448fc4a91174/eb693/images/docs/container_evolution.svg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://lzzeng.github.io/deployment/k8s/kubespray-k8s/">
+
+
+
+
+
+  <title>kubespray安装K8s | Zeng's Page</title>
+  
+
+
+
+
+
+
+
+
+  <script src="/js/src/photoswipe.js?v=5.1.4"></script>
+  <script src="/js/src/photoswipe-ui-default.js?v=5.1.4"></script>
+</head>
+
+<body itemscope itemtype="https://schema.org/WebPage" lang="default">
+
+  
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="https://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Zeng's Page</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-photos">
+          <a href="/photos/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-photo"></i> <br>
+            
+            相册
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="https://schema.org/Article">
+  
+  
+  
+  <div class="post-block" id="container">
+    <link itemprop="mainEntityOfPage" href="https://lzzeng.github.io/deployment/k8s/kubespray-k8s/">
+
+    <span hidden itemprop="author" itemscope itemtype="https://schema.org/Person">
+      <meta itemprop="name" content="Lz. Zeng">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+      <meta itemprop="name" content="Zeng's Page">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">kubespray安装K8s</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-10T19:51:24+00:00">
+                2019-05-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/K8s/" itemprop="url" rel="index">
+                    <span itemprop="name">K8s</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          		 
+
+        </div>
+      </header>
+    	
+	
+	
+		<script type="text/javascript">
+			function showToc(){
+				var toc_article = document.getElementById("toc-article");
+				var show_toc_btn = document.getElementById("show-toc-btn");			
+				toc_article.setAttribute("style","display:block");
+				show_toc_btn.setAttribute("style","display:none");
+			};
+			function showBtn(){
+				var toc_article = document.getElementById("toc-article");
+				var show_toc_btn = document.getElementById("show-toc-btn");
+				toc_article.setAttribute("style","display:none");
+				show_toc_btn.setAttribute("style","display:block");
+			};
+		</script>
+		
+		<div id="my-toc">
+			<p class="show-toc-btn" id="show-toc-btn" onclick="showToc();">
+				<span class="btn-bg"></span>
+				<span class="btn-text">目录</span>
+			</p>
+			<div id="toc-article" class="toc-article" style="display:none">
+				<span id="toc-close" class="toc-close" title="隐藏" onclick="showBtn();">×</span>
+				<strong class="toc-title">文章目录</strong>
+				<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#准备"><span class="toc-number">1.</span> <span class="toc-text">准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装"><span class="toc-number">2.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#登录"><span class="toc-number">3.</span> <span class="toc-text">登录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#keepalived配置示例"><span class="toc-number">4.</span> <span class="toc-text">keepalived配置示例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Kubernetes-Dashboard"><span class="toc-number">4.1.</span> <span class="toc-text">Kubernetes Dashboard</span></a></li></ol></li></ol>
+			</div>
+		</div>
+	
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<blockquote>
+<p>kubespray项目地址: <a href="https://github.com/kubernetes-sigs/kubespray" rel="external nofollow noopener noreferrer" target="_blank">https://github.com/kubernetes-sigs/kubespray</a></p>
+<p>官方参考：<a href="http://192.168.100.150/k8s/kubespray-k8s/0812/kubespray/#/docs/getting-started" rel="external nofollow noopener noreferrer" target="_blank">http://192.168.100.150/k8s/kubespray-k8s/0812/kubespray/#/docs/getting-started</a></p>
+<p>项目分支：release-2.11</p>
+<p>K8s版本：1.15.1</p>
+</blockquote>
+<a id="more"></a>
+<p><em><a href="https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/" rel="external nofollow noopener noreferrer" target="_blank">Kubernetes (K8s)</a> is an open-source system for automating deployment, scaling, and management of containerized applications.</em></p>
+<p><a href="https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/" rel="external nofollow noopener noreferrer" target="_blank"><strong>Kubernetes (K8s)</strong></a> 是一个开源容器编排引擎，用于自动化容器化应用程序的部署，扩展和管理。</p>
+<p><img src="https://d33wubrfki0l68.cloudfront.net/26a177ede4d7b032362289c6fccd448fc4a91174/eb693/images/docs/container_evolution.svg" alt="Deployment evolution"></p>
+<p><em>应用部署方式的演变历史：物理机部署  =&gt; 虚拟机部署  =&gt; 容器化部署</em></p>
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>因国外网络问题，安装前需作必要的修改，写成预处理脚本如下：</p>
+<p>pre-install.sh:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### 安装git并clone官方安装脚本</span></span><br><span class="line">yum install git -y</span><br><span class="line">kube_version=v1.15.1</span><br><span class="line"><span class="keyword">if</span> [ ! -d kubespray ]; <span class="keyword">then</span></span><br><span class="line">  git <span class="built_in">clone</span> https://github.com/kubernetes-sigs/kubespray</span><br><span class="line">  <span class="built_in">cd</span> kubespray</span><br><span class="line">  git checkout release-2.11</span><br><span class="line">  <span class="built_in">cd</span> -</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> kubespray</span><br><span class="line"><span class="keyword">if</span> [ ! -d inventory/mycluster ]; <span class="keyword">then</span></span><br><span class="line">  cp -r inventory/sample inventory/mycluster</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### 更新pip及安装依赖</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">"<span class="variable">$1</span>"</span> = <span class="string">"-U"</span> ]; <span class="keyword">then</span></span><br><span class="line">  easy_install pip</span><br><span class="line">  pip install pip==8.0.3</span><br><span class="line">  pip uninstall requests</span><br><span class="line">  pip install -U pip</span><br><span class="line">  pip install -U setuptools</span><br><span class="line">  pip install -r requirements.txt</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment">################### 所有修改仅涉及以下4个文件，可事先改好另存覆盖</span></span><br><span class="line"><span class="comment">#inventory/mycluster/group_vars/k8s-cluster/k8s-cluster.yml</span></span><br><span class="line"><span class="comment">#roles/download/defaults/main.yml</span></span><br><span class="line"><span class="comment">#roles/kubespray-defaults/defaults/main.yaml</span></span><br><span class="line"><span class="comment">#inventory/mycluster/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">################### 若不事先准备改好的文件，可使用以下命令修改：</span></span><br><span class="line"><span class="comment">### 改版本号</span></span><br><span class="line">sed -i <span class="string">"s/^kube_version:.*$/kube_version: <span class="variable">$kube_version</span>/"</span> roles/kubespray-defaults/defaults/main.yaml</span><br><span class="line">sed -i <span class="string">"s/^kube_version:.*$/kube_version: <span class="variable">$kube_version</span>/"</span> roles/download/defaults/main.yml</span><br><span class="line">sed -i <span class="string">"s/^kube_version:.*$/kube_version: <span class="variable">$kube_version</span>/"</span> inventory/mycluster/group_vars/k8s-cluster/k8s-cluster.yml</span><br><span class="line"></span><br><span class="line"><span class="comment">### 改镜像源</span></span><br><span class="line">kube_image_repo=mirrorgooglecontainers</span><br><span class="line">sed -i <span class="string">"s/^kube_image_repo:.*$/kube_image_repo: <span class="variable">$kube_image_repo</span>/"</span> inventory/mycluster/group_vars/k8s-cluster/k8s-cluster.yml</span><br><span class="line"></span><br><span class="line">sed -i <span class="string">"s/^kube_image_repo:.*$/kube_image_repo: <span class="variable">$kube_image_repo</span>/"</span> roles/download/defaults/main.yml</span><br><span class="line">sed -i <span class="string">"s/k8s.gcr.io/<span class="variable">$kube_image_repo</span>/g"</span> roles/download/defaults/main.yml</span><br><span class="line">sed -i <span class="string">"s#gcr.io/google_containers#<span class="variable">$kube_image_repo</span>#g"</span> roles/download/defaults/main.yml</span><br><span class="line">sed -i <span class="string">"s/gcr.io/<span class="variable">$kube_image_repo</span>/g"</span> roles/download/defaults/main.yml</span><br><span class="line">sed -i <span class="string">"s#(k8s.)?gcr.io(/google_containers)?#<span class="variable">$kube_image_repo</span>#g"</span> roles/download/defaults/main.yml</span><br><span class="line"></span><br><span class="line"><span class="comment">#nodelocaldns_version: 1.15.1</span></span><br><span class="line">nodelocaldns_image_repo=lzzeng/k8s-dns-node-cache</span><br><span class="line">sed -i <span class="string">'s#^nodelocaldns_image_repo:.*$'</span><span class="string">"#nodelocaldns_image_repo: <span class="variable">$nodelocaldns_image_repo</span>#"</span> roles/download/defaults/main.yml</span><br><span class="line"></span><br><span class="line"><span class="comment">### 改二进制文件下载地址</span></span><br><span class="line">download_url=http://192.168.100.150/k8s/<span class="variable">$kube_version</span></span><br><span class="line">sed -i <span class="string">'s#^kubeadm_download_url:.*$#kubeadm_download_url: '</span>\"<span class="string">"<span class="variable">$download_url</span>"</span><span class="string">'/kubeadm\"#'</span> roles/download/defaults/main.yml</span><br><span class="line">sed -i <span class="string">'s#^hyperkube_download_url:.*$#hyperkube_download_url: '</span>\"<span class="string">"<span class="variable">$download_url</span>"</span><span class="string">'/hyperkube\"#'</span> roles/download/defaults/main.yml</span><br><span class="line">sed -i <span class="string">'s#^calicoctl_download_url:.*$#calicoctl_download_url: '</span>\"<span class="string">"<span class="variable">$download_url</span>"</span><span class="string">'/calicoctl-linux-amd64\"#'</span> roles/download/defaults/main.yml <span class="comment">#1.15.1 使用 3.7.3</span></span><br><span class="line">sed -i <span class="string">'s#^etcd_download_url:.*$#etcd_download_url: '</span>\"<span class="string">"<span class="variable">$download_url</span>"</span><span class="string">'/etcd-v3.3.10-linux-amd64.tar.gz\"#'</span> roles/download/defaults/main.yml <span class="comment">#1.15.1 使用 v3.3.10</span></span><br><span class="line">sed -i <span class="string">'s#^cni_download_url:.*$#cni_download_url: '</span>\"<span class="string">"<span class="variable">$download_url</span>"</span><span class="string">'/cni-plugins-linux-amd64-v0.8.1.tgz\"#'</span> roles/download/defaults/main.yml <span class="comment">#1.15.1 使用 v0.8.1</span></span><br><span class="line">sed -i <span class="string">'s#^crictl_download_url:.*$#crictl_download_url: '</span>\"<span class="string">"<span class="variable">$download_url</span>"</span><span class="string">'/critest-v1.15.0-linux-amd64.tar.gz\"#'</span> roles/download/defaults/main.yml <span class="comment">#1.15.1 使用 v1.15.0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### 可以修改内存限制，使得1G内存也可以执行安装</span></span><br><span class="line"><span class="comment">#sed -i 's/^minimal_node_memory_mb:.*$/minimal_node_memory_mb: 500/' roles/kubernetes/preinstall/defaults/main.yml</span></span><br><span class="line"><span class="comment">#sed -i 's/^minimal_master_memory_mb:.*$/minimal_master_memory_mb: 500/' roles/kubernetes/preinstall/defaults/main.yml</span></span><br><span class="line"><span class="comment">#sed -i 's/ansible_memtotal_mb\s*&gt;=\s*[0-9]\+/ansible_memtotal_mb &gt;= 500/' roles/kubernetes/preinstall/tasks/0020-verify-settings.yml</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### docker加速</span></span><br><span class="line">cat &lt;&lt;EOF &gt;&gt; inventory/mycluster/group_vars/k8s-cluster/k8s-cluster.yml</span><br><span class="line"><span class="comment"># Debian docker-ce repo</span></span><br><span class="line">docker_debian_repo_base_url: <span class="string">"https://mirrors.aliyun.com/docker-ce/linux/debian"</span></span><br><span class="line">docker_debian_repo_gpgkey: <span class="string">"https://mirrors.aliyun.com/docker-ce/linux/debian/gpg"</span></span><br><span class="line">dockerproject_apt_repo_base_url: <span class="string">"https://mirrors.aliyun.com/docker-engine/apt/repo"</span></span><br><span class="line">dockerproject_apt_repo_gpgkey: <span class="string">"https://mirrors.aliyun.com/docker-engine/apt/gpg"</span></span><br><span class="line">docker_options: <span class="string">"--insecure-registry= --registry-mirror=https://registry.docker-cn.com --graph= "</span></span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"><span class="comment">### 打印ansible命令</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"再kubespray根目录执行以下命令安装或重置："</span></span><br><span class="line"><span class="built_in">echo</span> ansible-playbook -i inventory/mycluster/hosts.ini --become --become-user=root cluster.yml</span><br><span class="line"><span class="built_in">echo</span> ansible-playbook -i inventory/mycluster/hosts.ini --become --become-user=root reset.yml</span><br></pre></td></tr></table></figure>
+<p>inventory/mycluster/hosts.ini示例：</p>
+<p>node1、node2是master调度节点，node1~node3是etcd节点，node3~node6是工作节点。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[all]</span></span><br><span class="line">node1    ansible_host=192.168.100.79 ip=192.168.100.79</span><br><span class="line">node2    ansible_host=192.168.100.80 ip=192.168.100.80</span><br><span class="line">node3    ansible_host=192.168.100.81 ip=192.168.100.81</span><br><span class="line">node4    ansible_host=192.168.100.216 ip=192.168.100.216</span><br><span class="line">node5    ansible_host=192.168.100.217 ip=192.168.100.217</span><br><span class="line">node6    ansible_host=192.168.100.218 ip=192.168.100.218</span><br><span class="line"></span><br><span class="line"><span class="section">[kube-master]</span></span><br><span class="line">node1</span><br><span class="line">node2</span><br><span class="line"></span><br><span class="line"><span class="section">[etcd]</span></span><br><span class="line">node1</span><br><span class="line">node2</span><br><span class="line">node3</span><br><span class="line"></span><br><span class="line"><span class="section">[kube-node]</span></span><br><span class="line">node3</span><br><span class="line">node4</span><br><span class="line">node5</span><br><span class="line">node6</span><br><span class="line"></span><br><span class="line"><span class="section">[k8s-cluster:children]</span></span><br><span class="line">kube-master</span><br><span class="line">kube-node</span><br></pre></td></tr></table></figure>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>另找一个执行ansible的机器，并授权使其可以免密登录node1~node6：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen		          <span class="comment"># 这几条命令都会提示手动确认</span></span><br><span class="line">ssh-copy-id root@node1</span><br><span class="line">ssh-copy-id root@node2</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>执行安装：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 执行上述准备好的预处理脚本（对应v1.15.1版本）</span></span><br><span class="line">sh pre-install.sh</span><br><span class="line"><span class="comment"># 按上述修改好hosts.ini后，执行ansible编排任务，等待结束即可</span></span><br><span class="line">ansible-playbook -i inventory/mycluster/hosts.ini --become --become-user=root cluster.yml</span><br></pre></td></tr></table></figure>
+<h2 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h2><p>获取登录kubernetes-dashboard的token:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl get svc --all-namespaces | grep kubernetes-dashboard</span><br><span class="line">kubectl -n kube-system describe $(kubectl -n kube-system get secret -n kube-system -o name | grep namespace) | grep token</span><br></pre></td></tr></table></figure>
+<p>未使用keepalived时，可通过其一master登录：<a href="https://192.168.100.79:6443/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/" rel="external nofollow noopener noreferrer" target="_blank">https://192.168.100.79:6443/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/</a></p>
+<h2 id="keepalived配置示例"><a href="#keepalived配置示例" class="headerlink" title="keepalived配置示例"></a>keepalived配置示例</h2><p>node1 (master-1) 的/etc/keepalived/keepalived.conf：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">! Configuration File for keepalived</span><br><span class="line"></span><br><span class="line">global_defs &#123;</span><br><span class="line">   router_id LVS_DEVEL</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_script check_haproxy &#123;</span><br><span class="line">    script "killall -0 haproxy"</span><br><span class="line">    interval 3</span><br><span class="line">    weight -2</span><br><span class="line">    fall 10</span><br><span class="line">    rise 2</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">    state MASTER</span><br><span class="line">    interface ens32</span><br><span class="line">    virtual_router_id 78</span><br><span class="line">    priority 120</span><br><span class="line">    advert_int 1</span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass xxxxxxxxxxxxxxxx</span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        192.168.100.78</span><br><span class="line">    &#125;</span><br><span class="line">    track_script &#123;</span><br><span class="line">        check_haproxy</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>node2 (master-2) 的/etc/keepalived/keepalived.conf：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">! Configuration File for keepalived</span><br><span class="line"></span><br><span class="line">global_defs &#123;</span><br><span class="line">   router_id LVS_DEVEL</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_script check_haproxy &#123;</span><br><span class="line">    script "killall -0 haproxy"</span><br><span class="line">    interval 3</span><br><span class="line">    weight -2</span><br><span class="line">    fall 10</span><br><span class="line">    rise 2</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">    state BACKUP</span><br><span class="line">    interface ens32</span><br><span class="line">    virtual_router_id 78</span><br><span class="line">    priority 100</span><br><span class="line">    advert_int 1</span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass xxxxxxxxxxxxxxxx</span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        192.168.100.78</span><br><span class="line">    &#125;</span><br><span class="line">    track_script &#123;</span><br><span class="line">        check_haproxy</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>仅<code>state BACKUP</code>和<code>priority 100</code>两处不同。</p>
+<hr>
+<p><strong>补充（1.14.1）</strong></p>
+<ul>
+<li><p>修改了配置文件中的镜像地址</p>
+<ul>
+<li>inventory/mycluster/group_vars/k8s-cluster/k8s-cluster.yml</li>
+<li>roles/download/defaults/main.yml</li>
+</ul>
+<p>大部分镜像可以改从registry.cn-hangzhou.aliyuncs.com/google_containers获取。</p>
+</li>
+</ul>
+<ul>
+<li><p>不能直接下载的软件</p>
+<p>通过浏览器（已设置google代理）下载kubeadm和hyperkube，放置在内网文件服务器中。hyperkube和kubeadm包会被下载到所有k8s节点的/tmp/releases目录下。</p>
+</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># kubeadm_download_url: https://storage.googleapis.com/kubernetes-release/release/v1.14.1/bin/linux/amd64/kubeadm</span></span><br><span class="line"><span class="comment"># hyperkube_download_url: https://storage.googleapis.com/kubernetes-release/release/v1.14.1/bin/linux/amd64/hyperkube</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>不能从Ali镜像库获取的镜像</p>
+<ul>
+<li>k8s.gcr.io/cluster-proportional-autoscaler-amd64:1.4.0</li>
+<li>k8s.gcr.io/k8s-dns-node-cache:1.15.1</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>执行</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pip install -r requirements.txt</span><br><span class="line"></span><br><span class="line">ansible-playbook -i inventory/mycluster/hosts.ini --become --become-user=root cluster.yml</span><br></pre></td></tr></table></figure>
+<ul>
+<li>如何清理</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ansible -i inventory/mycluster/hosts.ini all -m script -a <span class="string">'/opt/clean.sh'</span></span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line">ansible-playbook -i inventory/mycluster/hosts.ini --become --become-user=root reset.yml</span><br></pre></td></tr></table></figure>
+<p>clean.sh:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"></span><br><span class="line">rm -rf /etc/kubernetes/</span><br><span class="line">rm -rf /var/lib/kubelet</span><br><span class="line">rm -rf /var/lib/etcd</span><br><span class="line">rm -rf /usr/<span class="built_in">local</span>/bin/kubectl</span><br><span class="line">rm -rf /etc/systemd/system/calico-node.service</span><br><span class="line">rm -rf /etc/systemd/system/kubelet.service</span><br><span class="line">systemctl stop etcd.service</span><br><span class="line">systemctl <span class="built_in">disable</span> etcd.service</span><br><span class="line">systemctl stop calico-node.service</span><br><span class="line">systemctl <span class="built_in">disable</span> calico-node.service</span><br><span class="line">docker stop $(docker ps -q)</span><br><span class="line">docker rm $(docker ps -a -q)</span><br><span class="line">systemctl restart docker</span><br></pre></td></tr></table></figure>
+<ul>
+<li>安装完成后修改节点标签</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">kubectl label node node3 node-role.kubernetes.io/worker=<span class="string">""</span>  <span class="comment">#标记worker</span></span><br><span class="line"></span><br><span class="line">kubectl label node node3 node-role.kubernetes.io/node=<span class="string">""</span> <span class="comment">#标记node</span></span><br><span class="line"></span><br><span class="line">kubectl label node node3  <span class="string">"node-role.kubernetes.io/worker"</span>- <span class="comment"># 删除worker标记</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="Kubernetes-Dashboard"><a href="#Kubernetes-Dashboard" class="headerlink" title="Kubernetes Dashboard"></a>Kubernetes Dashboard</h3><ul>
+<li><p>以NodePort方式暴露服务</p>
+<p>修改代码，使用NodePort方式访问Dashboard。</p>
+</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ./roles/kubernetes-apps/ansible/templates/dashboard.yml.j2</span></span><br><span class="line"><span class="comment"># ------------------- Dashboard Service ------------------- #</span></span><br><span class="line">      <span class="attr">targetPort:</span> <span class="number">8443</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">NodePort</span>    <span class="string">//添加这一行</span>   </span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line"><span class="attr">k8s-app:</span> <span class="string">kubernetes-dashboard</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>获取token</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kubectl get svc --all-namespaces | grep kubernetes-dashboard</span><br><span class="line"></span><br><span class="line">kubectl -n kube-system describe $(kubectl -n kube-system get secret -n kube-system -o name | grep namespace) | grep token</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>非NodePort方式访问</p>
+<p><a href="https://192.168.100.78:6443/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/" rel="external nofollow noopener noreferrer" target="_blank">https://192.168.100.78:6443/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/</a>（192.168.100.78是VIP或者某个master节点IP）</p>
+</li>
+</ul>
+<hr>
+<p><strong>后续操作</strong></p>
+<p>以上完成的是带有kubernetes dashboard的初始环境的搭建，之后还要进行 替换Ingress、设置AD认证、安装管理工具等，此不涉及。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        
+
+      </div>
+    	
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/K8s/" rel="tag"><i class="fa fa-tag"></i> K8s</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/monitoring/consul/consul-template/" rel="next" title="Consul-template">
+                <i class="fa fa-chevron-left"></i> Consul-template
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/cicd/gitlab-cicd/" rel="prev" title="Gitlab CI -- gitlab ci 配置文件一例">
+                Gitlab CI -- gitlab ci 配置文件一例 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MjA1NC8xODYwMQ=="></div>
+    </div>
+
+  
+  
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="https://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/avatar.jpg" alt="Lz. Zeng">
+            
+              <p class="site-author-name" itemprop="name">Lz. Zeng</p>
+              <p class="site-description motion-element" itemprop="description">Continuous Self-Improvement</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-name">发布</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备"><span class="nav-number">1.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#登录"><span class="nav-number">3.</span> <span class="nav-text">登录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#keepalived配置示例"><span class="nav-number">4.</span> <span class="nav-text">keepalived配置示例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Kubernetes-Dashboard"><span class="nav-number">4.1.</span> <span class="nav-text">Kubernetes Dashboard</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lz. Zeng</span>
+  
+  
+</div>
+
+
+
+
+
+
+  <div class="theme-info"><i class="fa fa-life-ring" aria-hidden="true"></i><span></span>  NexT.Pisces</div>
+
+
+
+
+<div class="theme-info">
+  <span>&nbsp;|&nbsp;</span>
+  <i class="fa fa-eye" aria-hidden="true"></i><span id="busuanzi_container_site_pv">&nbsp;<span id="busuanzi_value_site_pv">
+  </span>&nbsp;</span>
+  <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">&nbsp;<span id="busuanzi_value_site_uv"></span>&nbsp;</span>
+  <i class="fa fa-area-chart" aria-hidden="true"></i>
+  <span class="post-count">Words: 97.2k</span>
+</div>
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/photoswipe.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/photoswipe-ui-default.js?v=5.1.4"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

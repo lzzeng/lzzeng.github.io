@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+<meta name="viewport" content="width=device-width">
+<meta name="google-site-verification" content="V4j2XKWJOKRE9YZT6Bh0vioT5VWrnimuwjmS6cyIuJ8">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="K8s,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Kubelet 调用的处理检查容器的IP地址是否打开的程序是？TCPSocketAction 1.8版本的Kubernetes引入了什么？Taints and Tolerations">
+<meta name="keywords" content="K8s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="K8s小知识">
+<meta property="og:url" content="https://lzzeng.github.io/2021/K8s-FAQ/index.html">
+<meta property="og:site_name" content="Zeng&#39;s Page">
+<meta property="og:description" content="Kubelet 调用的处理检查容器的IP地址是否打开的程序是？TCPSocketAction 1.8版本的Kubernetes引入了什么？Taints and Tolerations">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2022-02-20T15:52:50.032Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="K8s小知识">
+<meta name="twitter:description" content="Kubelet 调用的处理检查容器的IP地址是否打开的程序是？TCPSocketAction 1.8版本的Kubernetes引入了什么？Taints and Tolerations">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://lzzeng.github.io/2021/K8s-FAQ/">
+
+
+
+
+
+  <title>K8s小知识 | Zeng's Page</title>
+  
+
+
+
+
+
+
+
+
+  <script src="/js/src/photoswipe.js?v=5.1.4"></script>
+  <script src="/js/src/photoswipe-ui-default.js?v=5.1.4"></script>
+</head>
+
+<body itemscope itemtype="https://schema.org/WebPage" lang="default">
+
+  
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="https://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Zeng's Page</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-photos">
+          <a href="/photos/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-photo"></i> <br>
+            
+            相册
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="https://schema.org/Article">
+  
+  
+  
+  <div class="post-block" id="container">
+    <link itemprop="mainEntityOfPage" href="https://lzzeng.github.io/2021/K8s-FAQ/">
+
+    <span hidden itemprop="author" itemscope itemtype="https://schema.org/Person">
+      <meta itemprop="name" content="Lz. Zeng">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+      <meta itemprop="name" content="Zeng's Page">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">K8s小知识</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-06-20T22:55:40+00:00">
+                2021-06-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/DevOps/" itemprop="url" rel="index">
+                    <span itemprop="name">DevOps</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          		 
+
+        </div>
+      </header>
+    	
+	
+	
+		<script type="text/javascript">
+			function showToc(){
+				var toc_article = document.getElementById("toc-article");
+				var show_toc_btn = document.getElementById("show-toc-btn");			
+				toc_article.setAttribute("style","display:block");
+				show_toc_btn.setAttribute("style","display:none");
+			};
+			function showBtn(){
+				var toc_article = document.getElementById("toc-article");
+				var show_toc_btn = document.getElementById("show-toc-btn");
+				toc_article.setAttribute("style","display:none");
+				show_toc_btn.setAttribute("style","display:block");
+			};
+		</script>
+		
+		<div id="my-toc">
+			<p class="show-toc-btn" id="show-toc-btn" onclick="showToc();">
+				<span class="btn-bg"></span>
+				<span class="btn-text">目录</span>
+			</p>
+			<div id="toc-article" class="toc-article" style="display:none">
+				<span id="toc-close" class="toc-close" title="隐藏" onclick="showBtn();">×</span>
+				<strong class="toc-title">文章目录</strong>
+				<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Kubelet-调用的处理检查容器的IP地址是否打开的程序是？"><span class="toc-number">1.</span> <span class="toc-text">Kubelet 调用的处理检查容器的IP地址是否打开的程序是？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-8版本的Kubernetes引入了什么？"><span class="toc-number">2.</span> <span class="toc-text">1.8版本的Kubernetes引入了什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#如何在没有选择器的情况下定义服务？"><span class="toc-number">3.</span> <span class="toc-text">如何在没有选择器的情况下定义服务？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是Kubernetes集群中的minions？"><span class="toc-number">4.</span> <span class="toc-text">什么是Kubernetes集群中的minions？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ReplicaSet和ReplicationController的区别？"><span class="toc-number">5.</span> <span class="toc-text">ReplicaSet和ReplicationController的区别？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Headless-Service？"><span class="toc-number">6.</span> <span class="toc-text">Headless Service？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Kubernetes-Architecture的组件有哪些？"><span class="toc-number">7.</span> <span class="toc-text">Kubernetes Architecture的组件有哪些？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ingress的意义？"><span class="toc-number">8.</span> <span class="toc-text">ingress的意义？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#无选择器的service"><span class="toc-number">9.</span> <span class="toc-text">无选择器的service?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#K8s版本变化"><span class="toc-number">10.</span> <span class="toc-text">K8s版本变化</span></a></li></ol>
+			</div>
+		</div>
+	
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="Kubelet-调用的处理检查容器的IP地址是否打开的程序是？"><a href="#Kubelet-调用的处理检查容器的IP地址是否打开的程序是？" class="headerlink" title="Kubelet 调用的处理检查容器的IP地址是否打开的程序是？"></a>Kubelet 调用的处理检查容器的IP地址是否打开的程序是？</h3><p>TCPSocketAction</p>
+<h3 id="1-8版本的Kubernetes引入了什么？"><a href="#1-8版本的Kubernetes引入了什么？" class="headerlink" title="1.8版本的Kubernetes引入了什么？"></a>1.8版本的Kubernetes引入了什么？</h3><p>Taints and Tolerations</p>
+<a id="more"></a>
+<h3 id="如何在没有选择器的情况下定义服务？"><a href="#如何在没有选择器的情况下定义服务？" class="headerlink" title="如何在没有选择器的情况下定义服务？"></a>如何在没有选择器的情况下定义服务？</h3><p>指定外部名称</p>
+<h3 id="什么是Kubernetes集群中的minions？"><a href="#什么是Kubernetes集群中的minions？" class="headerlink" title="什么是Kubernetes集群中的minions？"></a>什么是Kubernetes集群中的minions？</h3><p>它们是集群的工作节点</p>
+<h3 id="ReplicaSet和ReplicationController的区别？"><a href="#ReplicaSet和ReplicationController的区别？" class="headerlink" title="ReplicaSet和ReplicationController的区别？"></a>ReplicaSet和ReplicationController的区别？</h3><p>在旧版本的Kubernetes中，只有ReplicationController对象。它的主要作用是确保Pod以你指定的副本数运行，即如果有容器异常退出，会自动创建新的 Pod 来替代；而异常多出来的容器也会自动回收。</p>
+<p>ReplicaSet是ReplicationController的替代。ReplicaSet支持集合式的selector。官方强烈建议避免直接使用ReplicaSet，而应该通过Deployment来创建RS和Pod。</p>
+<h3 id="Headless-Service？"><a href="#Headless-Service？" class="headerlink" title="Headless Service？"></a>Headless Service？</h3><p>spec.clusterIP为None。不会被分配cluster IP，kube-proxy不处理，不会对这类服务进行负载均衡和路由。</p>
+<p><code>ClusterIP</code>的原理：一个<code>Service</code>可能对应多个<code>EndPoint(Pod)</code>，<code>client</code>访问的是<code>Cluster IP</code>，通过<code>iptables</code>规则转到<code>Real Server</code>，从而达到负载均衡的效果。</p>
+<p>ClusterIP方式，dns查询时只会返回<code>Service</code>的地址。而headless方式会返回endpoint的IP。</p>
+<p>headless使用场景:</p>
+<p>第一种：自主选择权，有时候<code>client</code>想自己来决定使用哪个<code>Real Server</code>，可以通过查询<code>DNS</code>来获取<code>Real Server</code>的信息。</p>
+<p>第二种：<code>Headless Service</code>的对应的每一个<code>Endpoints</code>，即每一个<code>Pod</code>，都会有对应的<code>DNS</code>域名；这样<code>Pod</code>之间就能互相访问，集群也能单独访问pod。</p>
+<p>K8s中资源的全局FQDN格式:<br>　　Service_NAME.NameSpace_NAME.Domain.LTD.<br>　　Domain.LTD.=svc.cluster.local.　　　　 # 这是默认k8s集群的域名</p>
+<p>假设nginx是一个service：<br><code>nslookup nginx.default.svc.cluster.local 10.200.2.10</code></p>
+<p>如果后端pod名为web-0,web-1:<br><code>nslookup web-0.nginx.default.svc.cluster.local 10.200.2.11</code></p>
+<h3 id="Kubernetes-Architecture的组件有哪些？"><a href="#Kubernetes-Architecture的组件有哪些？" class="headerlink" title="Kubernetes Architecture的组件有哪些？"></a>Kubernetes Architecture的组件有哪些？</h3><p>Kubernetes Architecture包含主节点和工作节点。运行在主节点上的组件有：kube-controller-manager，kube-apiserver，kube-scheduler。工作节点上的组件有：kubelet和kube-proxy。</p>
+<h3 id="ingress的意义？"><a href="#ingress的意义？" class="headerlink" title="ingress的意义？"></a>ingress的意义？</h3><p>动态配置服务，减少不必要的端口暴露</p>
+<p>k8s对外暴露服务的方式？</p>
+<ul>
+<li>NodePort</li>
+<li>LoadBalancer</li>
+<li>Ingress</li>
+</ul>
+<p>ingress controller通过和kubernetes api交互，动态的去感知集群中ingress规则变化，生成相应的nginx配置文件。</p>
+<h3 id="无选择器的service"><a href="#无选择器的service" class="headerlink" title="无选择器的service?"></a>无选择器的service?</h3><p>service 其实是一个TCP/UDP 代理，不仅可以代理Pod也可以代理其他的非Pod资源，例如外网的数据库，或者其他的资源。没有配置选择器的service ，endpoints为空，可以给这个service 添加或修改 endpoint</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">mynoselector-service</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">ports:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">    <span class="attr">port:</span> <span class="number">50000</span></span><br><span class="line"></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Endpoints</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">mynoselector-service</span></span><br><span class="line"><span class="attr">subsets:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">addresses:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">ip:</span> <span class="number">13.75</span><span class="number">.107</span><span class="number">.151</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">port:</span> <span class="number">3306</span></span><br></pre></td></tr></table></figure>
+<h3 id="K8s版本变化"><a href="#K8s版本变化" class="headerlink" title="K8s版本变化"></a>K8s版本变化</h3><p>Alpha（内部测试版）-&gt;Beta（测试版）-&gt; GA（正式发布的版本）</p>
+<p><strong>v1.13 2018年12月04日</strong><br>kubeadm进入GA，容器存储接口（CSI）进入GA，CoreDNS成为默认DNS服务器</p>
+<p><strong>v1.14 2019年03月26日</strong><br>生产级支持Windows节点，kubectl全新文档与kustomize集成，持久本地卷进入GA</p>
+<p><strong>v1.15 2019年06月19日</strong><br>核心API可扩展性，kubeadm高可用进入Beta，kubeadm无缝升级所有证书，持续改进CSI。</p>
+<p><strong>v1.16 2019年09月18日</strong><br>CRD进入GA，准入控制Webhooks进入GA，IPv4/IPv6双栈协议支持，CSI规范卷大小调整。</p>
+<p><strong>v1.17 2019 年12月10日</strong></p>
+<ul>
+<li>云供应商标签 GA：早在 v1.2 版本中就作为测试版功能添加，v1.17 版本中的云供应商标签普遍可用。</li>
+<li>Volume Snapshot 进入 bata 版：Kubernetes Volume Snapshot功能现在是Kubernetes v1.17中的测试版。该功能在 Kubernetes v1.12 中作为 alpha 引入的，在 Kubernetes v1.13 中进行了第二次 alpha，并进行了突破性修改。</li>
+<li>CSI 迁移（Migration）进入 beata 版：Kubernetes 树内（in-tree）存储插件到容器存储接口（CSI）迁移基础架构现在是 Kubernetes v1.17 中的 beata 版。CSI 迁移在 Kubernetes v1.14 中作为 alpha 引入。</li>
+</ul>
+<p><strong>v1.18 2020年3月26日</strong><br><a href="https://v1-18.docs.kubernetes.io/blog/2020/03/25/kubernetes-1-18-release-announcement/" rel="external nofollow noopener noreferrer" target="_blank">https://v1-18.docs.kubernetes.io/blog/2020/03/25/kubernetes-1-18-release-announcement/</a></p>
+<p>Taint Based Eviction，kubectl diff 等</p>
+<p><strong>v1.19 2020年8月27日</strong><br>从 Kubernetes 1.19 版本开始，支持窗口将延长到一年。<br>Ingress 升级为 GA，结构化日志等</p>
+<p><strong>v1.20</strong><br>Dockershim弃用</p>
+<p><strong>v1.21</strong><br>PodSecurityPolicy 弃用<br>不可变 ConfigMap/Secret 进入稳定版</p>
+<p>当集群包含大量 ConfigMap 和 Secret 时，大量的 watch 事件会急剧增加 kube-apiserver 的负载，并会导致错误配置过快传播到整个集群。在这种情况中，给不需要经常修改的 ConfigMap 和 Secret 设置 <code>immutable: true</code> 就可以避免类似的问题。</p>
+<p>注意，设置 <code>immutable: true</code> 之后，ConfigMap 和 Secret 内容更新时需要删除并重新创建，且使用它们的 Pod 也需要删除重建。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        
+
+      </div>
+    	
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/K8s/" rel="tag"><i class="fa fa-tag"></i> K8s</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/hdfs-hbase/" rel="next" title="【摘】HDFS和HBase">
+                <i class="fa fa-chevron-left"></i> 【摘】HDFS和HBase
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/broker-agent-proxy-delegate/" rel="prev" title="【摘】broker/agent/proxy/delegate的区别">
+                【摘】broker/agent/proxy/delegate的区别 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MjA1NC8xODYwMQ=="></div>
+    </div>
+
+  
+  
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="https://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/avatar.jpg" alt="Lz. Zeng">
+            
+              <p class="site-author-name" itemprop="name">Lz. Zeng</p>
+              <p class="site-description motion-element" itemprop="description">Continuous Self-Improvement</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-name">发布</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Kubelet-调用的处理检查容器的IP地址是否打开的程序是？"><span class="nav-number">1.</span> <span class="nav-text">Kubelet 调用的处理检查容器的IP地址是否打开的程序是？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-8版本的Kubernetes引入了什么？"><span class="nav-number">2.</span> <span class="nav-text">1.8版本的Kubernetes引入了什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何在没有选择器的情况下定义服务？"><span class="nav-number">3.</span> <span class="nav-text">如何在没有选择器的情况下定义服务？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是Kubernetes集群中的minions？"><span class="nav-number">4.</span> <span class="nav-text">什么是Kubernetes集群中的minions？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ReplicaSet和ReplicationController的区别？"><span class="nav-number">5.</span> <span class="nav-text">ReplicaSet和ReplicationController的区别？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Headless-Service？"><span class="nav-number">6.</span> <span class="nav-text">Headless Service？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kubernetes-Architecture的组件有哪些？"><span class="nav-number">7.</span> <span class="nav-text">Kubernetes Architecture的组件有哪些？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ingress的意义？"><span class="nav-number">8.</span> <span class="nav-text">ingress的意义？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#无选择器的service"><span class="nav-number">9.</span> <span class="nav-text">无选择器的service?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#K8s版本变化"><span class="nav-number">10.</span> <span class="nav-text">K8s版本变化</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lz. Zeng</span>
+  
+  
+</div>
+
+
+
+
+
+
+  <div class="theme-info"><i class="fa fa-life-ring" aria-hidden="true"></i><span></span>  NexT.Pisces</div>
+
+
+
+
+<div class="theme-info">
+  <span>&nbsp;|&nbsp;</span>
+  <i class="fa fa-eye" aria-hidden="true"></i><span id="busuanzi_container_site_pv">&nbsp;<span id="busuanzi_value_site_pv">
+  </span>&nbsp;</span>
+  <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">&nbsp;<span id="busuanzi_value_site_uv"></span>&nbsp;</span>
+  <i class="fa fa-area-chart" aria-hidden="true"></i>
+  <span class="post-count">Words: 97.2k</span>
+</div>
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/photoswipe.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/photoswipe-ui-default.js?v=5.1.4"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

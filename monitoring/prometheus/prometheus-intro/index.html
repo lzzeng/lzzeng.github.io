@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+<meta name="viewport" content="width=device-width">
+<meta name="google-site-verification" content="V4j2XKWJOKRE9YZT6Bh0vioT5VWrnimuwjmS6cyIuJ8">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Prometheus,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="环境：CentOS Linux release 7.5.1804 (Core)、5.5.60-MariaDB 运行方式：Prometheus，Grafana和Alertmanager通过docker安装运行，MySQL和exporter直接运行在VM上">
+<meta name="keywords" content="Prometheus">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Prometheus + Grafana + Alertmanager监控">
+<meta property="og:url" content="https://lzzeng.github.io/monitoring/prometheus/prometheus-intro/index.html">
+<meta property="og:site_name" content="Zeng&#39;s Page">
+<meta property="og:description" content="环境：CentOS Linux release 7.5.1804 (Core)、5.5.60-MariaDB 运行方式：Prometheus，Grafana和Alertmanager通过docker安装运行，MySQL和exporter直接运行在VM上">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/prometheus-intro.assets/1552636875890.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/prometheus-intro.assets/1552624310656.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/prometheus-intro.assets/1552624418930.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/prometheus-intro.assets/1552624868689.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/prometheus-intro.assets/1552624949727.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/prometheus-intro.assets/1552625214005.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/prometheus-intro.assets/1552625272026.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/prometheus-intro.assets/1552640104574.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/prometheus-intro.assets/1552642425792.png">
+<meta property="og:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/prometheus-intro.assets/1552620299332.png">
+<meta property="og:updated_time" content="2022-02-20T15:52:53.680Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Prometheus + Grafana + Alertmanager监控">
+<meta name="twitter:description" content="环境：CentOS Linux release 7.5.1804 (Core)、5.5.60-MariaDB 运行方式：Prometheus，Grafana和Alertmanager通过docker安装运行，MySQL和exporter直接运行在VM上">
+<meta name="twitter:image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/prometheus-intro.assets/1552636875890.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://lzzeng.github.io/monitoring/prometheus/prometheus-intro/">
+
+
+
+
+
+  <title>Prometheus + Grafana + Alertmanager监控 | Zeng's Page</title>
+  
+
+
+
+
+
+
+
+
+  <script src="/js/src/photoswipe.js?v=5.1.4"></script>
+  <script src="/js/src/photoswipe-ui-default.js?v=5.1.4"></script>
+</head>
+
+<body itemscope itemtype="https://schema.org/WebPage" lang="default">
+
+  
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="https://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Zeng's Page</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-photos">
+          <a href="/photos/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-photo"></i> <br>
+            
+            相册
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="https://schema.org/Article">
+  
+  
+  
+  <div class="post-block" id="container">
+    <link itemprop="mainEntityOfPage" href="https://lzzeng.github.io/monitoring/prometheus/prometheus-intro/">
+
+    <span hidden itemprop="author" itemscope itemtype="https://schema.org/Person">
+      <meta itemprop="name" content="Lz. Zeng">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+      <meta itemprop="name" content="Zeng's Page">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Prometheus + Grafana + Alertmanager监控</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-17T14:51:24+00:00">
+                2019-03-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/监控/" itemprop="url" rel="index">
+                    <span itemprop="name">监控</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          		 
+
+        </div>
+      </header>
+    	
+	
+	
+		<script type="text/javascript">
+			function showToc(){
+				var toc_article = document.getElementById("toc-article");
+				var show_toc_btn = document.getElementById("show-toc-btn");			
+				toc_article.setAttribute("style","display:block");
+				show_toc_btn.setAttribute("style","display:none");
+			};
+			function showBtn(){
+				var toc_article = document.getElementById("toc-article");
+				var show_toc_btn = document.getElementById("show-toc-btn");
+				toc_article.setAttribute("style","display:none");
+				show_toc_btn.setAttribute("style","display:block");
+			};
+		</script>
+		
+		<div id="my-toc">
+			<p class="show-toc-btn" id="show-toc-btn" onclick="showToc();">
+				<span class="btn-bg"></span>
+				<span class="btn-text">目录</span>
+			</p>
+			<div id="toc-article" class="toc-article" style="display:none">
+				<span id="toc-close" class="toc-close" title="隐藏" onclick="showBtn();">×</span>
+				<strong class="toc-title">文章目录</strong>
+				<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装"><span class="toc-number">1.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#功能测试"><span class="toc-number">2.</span> <span class="toc-text">功能测试</span></a></li></ol>
+			</div>
+		</div>
+	
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<blockquote>
+<p> 环境：CentOS Linux release 7.5.1804 (Core)、5.5.60-MariaDB</p>
+<p>运行方式：Prometheus，Grafana和Alertmanager通过docker安装运行，MySQL和exporter直接运行在VM上</p>
+</blockquote>
+<a id="more"></a>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/prometheus-intro.assets/1552636875890.png" alt="1552636875890"></p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker pull prom/prometheus</span><br><span class="line">docker pull grafana/grafana</span><br><span class="line">docker pull prom/alertmanager</span><br><span class="line">[root@VM_0_2_centos config]<span class="comment"># docker images</span></span><br><span class="line">REPOSITORY             TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">prom/prometheus        latest              f57ed0abd85c        2 days ago          109MB</span><br><span class="line">grafana/grafana        latest              ffd9c905f698        8 days ago          241MB</span><br><span class="line">prom/alertmanager      latest              02e0d8e930da        6 weeks ago         42.5MB</span><br></pre></td></tr></table></figure>
+<p>执行prometheus前，先配置好以下文件。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">[root@zabbix02</span> <span class="string">~]#</span> <span class="string">tree</span> <span class="string">config/</span></span><br><span class="line"><span class="string">config/</span></span><br><span class="line"><span class="string">├──</span> <span class="string">alertmanager</span></span><br><span class="line"><span class="string">│</span>   <span class="string">├──</span> <span class="string">alertmanager.yml</span></span><br><span class="line"><span class="string">│</span>   <span class="string">└──</span> <span class="string">template</span></span><br><span class="line"><span class="string">│</span>       <span class="string">└──</span> <span class="string">test.tmpl</span></span><br><span class="line"><span class="string">└──</span> <span class="string">prometheus</span></span><br><span class="line">    <span class="string">├──</span> <span class="string">prometheus.yml</span></span><br><span class="line">    <span class="string">└──</span> <span class="string">rules.yml</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>prometheus.yml</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">global:</span></span><br><span class="line">  <span class="attr">scrape_interval:</span> <span class="string">15s</span></span><br><span class="line">  <span class="attr">evaluation_interval:</span> <span class="string">15s</span></span><br><span class="line">  <span class="attr">scrape_timeout:</span> <span class="string">15s</span></span><br><span class="line">  <span class="attr">external_labels:</span></span><br><span class="line">    <span class="attr">monitor:</span> <span class="string">'codelab_monitor'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 报警服务，alertmanager默认运行在9093端口</span></span><br><span class="line"><span class="attr">alerting:</span></span><br><span class="line">  <span class="attr">alertmanagers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">static_configs:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">targets:</span> <span class="string">["localhost:9093"]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 报警规则</span></span><br><span class="line"><span class="attr">rule_files:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">"rules.yml"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 以下定义了可采集的指标数据源</span></span><br><span class="line"><span class="attr">scrape_configs:</span></span><br><span class="line"><span class="comment"># 安装node-exporter并运行后，默认在端口9100对外暴露相关metrics</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">job_name:</span> <span class="string">'node'</span></span><br><span class="line">    <span class="attr">scrape_interval:</span> <span class="string">5s</span></span><br><span class="line">    <span class="attr">static_configs:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">targets:</span> <span class="string">['localhost:9100']</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># prometheus运行时自身也会提供一些metrics</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">job_name:</span> <span class="string">'prometheus'</span></span><br><span class="line">    <span class="attr">scrape_interval:</span> <span class="string">5s</span></span><br><span class="line">    <span class="attr">static_configs:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">targets:</span> <span class="string">['localhost:9090']</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># mysql指标由mysqld-exporter导出，默认9104端口</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">job_name:</span> <span class="string">'mysqld'</span></span><br><span class="line">    <span class="attr">scrape_interval:</span> <span class="string">5s</span></span><br><span class="line">    <span class="attr">static_configs:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">targets:</span> <span class="string">['localhost:9104']</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>rules.yml</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">groups:</span></span><br><span class="line"><span class="comment"># 测试规则，当CPU使用率（5分钟）超过20%时，达到报警条件</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">test-rules</span></span><br><span class="line">    <span class="attr">rules:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">alert:</span> <span class="string">hostCpuUsageAlert</span></span><br><span class="line">        <span class="attr">expr:</span> <span class="string">sum(avg</span> <span class="string">without</span> <span class="string">(cpu)(irate(node_cpu_seconds_total&#123;mode!='idle'&#125;[5m])))</span> <span class="string">by</span> <span class="string">(instance)</span> <span class="string">*</span> <span class="number">100</span> <span class="string">&gt;</span> <span class="number">20</span></span><br><span class="line">        <span class="attr">for:</span> <span class="string">1s</span></span><br><span class="line">        <span class="attr">labels:</span></span><br><span class="line">          <span class="attr">severity:</span> <span class="string">page</span></span><br><span class="line">        <span class="attr">annotations:</span></span><br><span class="line">          <span class="attr">summary:</span> <span class="string">"Instance <span class="template-variable">&#123;&#123; $labels.instance &#125;&#125;</span> CPU usgae high"</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">"<span class="template-variable">&#123;&#123; $labels.instance &#125;&#125;</span> CPU usage above 20% (current value: <span class="template-variable">&#123;&#123; $value &#125;&#125;</span>)"</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>alertmanager.yml</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">global:</span></span><br><span class="line">  <span class="attr">resolve_timeout:</span> <span class="string">5m</span> <span class="comment">#处理超时时间，默认为5min</span></span><br><span class="line">  <span class="attr">smtp_smarthost:</span> <span class="string">'smtp.163.com:465'</span> <span class="comment"># 邮箱smtp服务器代理</span></span><br><span class="line">  <span class="attr">smtp_from:</span> <span class="string">'xxx@163.com'</span> <span class="comment"># 发送邮箱名称</span></span><br><span class="line">  <span class="attr">smtp_auth_username:</span> <span class="string">'xxx@163.com'</span> <span class="comment"># 邮箱名称</span></span><br><span class="line">  <span class="attr">smtp_auth_password:</span> <span class="string">'xxxxxxxx'</span> <span class="comment"># 邮箱密码或授权码</span></span><br><span class="line">  <span class="attr">wechat_api_url:</span> <span class="string">'https://qyapi.weixin.qq.com/cgi-bin/'</span> <span class="comment"># 企业微信地址</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 模板</span></span><br><span class="line"><span class="attr">templates:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">'template/*.tmpl'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 路由</span></span><br><span class="line"><span class="attr">route:</span></span><br><span class="line">  <span class="attr">group_by:</span> <span class="string">['alertname']</span> <span class="comment"># 报警分组依据</span></span><br><span class="line">  <span class="attr">group_wait:</span> <span class="string">10s</span> <span class="comment"># 第一次等待多久时间发送一组警报的通知</span></span><br><span class="line">  <span class="attr">group_interval:</span> <span class="string">10s</span> <span class="comment"># 在发送新警报前的等待时间</span></span><br><span class="line">  <span class="attr">repeat_interval:</span> <span class="string">1m</span> <span class="comment"># 发送重复警报的周期 对于email此项不可以设置过低</span></span><br><span class="line">  <span class="attr">receiver:</span> <span class="string">'web.hook'</span> <span class="comment"># 使用receivers中name为web.hook的报警方式</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 常用的报警通知方式有3种，webhook、email和企业微信</span></span><br><span class="line"><span class="attr">receivers:</span></span><br><span class="line"><span class="comment"># webhook方式</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">'web.hook'</span></span><br><span class="line">    <span class="attr">webhook_configs:</span></span><br><span class="line">    <span class="comment"># 本地webhook打印报警信息。webhook方式可用于测试，或执行某些动作。</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">url:</span> <span class="string">'http://127.0.0.1:5001/'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 邮件方式</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">'email'</span></span><br><span class="line">    <span class="attr">email_configs:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">to:</span> <span class="string">'xxx@yyy.com'</span> <span class="comment"># 收件人</span></span><br><span class="line">      <span class="attr">html:</span> <span class="string">'<span class="template-variable">&#123;&#123; template "test.html" . &#125;&#125;</span>'</span> <span class="comment"># 邮箱内容html模板</span></span><br><span class="line">      <span class="attr">headers:</span> <span class="string">&#123;</span> <span class="attr">Subject:</span> <span class="string">"[WARN] 报警邮件"</span><span class="string">&#125;</span> <span class="comment"># 邮件主题</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 企业微信方式</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">'qywx'</span></span><br><span class="line">    <span class="attr">webhook_configs:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">send_resolved:</span> <span class="literal">true</span></span><br><span class="line">      <span class="attr">to_party:</span> <span class="string">'1'</span> <span class="comment"># 接收组的id</span></span><br><span class="line">      <span class="attr">agent_id:</span> <span class="string">'xxxxxx'</span> <span class="comment"># 企业微信--&gt;自定应用--&gt;AgentId</span></span><br><span class="line">      <span class="attr">corp_id:</span> <span class="string">'xxxxxx'</span> <span class="comment"># 我的企业--&gt;CorpId[在底部]</span></span><br><span class="line">      <span class="attr">api_secret:</span> <span class="string">'xxxxxx'</span> <span class="comment"># 企业微信--&gt;自定应用--&gt;Secret</span></span><br><span class="line">      <span class="attr">message:</span> <span class="string">'<span class="template-variable">&#123;&#123; template "test.html" . &#125;&#125;</span>'</span> <span class="comment"># 模板设定</span></span><br></pre></td></tr></table></figure>
+<p>这里不使用docker方式运行exporter，通过下载安装包安装node_exporter和mysqld_exporter。</p>
+<ul>
+<li>安装、启动node_exporter</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/prometheus/node_exporter/releases/download/v0.17.0/node_exporter-0.17.0.linux-amd64.tar.gz</span><br><span class="line">tar -xf node_exporter-0.17.0.linux-amd64.tar.gz</span><br><span class="line"><span class="built_in">cd</span> node_exporter-0.17.0.linux-amd64/</span><br><span class="line"><span class="comment"># 运行node_exporter</span></span><br><span class="line">nohup ./node_exporter &amp;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看node_exporter监听的端口</span></span><br><span class="line">[root@zabbix02 node_exporter-0.17.0.linux-amd64]<span class="comment"># netstat -alntp |grep node_expo</span></span><br><span class="line">tcp6       0      0 :::9100                 :::*                    LISTEN      21164/./node_export </span><br><span class="line">tcp6       0      0 ::1:9100                ::1:57580               ESTABLISHED 21164/./node_export</span><br></pre></td></tr></table></figure>
+<ul>
+<li>安装、启动mysqld_exporter</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/prometheus/mysqld_exporter/releases/download/v0.11.0/mysqld_exporter-0.11.0.linux-amd64.tar.gz</span><br><span class="line">tar -xf mysqld_exporter-0.11.0.linux-amd64.tar.gz</span><br><span class="line"><span class="built_in">cd</span> exporter/mysqld_exporter-0.11.0.linux-amd64/</span><br><span class="line"><span class="comment"># 本文中，被监控的mysql与prometheus server在同一个机器上</span></span><br><span class="line"><span class="comment"># 将使用mysql中创建的名为exporter的用户查询mysql指标</span></span><br><span class="line">cat &lt;&lt;EOF &gt;.my.cnf</span><br><span class="line">[client]</span><br><span class="line">user=exporter</span><br><span class="line">password=exporter</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"><span class="comment"># 需创建mysql exporter用户</span></span><br><span class="line">CREATE USER <span class="string">'exporter'</span>@<span class="string">'localhost'</span> IDENTIFIED BY <span class="string">'exporter'</span>;</span><br><span class="line">GRANT PROCESS, REPLICATION CLIENT, SELECT ON *.* TO <span class="string">'exporter'</span>@<span class="string">'localhost'</span>;</span><br><span class="line"><span class="comment"># flush privileges;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 运行mysqld_exporter</span></span><br><span class="line">nohup ./mysqld_exporter --config.my-cnf=<span class="string">"./.my.cnf"</span> &amp;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>运行prometheus</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 9090:9090 --name prometheus --net=host \</span><br><span class="line">-v /root/config/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml \</span><br><span class="line">-v /root/config/prometheus/rules.yml:/etc/prometheus/rules.yml prom/prometheus</span><br></pre></td></tr></table></figure>
+<ul>
+<li>运行alertmanager</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 9093:9093 --net=host \</span><br><span class="line">-v /root/config/alertmanager/alertmanager.yml:/etc/alertmanager/config.yml \</span><br><span class="line">--name alertmanager prom/alertmanager</span><br></pre></td></tr></table></figure>
+<ul>
+<li>安装及配置grafana</li>
+</ul>
+<p>要通过grafana展示监控数据，见<a href="https://github.com/zlzgithub/docs/blob/master/grafana/grafana-intro.md" rel="external nofollow noopener noreferrer" target="_blank">https://github.com/zlzgithub/docs/blob/master/grafana/grafana-intro.md</a></p>
+<hr>
+<p>以上步骤就绪后，通过浏览器访问看看</p>
+<ul>
+<li>Prometheus首页</li>
+</ul>
+<p><a href="http://192.168.100.150:9090/graph" rel="external nofollow noopener noreferrer" target="_blank">http://192.168.100.150:9090/graph</a></p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/prometheus-intro.assets/1552624310656.png" alt="1552624310656"></p>
+<ul>
+<li>Alerts页面</li>
+</ul>
+<p><a href="http://192.168.100.150:9090/alerts" rel="external nofollow noopener noreferrer" target="_blank">http://192.168.100.150:9090/alerts</a>，显示了一条报警规则，说明此前的prometheus rules配置正常。</p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/prometheus-intro.assets/1552624418930.png" alt="1552624418930"></p>
+<ul>
+<li>Targets页面</li>
+</ul>
+<p><a href="http://192.168.100.150:9090/targets" rel="external nofollow noopener noreferrer" target="_blank">http://192.168.100.150:9090/targets</a>，显示了已在线的metrics。</p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/prometheus-intro.assets/1552624868689.png" alt="1552624868689"></p>
+<ul>
+<li>Alertmanager</li>
+</ul>
+<p><a href="http://192.168.100.150:9093/#/alerts" rel="external nofollow noopener noreferrer" target="_blank">http://192.168.100.150:9093/#/alerts</a></p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/prometheus-intro.assets/1552624949727.png" alt="1552624949727"></p>
+<ul>
+<li>metrics</li>
+</ul>
+<ol>
+<li>prometheus的metrics</li>
+</ol>
+<p><a href="http://192.168.100.150:9090/metrics" rel="external nofollow noopener noreferrer" target="_blank">http://192.168.100.150:9090/metrics</a></p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/prometheus-intro.assets/1552625214005.png" alt="1552625214005"></p>
+<ol start="2">
+<li>mysql的metrics</li>
+</ol>
+<p><a href="http://192.168.100.150:9104/metrics" rel="external nofollow noopener noreferrer" target="_blank">http://192.168.100.150:9104/metrics</a></p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/prometheus-intro.assets/1552625272026.png" alt="1552625272026"></p>
+<h3 id="功能测试"><a href="#功能测试" class="headerlink" title="功能测试"></a>功能测试</h3><hr>
+<p>在Grafana中，导入Prometheus 2.0 Status仪表板，显示如下：</p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/prometheus-intro.assets/1552640104574.png" alt="1552640104574"></p>
+<p>导入Mysql-Overview模板的显示效果：</p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/prometheus-intro.assets/1552642425792.png" alt="1552642425792"></p>
+<p>报警测试：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 先运行一个webhook，前提已安装golang</span></span><br><span class="line">go get github.com/prometheus/alertmanager/examples/webhook</span><br><span class="line">webhook</span><br><span class="line"></span><br><span class="line"><span class="comment"># 另开一个窗口，人为拉高CPU使用率，观察webhook打印的日志</span></span><br><span class="line">cat /dev/zero &gt;/dev/null</span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试完之后，[ctrl]+[c]终止</span></span><br></pre></td></tr></table></figure>
+<p>alertmanager webhook在控制台输出的日志：</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_2_centos alertmanager]# webhook</span><br><span class="line">2019/03/15 10:49:32 &#123;</span><br><span class="line"> &gt;  "receiver": "web<span class="tag">\<span class="name">\</span></span>.hook",</span><br><span class="line"> &gt;  "status": "firing",</span><br><span class="line"> &gt;  "alerts": [</span><br><span class="line"> &gt;    &#123;</span><br><span class="line"> &gt;      "status": "firing",</span><br><span class="line"> &gt;      "labels": &#123;</span><br><span class="line"> &gt;        "alertname": "hostCpuUsageAlert",</span><br><span class="line"> &gt;        "instance": "cvm001",</span><br><span class="line"> &gt;        "monitor": "codelab_monitor",</span><br><span class="line"> &gt;        "severity": "page"</span><br><span class="line"> &gt;      &#125;,</span><br><span class="line"> &gt;      "annotations": &#123;</span><br><span class="line"> &gt;        "description": "cvm001 CPU usage above 20<span class="comment">% (current value: 99.80000000001382)",</span></span><br><span class="line"> &gt;        "summary": "Instance cvm001 CPU usgae high"</span><br><span class="line"> &gt;      &#125;,</span><br><span class="line"> &gt;      "startsAt": "2019-03-15T02:49:22.839636267Z",</span><br><span class="line"> &gt;      "endsAt": "0001-01-01T00:00:00Z",</span><br><span class="line"> &gt;      "generatorURL": "http://VM_0_2_centos:9090/graph?g0.expr=sum+by<span class="comment">%28instance%29+%28avg+without%28cpu%29+%28irate%28node_cpu_seconds_total%7Bmode%21%3D%22idle%22%7D%5B5m%5D%29%29%29+%2A+100+%3E+20\u0026g0.tab=1"</span></span><br><span class="line"> &gt;    &#125;</span><br><span class="line"> &gt;  ],</span><br><span class="line"> &gt;  "groupLabels": &#123;</span><br><span class="line"> &gt;    "alertname": "hostCpuUsageAlert"</span><br><span class="line"> &gt;  &#125;,</span><br><span class="line"> &gt;  "commonLabels": &#123;</span><br><span class="line"> &gt;    "alertname": "hostCpuUsageAlert",</span><br><span class="line"> &gt;    "instance": "cvm001",</span><br><span class="line"> &gt;    "monitor": "codelab_monitor",</span><br><span class="line"> &gt;    "severity": "page"</span><br><span class="line"> &gt;  &#125;,</span><br><span class="line"> &gt;  "commonAnnotations": &#123;</span><br><span class="line"> &gt;    "description": "cvm001 CPU usage above 20<span class="comment">% (current value: 99.80000000001382)",</span></span><br><span class="line"> &gt;    "summary": "Instance cvm001 CPU usgae high"</span><br><span class="line"> &gt;  &#125;,</span><br><span class="line"> &gt;  "externalURL": "http://VM_0_2_centos:9093",</span><br><span class="line"> &gt;  "version": "4",</span><br><span class="line"> &gt;  "groupKey": "&#123;&#125;:&#123;alertname=<span class="tag">\<span class="name">"</span></span>hostCpuUsageAlert<span class="tag">\<span class="name">"</span></span>&#125;"</span><br><span class="line"> &gt;&#125;</span><br><span class="line"></span><br><span class="line">2019/03/15 10:52:52 &#123;</span><br><span class="line"> &gt;  "receiver": "web<span class="tag">\<span class="name">\</span></span>.hook",</span><br><span class="line"> &gt;  "status": "resolved",</span><br><span class="line"> &gt;  "alerts": [</span><br><span class="line"> &gt;    &#123;</span><br><span class="line"> &gt;      "status": "resolved",</span><br><span class="line"> &gt;      "labels": &#123;</span><br><span class="line"> &gt;        "alertname": "hostCpuUsageAlert",</span><br><span class="line"> &gt;        "instance": "cvm001",</span><br><span class="line"> &gt;        "monitor": "codelab_monitor",</span><br><span class="line"> &gt;        "severity": "page"</span><br><span class="line"> &gt;      &#125;,</span><br><span class="line"> &gt;      "annotations": &#123;</span><br><span class="line"> &gt;        "description": "cvm001 CPU usage above 20<span class="comment">% (current value: 99.79999999999563)",</span></span><br><span class="line"> &gt;        "summary": "Instance cvm001 CPU usgae high"</span><br><span class="line"> &gt;      &#125;,</span><br><span class="line"> &gt;      "startsAt": "2019-03-15T02:49:22.839636267Z",</span><br><span class="line"> &gt;      "endsAt": "2019-03-15T02:52:52.839636267Z",</span><br><span class="line"> &gt;      "generatorURL": "http://VM_0_2_centos:9090/graph?g0.expr=sum+by<span class="comment">%28instance%29+%28avg+without%28cpu%29+%28irate%28node_cpu_seconds_total%7Bmode%21%3D%22idle%22%7D%5B5m%5D%29%29%29+%2A+100+%3E+20\u0026g0.tab=1"</span></span><br><span class="line"> &gt;    &#125;</span><br><span class="line"> &gt;  ],</span><br><span class="line"> &gt;  "groupLabels": &#123;</span><br><span class="line"> &gt;    "alertname": "hostCpuUsageAlert"</span><br><span class="line"> &gt;  &#125;,</span><br><span class="line"> &gt;  "commonLabels": &#123;</span><br><span class="line"> &gt;    "alertname": "hostCpuUsageAlert",</span><br><span class="line"> &gt;    "instance": "cvm001",</span><br><span class="line"> &gt;    "monitor": "codelab_monitor",</span><br><span class="line"> &gt;    "severity": "page"</span><br><span class="line"> &gt;  &#125;,</span><br><span class="line"> &gt;  "commonAnnotations": &#123;</span><br><span class="line"> &gt;    "description": "cvm001 CPU usage above 20<span class="comment">% (current value: 99.79999999999563)",</span></span><br><span class="line"> &gt;    "summary": "Instance cvm001 CPU usgae high"</span><br><span class="line"> &gt;  &#125;,</span><br><span class="line"> &gt;  "externalURL": "http://VM_0_2_centos:9093",</span><br><span class="line"> &gt;  "version": "4",</span><br><span class="line"> &gt;  "groupKey": "&#123;&#125;:&#123;alertname=<span class="tag">\<span class="name">"</span></span>hostCpuUsageAlert<span class="tag">\<span class="name">"</span></span>&#125;"</span><br><span class="line"> &gt;&#125;</span><br></pre></td></tr></table></figure>
+<p>当CPU使用率高于20%时，Prometheus Alerts页面的报警状态先后变化顺序：in active -&gt; pending -&gt; firing；恢复后，日志显示resolved。</p>
+<p>在报警项resolved之前，Alertmanager页面：</p>
+<p><img src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/2019/prometheus-intro.assets/1552620299332.png" alt="1552620299332"></p>
+<p>通过测试可以看出，webhook方式发出通知是正常的。未测试email和企业微信。</p>
+<hr>
+<p>(End)</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        
+
+      </div>
+    	
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Prometheus/" rel="tag"><i class="fa fa-tag"></i> Prometheus</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/monitoring/prometheus/prometheus/" rel="next" title="Prometheus">
+                <i class="fa fa-chevron-left"></i> Prometheus
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/monitoring/prometheus/prometheus-discovery/" rel="prev" title="Prometheus自动发现配置">
+                Prometheus自动发现配置 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MjA1NC8xODYwMQ=="></div>
+    </div>
+
+  
+  
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="https://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/avatar.jpg" alt="Lz. Zeng">
+            
+              <p class="site-author-name" itemprop="name">Lz. Zeng</p>
+              <p class="site-description motion-element" itemprop="description">Continuous Self-Improvement</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-name">发布</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#功能测试"><span class="nav-number">2.</span> <span class="nav-text">功能测试</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lz. Zeng</span>
+  
+  
+</div>
+
+
+
+
+
+
+  <div class="theme-info"><i class="fa fa-life-ring" aria-hidden="true"></i><span></span>  NexT.Pisces</div>
+
+
+
+
+<div class="theme-info">
+  <span>&nbsp;|&nbsp;</span>
+  <i class="fa fa-eye" aria-hidden="true"></i><span id="busuanzi_container_site_pv">&nbsp;<span id="busuanzi_value_site_pv">
+  </span>&nbsp;</span>
+  <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">&nbsp;<span id="busuanzi_value_site_uv"></span>&nbsp;</span>
+  <i class="fa fa-area-chart" aria-hidden="true"></i>
+  <span class="post-count">Words: 97.2k</span>
+</div>
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/photoswipe.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/photoswipe-ui-default.js?v=5.1.4"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

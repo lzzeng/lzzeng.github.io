@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+<meta name="viewport" content="width=device-width">
+<meta name="google-site-verification" content="V4j2XKWJOKRE9YZT6Bh0vioT5VWrnimuwjmS6cyIuJ8">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Linux,CentOS,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="《鸟哥的私房菜》在线书籍 http://linux.vbird.org/linux_basic 的笔记  磁盘的第一个扇区主要记录了两个重要信息，分别是：  主要启动记录区(Master Boot Record, MBR)：可以安装开机管理程序的地方，有446 bytes 分区表(partition table)：记录整颗硬盘分区的状态，有64 bytes">
+<meta name="keywords" content="Linux,CentOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux basic 01 —— 读书笔记">
+<meta property="og:url" content="https://lzzeng.github.io/linux/linux-basic/index.html">
+<meta property="og:site_name" content="Zeng&#39;s Page">
+<meta property="og:description" content="《鸟哥的私房菜》在线书籍 http://linux.vbird.org/linux_basic 的笔记  磁盘的第一个扇区主要记录了两个重要信息，分别是：  主要启动记录区(Master Boot Record, MBR)：可以安装开机管理程序的地方，有446 bytes 分区表(partition table)：记录整颗硬盘分区的状态，有64 bytes">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2022-02-20T15:52:50.036Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux basic 01 —— 读书笔记">
+<meta name="twitter:description" content="《鸟哥的私房菜》在线书籍 http://linux.vbird.org/linux_basic 的笔记  磁盘的第一个扇区主要记录了两个重要信息，分别是：  主要启动记录区(Master Boot Record, MBR)：可以安装开机管理程序的地方，有446 bytes 分区表(partition table)：记录整颗硬盘分区的状态，有64 bytes">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://lzzeng.github.io/linux/linux-basic/">
+
+
+
+
+
+  <title>Linux basic 01 —— 读书笔记 | Zeng's Page</title>
+  
+
+
+
+
+
+
+
+
+  <script src="/js/src/photoswipe.js?v=5.1.4"></script>
+  <script src="/js/src/photoswipe-ui-default.js?v=5.1.4"></script>
+</head>
+
+<body itemscope itemtype="https://schema.org/WebPage" lang="default">
+
+  
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="https://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Zeng's Page</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-photos">
+          <a href="/photos/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-photo"></i> <br>
+            
+            相册
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="https://schema.org/Article">
+  
+  
+  
+  <div class="post-block" id="container">
+    <link itemprop="mainEntityOfPage" href="https://lzzeng.github.io/linux/linux-basic/">
+
+    <span hidden itemprop="author" itemscope itemtype="https://schema.org/Person">
+      <meta itemprop="name" content="Lz. Zeng">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+      <meta itemprop="name" content="Zeng's Page">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Linux basic 01 —— 读书笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-10-02T16:30:00+00:00">
+                2020-10-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          		 
+
+        </div>
+      </header>
+    	
+	
+	
+		<script type="text/javascript">
+			function showToc(){
+				var toc_article = document.getElementById("toc-article");
+				var show_toc_btn = document.getElementById("show-toc-btn");			
+				toc_article.setAttribute("style","display:block");
+				show_toc_btn.setAttribute("style","display:none");
+			};
+			function showBtn(){
+				var toc_article = document.getElementById("toc-article");
+				var show_toc_btn = document.getElementById("show-toc-btn");
+				toc_article.setAttribute("style","display:none");
+				show_toc_btn.setAttribute("style","display:block");
+			};
+		</script>
+		
+		<div id="my-toc">
+			<p class="show-toc-btn" id="show-toc-btn" onclick="showToc();">
+				<span class="btn-bg"></span>
+				<span class="btn-text">目录</span>
+			</p>
+			<div id="toc-article" class="toc-article" style="display:none">
+				<span id="toc-close" class="toc-close" title="隐藏" onclick="showBtn();">×</span>
+				<strong class="toc-title">文章目录</strong>
+				<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#磁盘分区"><span class="toc-number">1.</span> <span class="toc-text">磁盘分区</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查看版本"><span class="toc-number">2.</span> <span class="toc-text">查看版本</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#uname"><span class="toc-number">2.1.</span> <span class="toc-text">uname</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#命令"><span class="toc-number">3.</span> <span class="toc-text">命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#lsblk"><span class="toc-number">3.1.</span> <span class="toc-text">lsblk</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#vmstat"><span class="toc-number">3.2.</span> <span class="toc-text">vmstat</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ls"><span class="toc-number">3.3.</span> <span class="toc-text">ls</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cat-与-tac"><span class="toc-number">3.4.</span> <span class="toc-text">cat 与 tac</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#touch"><span class="toc-number">3.5.</span> <span class="toc-text">touch</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#umask"><span class="toc-number">3.6.</span> <span class="toc-text">umask</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其它文件管理命令"><span class="toc-number">3.7.</span> <span class="toc-text">其它文件管理命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件特殊权限：-SUID-SGID-SBIT"><span class="toc-number">3.8.</span> <span class="toc-text">文件特殊权限： SUID, SGID, SBIT</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#端口"><span class="toc-number">4.</span> <span class="toc-text">端口</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#列出所有监听的端口"><span class="toc-number">4.1.</span> <span class="toc-text">列出所有监听的端口</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#防火墙"><span class="toc-number">5.</span> <span class="toc-text">防火墙</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#网络存储"><span class="toc-number">6.</span> <span class="toc-text">网络存储</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#NFS"><span class="toc-number">6.1.</span> <span class="toc-text">NFS</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vim"><span class="toc-number">7.</span> <span class="toc-text">Vim</span></a></li></ol>
+			</div>
+		</div>
+	
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>《鸟哥的私房菜》在线书籍 <a href="http://linux.vbird.org/linux_basic" rel="external nofollow noopener noreferrer" target="_blank">http://linux.vbird.org/linux_basic</a> 的笔记</p>
+</blockquote>
+<p>磁盘的第一个扇区主要记录了两个重要信息，分别是：</p>
+<ul>
+<li>主要启动记录区(Master Boot Record, MBR)：可以安装开机管理程序的地方，有446 bytes</li>
+<li>分区表(partition table)：记录整颗硬盘分区的状态，有64 bytes</li>
+</ul>
+<a id="more"></a>
+<h2 id="磁盘分区"><a href="#磁盘分区" class="headerlink" title="磁盘分区"></a>磁盘分区</h2><p>在分区表所在的64 bytes容量中，总共分为四组记录区，每组记录区记录了该区段的起始到结束磁柱的号码。</p>
+<p>P(primary)+E(extended)最多叧能有四个，其中E最多叧能有一个。</p>
+<p>题：假如我的PC有两颗SATA硬盘，我想在第事颗硬盘分割出6个可用的分割槽(可以被格式化)， 那每个分割槽在Linux系统下的装置文件名为何？分割类型各为何？至少写出两种不同的分割方案。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">PPP+E方案:</span><br><span class="line">/dev/sdb1, /dev/sdb2, /dev/sdb3, /dev/sdb5, /dev/sdb6, /dev/sdb7这六个，至于/dev/sdb4这个延伸分割本身仅是提供来给逡辑分割槽建立乀用。</span><br><span class="line"></span><br><span class="line">P+E方案:</span><br><span class="line">/dev/sdb1, /dev/sdb5, /dev/sdb6, /dev/sdb7, /dev/sdb8, /dev/sdb9</span><br></pre></td></tr></table></figure>
+<p>简单地说，整个开机流程到操作系统之前的动作应该是这样：</p>
+<ul>
+<li>BIOS：开机自动执行的韧体，会识别第一个可开机的装置；</li>
+<li>MBR：第一个可开机装置的第一个分区内的主要启动记录区块，内含开机管理程序；</li>
+<li>开机管理程序(boot loader)：一个可读取核心文件来执行的软件；</li>
+<li>核心档案（文件）：开始操作系统的功能…</li>
+</ul>
+<p>Linux内的所有资料都是以档案的形态来呈现的，所以啰，整个Linux系统最重要的地方就是在于目录树架构</p>
+<p>无论如何，底下还是说明一下基本硬碟分割的模式吧！</p>
+<p>最简单的分割方法：<br>这个在上面第二节已经谈过了，就是仅分割出根目录与记忆体置换空间( / &amp; swap )即可。然后再预留一些剩余的磁碟以供后续的练习之用。不过，这当然是不保险的分割方法(所以鸟哥常常说这是『懒人分割法』)！因为如果任何一个小细节坏掉(例如坏轨的产生)，你的根目录将可能整个的损毁～挽救方面较困难！</p>
+<p>稍微麻烦一点的方式：<br>较麻烦一点的分割方式就是先分析这部主机的未来用途，然后根据用途去分析需要较大容量的目录，以及读写较为频繁的目录，将这些重要的目录分别独立出来而不与根目录放在一起，那当这些读写较频繁的磁碟分割槽有问题时，至少不会影响到根目录的系统资料，那挽救方面就比较容易啊！在预设的CentOS环境中，底下的目录是比较符合容量大且(或)读写频繁的目录：<br>/boot<br>/<br>/home<br>/var<br>Swap</p>
+<p>由二BIOS捉到的磁盘容量丌对，但是至少在整颗磁盘前面的扂区他还读得到啊！ 因此，你叧要将这个磁盘最前面的容量分割出一个小分割槽，幵将这个分割槽不系统启劢文件的放置目录摆在一起， 那就是 /boot 这个目录！就能够解决了！很简单吧！ 其实，重点是：『将启劢扂区所在分割槽规范在小二1024个磁柱以内～』 即可！那怎举做到呢？很简单，在进行安装的时候，规划出三个分区，分别是：<br>/boot<br>/<br>swap</p>
+<p>那个/boot只要给100MB左右即可，而且/boot要放在整块硬盘的最前面。在Linux里面，任何一个文件都具有User,Group,Others三种身份的个别权限：</p>
+<p>drwxr-xr– 1 test1 testgroup 5238 Jun 19 10:25 groups/</p>
+<p>第一个字元代表这个档案是『目录、档案或连结档等等』：</p>
+<ul>
+<li>当为[ d ]则是目录，例如上表档名为『.config』的那一行；</li>
+<li>当为[ - ]则是档案，例如上表档名为『initial-setup-ks.cfg』那一行；</li>
+<li>若是[ l ]则表示为连结档(link file)；</li>
+<li>若是[ b ]则表示为装置档里面的可供储存的周边设备(可随机存取装置)；</li>
+<li>若是[ c ]则表示为装置档里面的序列埠设备，例如键盘、滑鼠(一次性读取装置)。</li>
+</ul>
+<p>接下来的字元中，以三个为一组，且均为『rwx』的三个参数的组合。<br>u: user 即 owner<br>g: group<br>o: others  !! 不是owner</p>
+<p>目录的x代表的是使用者能否进入该目录成为工作目录的用途！</p>
+<p>除了基本r, w, x权限外，在Linux传统的Ext2/Ext3/Ext4档案系统下，我们还可以设定其他的系统隐藏属性，这部份可使用chattr来设定，而以lsattr 来查看，最重要的属性就是可以设定其不可修改的特性！让连档案的拥有者都不能进行修改！这个属性可是相当重要的，尤其是在安全机制上面(security)！</p>
+<p>CentOS 7.x 下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_13_centos linux-learning]<span class="comment"># ls -ld /bin; ls -ld /sbin; ls -ld /lib; ls -ld /lib64; ls -ld /var/lock; ls -ld /var/run;</span></span><br><span class="line">lrwxrwxrwx. 1 root root 7 Mar  7  2019 /bin -&gt; usr/bin</span><br><span class="line">lrwxrwxrwx. 1 root root 8 Mar  7  2019 /sbin -&gt; usr/sbin</span><br><span class="line">lrwxrwxrwx. 1 root root 7 Mar  7  2019 /lib -&gt; usr/lib</span><br><span class="line">lrwxrwxrwx. 1 root root 9 Mar  7  2019 /lib64 -&gt; usr/lib64</span><br><span class="line">lrwxrwxrwx. 1 root root 11 Mar  7  2019 /var/lock -&gt; ../run/lock</span><br><span class="line">lrwxrwxrwx. 1 root root 6 Mar  7  2019 /var/run -&gt; ../run</span><br></pre></td></tr></table></figure>
+<p>目录规范：<a href="http://linux.vbird.org/linux_basic/0210filepermission.php" rel="external nofollow noopener noreferrer" target="_blank">http://linux.vbird.org/linux_basic/0210filepermission.php</a></p>
+<p><strong>/proc</strong>目录：这个目录本身是一个『虚拟档案系统(virtual filesystem)』喔！他放置的资料都是在记忆体当中，例如系统核心、行程资讯(process)、周边装置的状态及网路状态等等。因为这个目录下的资料都是在记忆体当中，所以本身不占任何硬碟空间啊！比较重要的档案例如：/proc/cpuinfo, /proc/dma, /proc/interrupts, /proc/ioports, /proc/net/*等等。</p>
+<h2 id="查看版本"><a href="#查看版本" class="headerlink" title="查看版本"></a>查看版本</h2><h3 id="uname"><a href="#uname" class="headerlink" title="uname"></a>uname</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_13_centos linux-learning]<span class="comment"># uname -a</span></span><br><span class="line">Linux VM_0_13_centos 3.10.0-957.el7.x86_64 <span class="comment">#1 SMP Thu Nov 8 23:39:32 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux</span></span><br><span class="line">[root@VM_0_13_centos linux-learning]<span class="comment"># uname -s</span></span><br><span class="line">Linux</span><br><span class="line">[root@VM_0_13_centos linux-learning]<span class="comment"># uname -n</span></span><br><span class="line">VM_0_13_centos</span><br><span class="line">[root@VM_0_13_centos linux-learning]<span class="comment"># uname -r</span></span><br><span class="line">3.10.0-957.el7.x86_64</span><br><span class="line">[root@VM_0_13_centos linux-learning]<span class="comment"># uname -m</span></span><br><span class="line">x86_64</span><br><span class="line">[root@VM_0_13_centos linux-learning]<span class="comment"># uname -p</span></span><br><span class="line">x86_64</span><br><span class="line">[root@VM_0_13_centos linux-learning]<span class="comment"># uname -i</span></span><br><span class="line">x86_64</span><br><span class="line">[root@VM_0_13_centos linux-learning]<span class="comment"># uname -o</span></span><br><span class="line">GNU/Linux</span><br><span class="line"></span><br><span class="line">[root@VM_0_13_centos linux-learning]<span class="comment"># cat /etc/issue</span></span><br><span class="line">\S</span><br><span class="line">Kernel \r on an \m</span><br><span class="line"></span><br><span class="line">[root@VM_0_13_centos linux-learning]<span class="comment"># cat /etc/redhat-release </span></span><br><span class="line">CentOS Linux release 7.6.1810 (Core)</span><br><span class="line"></span><br><span class="line">[root@VM_0_13_centos linux-learning]<span class="comment"># cat /etc/centos-release</span></span><br><span class="line">CentOS Linux release 7.6.1810 (Core)</span><br></pre></td></tr></table></figure>
+<h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><h3 id="lsblk"><a href="#lsblk" class="headerlink" title="lsblk"></a>lsblk</h3><blockquote>
+<p>list block devices</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_13_centos linux-learning]<span class="comment"># lsblk</span></span><br><span class="line">NAME   MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT</span><br><span class="line">sr0     11:0    1  4.4M  0 rom  </span><br><span class="line">vda    253:0    0   50G  0 disk </span><br><span class="line">└─vda1 253:1    0   50G  0 part /</span><br></pre></td></tr></table></figure>
+<h3 id="vmstat"><a href="#vmstat" class="headerlink" title="vmstat"></a>vmstat</h3><blockquote>
+<p>vmstat reports information about processes, memory, paging, block IO, traps, disks and cpu activity.</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_13_centos linux-learning]<span class="comment"># vmstat</span></span><br><span class="line">procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----</span><br><span class="line"> r  b   swpd   free   buff  cache   si   so    bi    bo   <span class="keyword">in</span>   cs us sy id wa st</span><br><span class="line"> 1  0      0 159888 137604 869576    0    0    11    18    0    0  5  3 92  0  0</span><br></pre></td></tr></table></figure>
+<h3 id="ls"><a href="#ls" class="headerlink" title="ls"></a>ls</h3><p>ls -Al  与 ls -al 的区别，不包含 . 和 ..</p>
+<p>ls -n       # 不需要l</p>
+<p>-n ：列出UID与GID而非使用者与群组的名称</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost sh]<span class="comment"># ls -n</span></span><br><span class="line">total 4</span><br><span class="line">-rw-r--r--. 1 0 0 309 Nov  1 10:33 fixed-ts.sh</span><br><span class="line"></span><br><span class="line">[root@VM_0_13_centos linux-learning]<span class="comment"># ls -lS a    # 按大小降序</span></span><br><span class="line">total 8</span><br><span class="line">-rw-r--r-- 1 root root 4 Oct  4 01:54 b1</span><br><span class="line">-rw-r--r-- 1 root root 3 Oct  4 01:53 b2</span><br><span class="line">-rw-rwxr-x 1 root root 0 Oct  4 01:02 b</span><br><span class="line">[root@VM_0_13_centos linux-learning]<span class="comment"># ls -lt a    # 按时间降序 新-&gt;旧</span></span><br><span class="line">total 8</span><br><span class="line">-rw-r--r-- 1 root root 4 Oct  4 01:54 b1</span><br><span class="line">-rw-r--r-- 1 root root 3 Oct  4 01:53 b2</span><br><span class="line">-rw-rwxr-x 1 root root 0 Oct  4 01:02 b</span><br><span class="line">[root@VM_0_13_centos linux-learning]<span class="comment"># ls -l a     # 按名称升序</span></span><br><span class="line">total 8</span><br><span class="line">-rw-rwxr-x 1 root root 0 Oct  4 01:02 b</span><br><span class="line">-rw-r--r-- 1 root root 4 Oct  4 01:54 b1</span><br><span class="line">-rw-r--r-- 1 root root 3 Oct  4 01:53 b2</span><br><span class="line"></span><br><span class="line">[root@VM_0_13_centos linux-learning]<span class="comment"># ls -Rl a    # R 子目录也ls</span></span><br><span class="line">a:</span><br><span class="line">total 8</span><br><span class="line">-rw-rwxr-x 1 root root 0 Oct  4 01:02 b</span><br><span class="line">-rw-r--r-- 1 root root 4 Oct  4 01:54 b1</span><br><span class="line">-rw-r--r-- 1 root root 3 Oct  4 01:53 b2</span><br><span class="line"></span><br><span class="line"><span class="comment"># -F ：根据档案、目录等资讯，给予附加资料结构，例如：</span></span><br><span class="line"><span class="comment">#       *:代表可执行档； /:代表目录； =:代表socket 档案； |:代表FIFO 档案；</span></span><br><span class="line">[root@VM_0_13_centos linux-learning]<span class="comment"># ls -FR .</span></span><br><span class="line">.:</span><br><span class="line">a/  c</span><br><span class="line"></span><br><span class="line">./a:</span><br><span class="line">b*  b1  b2</span><br><span class="line"></span><br><span class="line"><span class="comment"># -f ：直接列出结果，而不进行排序(ls 预设会以档名排序！)</span></span><br><span class="line">[root@VM_0_13_centos linux-learning]<span class="comment"># ls -f a/</span></span><br><span class="line">b1  .  ..  b  b2</span><br><span class="line">[root@VM_0_13_centos linux-learning]<span class="comment"># ls a/</span></span><br><span class="line">b  b1  b2</span><br></pre></td></tr></table></figure>
+<h3 id="cat-与-tac"><a href="#cat-与-tac" class="headerlink" title="cat 与 tac"></a>cat 与 tac</h3><p>tac 可实现按行逆序输出</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_0_13_centos linux-learning]<span class="comment"># seq 3 |tac</span></span><br><span class="line">3</span><br><span class="line">2</span><br><span class="line">1</span><br><span class="line">[root@VM_0_13_centos linux-learning]<span class="comment"># seq 3 |cat</span></span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">[root@VM_0_13_centos linux-learning]<span class="comment"># seq 3</span></span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td></tr></table></figure>
+<h3 id="touch"><a href="#touch" class="headerlink" title="touch"></a>touch</h3><p>即使我们复制一个档案时，复制所有的属性，但也没有办法复制ctime 这个属性的。ctime 可以记录这个档案最近的状态(status) 被改变的时间</p>
+<h3 id="umask"><a href="#umask" class="headerlink" title="umask"></a>umask</h3><p>如果umask为022，则：<br>建立文件时：(-rw-rw-rw-) - (—–w–w-) ==&gt; -rw-r–r–                # 即644<br>建立目录时：(drwxrwxrwx) - (d—-w–w-) ==&gt; drwxr-xr-x        # 即755</p>
+<p>在预设的情况中， root的umask会拿掉比较多的属性，root的umask预设是022 ，这是基于安全的考量啦～至于一般身份使用者，通常他们的umask为002 ，亦即保留同群组的写入权力！</p>
+<h3 id="其它文件管理命令"><a href="#其它文件管理命令" class="headerlink" title="其它文件管理命令"></a>其它文件管理命令</h3><p>ref: <a href="http://linux.vbird.org/linux_basic/0220filemanager.php#dir_path" rel="external nofollow noopener noreferrer" target="_blank">http://linux.vbird.org/linux_basic/0220filemanager.php#dir_path</a></p>
+<h3 id="文件特殊权限：-SUID-SGID-SBIT"><a href="#文件特殊权限：-SUID-SGID-SBIT" class="headerlink" title="文件特殊权限： SUID, SGID, SBIT"></a>文件特殊权限： SUID, SGID, SBIT</h3><p>…</p>
+<h2 id="端口"><a href="#端口" class="headerlink" title="端口"></a>端口</h2><h3 id="列出所有监听的端口"><a href="#列出所有监听的端口" class="headerlink" title="列出所有监听的端口"></a>列出所有监听的端口</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -tnlp |awk <span class="string">'&#123;print $4&#125;'</span> |awk -F: <span class="string">'&#123;if($NF~/^[0-9]*$/) print $NF&#125;'</span> |sort |uniq 2&gt;/dev/null</span><br></pre></td></tr></table></figure>
+<h2 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h2><p>ref: <a href="https://www.linuxprobe.com/chapter-08.html#83_Firewalld" rel="external nofollow noopener noreferrer" target="_blank">https://www.linuxprobe.com/chapter-08.html#83_Firewalld</a></p>
+<p>对指定IP开放指定端口</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --permanent --add-rich-rule=<span class="string">"rule family="</span>ipv4<span class="string">" source address="</span>192.168.142.166<span class="string">" port protocol="</span>tcp<span class="string">" port="</span>6379<span class="string">" accept"</span></span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+<p>添加、删除2201</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --add-port=2201/tcp --permanent</span><br><span class="line">firewall-cmd --zone=public --remove-port=2201/tcp --permanent</span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+<p><code>--zone=public</code>：拒绝流入的流量，除非与流出的流量相关；而如果流量与ssh、dhcpv6-client服务相关，则允许流量。</p>
+<p>指定网段192.168.10.0/24 INPUT，拒绝其它网段INPUT:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">iptables -I INPUT -s 192.168.10.0/24 -p tcp --dport 22 -j ACCEPT</span><br><span class="line">iptables -A INPUT -p tcp --dport 22 -j REJECT</span><br></pre></td></tr></table></figure>
+<p>允许规则要放在拒绝规则前面，否则被拒绝。</p>
+<p>把INPUT规则链的默认策略设置为拒绝：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">iptables -P INPUT DROP</span><br><span class="line"><span class="comment"># iptables -L</span></span><br></pre></td></tr></table></figure>
+<p>规则链的默认策略拒绝动作只能是DROP，而不能是REJECT。</p>
+<p>DROP直接将流量丢弃而且不响应；REJECT则会在拒绝流量后回复一条信息，从而让流量发送方清晰地看到数据被拒绝的响应信息。</p>
+<p>向INPUT链中添加允许ICMP流量进入的策略规则:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -I INPUT -p icmp -j ACCEPT</span><br></pre></td></tr></table></figure>
+<h2 id="网络存储"><a href="#网络存储" class="headerlink" title="网络存储"></a>网络存储</h2><h3 id="NFS"><a href="#NFS" class="headerlink" title="NFS"></a>NFS</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># yum install nfs-utils -y</span></span><br><span class="line"></span><br><span class="line">服务端：</span><br><span class="line">/nfs 172.17.0.13(rw,no_root_squash,async)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">客户端：</span><br><span class="line">mount -t nfs   root@172.17.0.13:/nfs   /mnt</span><br></pre></td></tr></table></figure>
+<h2 id="Vim"><a href="#Vim" class="headerlink" title="Vim"></a>Vim</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># vim 操作：</span></span><br><span class="line">:g/^<span class="comment">#/d     # 删除所有#开头的行</span></span><br><span class="line">:g/^$/d     <span class="comment"># 删除所有空行</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        
+
+      </div>
+    	
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
+          
+            <a href="/tags/CentOS/" rel="tag"><i class="fa fa-tag"></i> CentOS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/linux/awk/" rel="next" title="awk命令">
+                <i class="fa fa-chevron-left"></i> awk命令
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/python/stock-price-plus/" rel="prev" title="股价查询小工具一枚[2]">
+                股价查询小工具一枚[2] <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MjA1NC8xODYwMQ=="></div>
+    </div>
+
+  
+  
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="https://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://aly-zlz.oss-cn-shenzhen.aliyuncs.com/images/avatar.jpg" alt="Lz. Zeng">
+            
+              <p class="site-author-name" itemprop="name">Lz. Zeng</p>
+              <p class="site-description motion-element" itemprop="description">Continuous Self-Improvement</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-name">发布</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#磁盘分区"><span class="nav-number">1.</span> <span class="nav-text">磁盘分区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看版本"><span class="nav-number">2.</span> <span class="nav-text">查看版本</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#uname"><span class="nav-number">2.1.</span> <span class="nav-text">uname</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令"><span class="nav-number">3.</span> <span class="nav-text">命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#lsblk"><span class="nav-number">3.1.</span> <span class="nav-text">lsblk</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vmstat"><span class="nav-number">3.2.</span> <span class="nav-text">vmstat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ls"><span class="nav-number">3.3.</span> <span class="nav-text">ls</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cat-与-tac"><span class="nav-number">3.4.</span> <span class="nav-text">cat 与 tac</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#touch"><span class="nav-number">3.5.</span> <span class="nav-text">touch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#umask"><span class="nav-number">3.6.</span> <span class="nav-text">umask</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其它文件管理命令"><span class="nav-number">3.7.</span> <span class="nav-text">其它文件管理命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件特殊权限：-SUID-SGID-SBIT"><span class="nav-number">3.8.</span> <span class="nav-text">文件特殊权限： SUID, SGID, SBIT</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#端口"><span class="nav-number">4.</span> <span class="nav-text">端口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#列出所有监听的端口"><span class="nav-number">4.1.</span> <span class="nav-text">列出所有监听的端口</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#防火墙"><span class="nav-number">5.</span> <span class="nav-text">防火墙</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络存储"><span class="nav-number">6.</span> <span class="nav-text">网络存储</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#NFS"><span class="nav-number">6.1.</span> <span class="nav-text">NFS</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vim"><span class="nav-number">7.</span> <span class="nav-text">Vim</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lz. Zeng</span>
+  
+  
+</div>
+
+
+
+
+
+
+  <div class="theme-info"><i class="fa fa-life-ring" aria-hidden="true"></i><span></span>  NexT.Pisces</div>
+
+
+
+
+<div class="theme-info">
+  <span>&nbsp;|&nbsp;</span>
+  <i class="fa fa-eye" aria-hidden="true"></i><span id="busuanzi_container_site_pv">&nbsp;<span id="busuanzi_value_site_pv">
+  </span>&nbsp;</span>
+  <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">&nbsp;<span id="busuanzi_value_site_uv"></span>&nbsp;</span>
+  <i class="fa fa-area-chart" aria-hidden="true"></i>
+  <span class="post-count">Words: 97.2k</span>
+</div>
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/photoswipe.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/photoswipe-ui-default.js?v=5.1.4"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

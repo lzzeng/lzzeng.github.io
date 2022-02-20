@@ -1,0 +1,1 @@
+curl -s -XPOST localhost:9200/songs/_doc/_search?size=500 -H 'Content-Type: application/json' -d '{"query": {"match_all": {}}}' 2>/dev/null  |jq |awk 'BEGIN{flag=0}{if($0~/"_source":/){print "{"; flag=1}else if(flag){print $0;} if($0~/^\s*}$/){flag=0}}' |sed 's/\s*}/},/g;' |sed '1 s/^{/{"data": [{/' |sed '$ s/,$/]}/' |jq |sed '1 i callBack(' |sed '$ s/$/);/'
